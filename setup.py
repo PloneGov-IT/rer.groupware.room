@@ -3,7 +3,7 @@ import os
 
 version = '1.0.0'
 
-setup(name='rer.groupware.grouproom',
+setup(name='rer.groupware.room',
       version=version,
       description="",
       long_description=open("README.txt").read() + "\n" +
