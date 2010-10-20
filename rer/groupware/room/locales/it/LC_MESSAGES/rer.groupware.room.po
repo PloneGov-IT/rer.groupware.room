@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+
+"Project-Id-Version: rer.groupware.room\n"
+"POT-Creation-Date: 2010-04-21 09:47+0000\n"
+"PO-Revision-Date: 2010-04-21 09:47+0000\n"
+"Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.it>\n"
+"Language-Team: RedTurtle Technology <info@redturtle.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: it\n"
+"Language-Name: Italian\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: rer.groupware.room\n"
+
+#. Default: "Room"
+#: ./profiles/default/types/GroupRoom.xml
+msgid "Room"
+msgstr "Stanza"
+
+#. Default: "A folder for the group activities"
+#: ./profiles/default/types/GroupRoom.xml
+msgid "A folder for the group activities"
+msgstr "Una cartella per le attivita' dei gruppi"
+
+#. Default: "rer.groupware small notifications: new news or event has been created"
+#: ./events/created_room.py
+msgid "notify_subj_small"
+msgstr "rer.groupware piccole notifiche: una nuova news o evento sono stati creati"
+
+#. Default: "rer.groupware big notifications: new object has been created"
+#: ./events/created_room.py
+msgid "notify_subj_big"
+msgstr "rer.groupware grandi notifiche: un nuovo oggetto e' stato creato"
+
+#. Default: "${title} has been created. You can click on the following link to see it.\n${url}"
+#: ./events/created_room.py
+msgid "notify_text"
+msgstr "${title} e' stato creato. Puoi cliccare sul link seguente, per vederlo.\n${url}"

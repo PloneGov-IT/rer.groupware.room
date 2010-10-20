@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <object name="GroupRoom"
    meta_type="Factory-based Type Information with dynamic views"
-   i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+   i18n:domain="rer.groupware.room" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">Room</property>
  <property name="description"
      i18n:translate="">A folder for the groups</property>
- <property name="content_icon">room.gif</property>
+ <property name="content_icon">++resource++room.png</property>
  <property name="content_meta_type">GroupRoom</property>
  <property name="product">rer.groupware.room</property>
  <property name="factory">addGroupRoom</property>

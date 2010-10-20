@@ -1,0 +1,26 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="rer.groupware.room">
+
+  <include package="plone.app.contentmenu" />
+
+  <browser:resource
+        name="room.png"
+		file="room.png"
+        />
+ <browser:resource
+        name="group_true.png"
+		file="group_true.png"
+        />
+		
+ <browser:resource
+        name="group_false.png"
+		file="group_false.png"
+        />
+ 
+ <browser:resource
+      name="room.css"
+	  file="room.css"
+      />
+</configure>

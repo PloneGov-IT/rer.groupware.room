@@ -1,0 +1,45 @@
+<dl class="portlet portletProjects"
+    i18n:domain="redturtle.plonetheme">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+		<span i18n:translate="portlet_projects_technology_title">
+			Portlet gruppi
+		</span>
+        <span class="portletTopRight"></span>
+    </dt>
+    
+    <dd class="portletItem">
+    	<tal:groups define="groups view/listUserGroups">
+    		<div tal:condition="not:groups">
+    			<p>Non sei presente in nessun gruppo di lavoro.</p>
+    		</div>
+			<div tal:condition="groups">
+				<dl class="groupNotificationList"
+					tal:repeat="group groups">
+					<dt tal:content="group/title">
+					</dt>
+					<dd>
+						<a href="" tal:attributes="href string:${here/absolute_url}?addToGroup=${group/id}.notificheBig">
+							<img src=""
+								 tal:attributes="src python:group.get('notification_big') and '++resource++group_true.png' or '++resource++group_false.png'"/>
+							<span>Notifiche big</span>
+						</a>
+					</dd>
+					<dd>
+						<a href="" tal:attributes="href string:${here/absolute_url}?addToGroup=${group/id}.notificheSmall">
+							<img src=""
+								 tal:attributes="src python:group.get('notification_small') and '++resource++group_true.png' or '++resource++group_false.png'"/>
+							<span>Notifiche small</span>
+						</a>
+					</dd>
+				</dl>
+			</div>
+		</tal:groups>
+    </dd>
+    <dd class="portletFooter">
+        <span class="portletBottomLeft"></span>
+        <span class="portletBottomRight"></span>
+    </dd>
+	
+</dl>

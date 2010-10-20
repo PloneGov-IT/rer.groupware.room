@@ -1,0 +1,12 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="rer.groupware.room">
+
+	<subscriber for = "..interfaces.group_room.IGroupRoom
+            	Products.Archetypes.interfaces.IObjectInitializedEvent"
+           		handler = ".created_room.CreateRoomStructure"
+            	/>
+				
+</configure>
