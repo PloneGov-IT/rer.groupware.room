@@ -25,8 +25,8 @@ class CreateRoomStructure(object):
         self.translation_service=getToolByName(self.context,'translation_service')
         self.portlet_page = self.createPortletPage()
         self.createForum()
-        self.createFolders()
         self.createGroups()
+        self.createFolders()
         self.createRules(rule_type='ruleSmall',
                         group_type='notificheSmall',
                         types_list=set(['News Item','Event']))
@@ -77,16 +77,17 @@ class CreateRoomStructure(object):
     def createFolders(self):
         self.createFolder(id='news',title='News',types=['News Item'],collection=True)
         self.createFolder(id='eventi',title='Eventi',types=['Event'],collection=True)
-        self.createFolder(id='documenti',title='Documenti',collection=False)
+        self.createFolder(id='documenti',title='Documenti',types=['Document','File','Image','Folder'],collection=False)
         self.createFolder(id='sondaggi',title='Sondaggi',types=['PlonePopoll'],collection=False)
         
     def createFolder(self,id,title,types=[],collection=False):
         folder_id=self.context.invokeFactory(id= id,
                                              type_name='Folder',
                                              title=title)
+        folder_obj=self.context.restrictedTraverse(folder_id)
+        self.setFolderLocalRoles(folder_obj,folder_id)
         if not types and not collection:
             return
-        folder_obj=self.context.restrictedTraverse(folder_id)
         if collection:
             if id=='news':
                 self.createTopic(folder=folder_obj,
@@ -102,6 +103,20 @@ class CreateRoomStructure(object):
             folder_obj.setConstrainTypesMode(1)
             folder_obj.setLocallyAllowedTypes(types)
     
+    def setFolderLocalRoles(self,folder,folder_id):
+        group_id=self.context.getId()
+        #block the inherit
+        folder.__ac_local_roles_block__ = True
+        #set the local roles
+        folder.manage_addLocalRoles(group_id,['Reader'])
+        if folder_id == 'news':
+            folder.manage_addLocalRoles("%s.coordinator"%group_id,['EditorAdv','LocalManager','Contributor','Editor','Reader'])
+        if folder_id in ['eventi','documenti']:
+            folder.manage_addLocalRoles(group_id,['Contributor','Editor','Reader'])
+            folder.manage_addLocalRoles("%s.coordinator"%group_id,['EditorAdv','LocalManager','Contributor','Editor','Reader'])
+        #reindex the security
+        folder.reindexObjectSecurity()
+        
     def createTopic(self,folder,id,title,portal_type=[]):
         topic_id=folder.invokeFactory(id= id,
                                       type_name='Topic',
@@ -130,13 +145,13 @@ class CreateRoomStructure(object):
             return
         
         groups_tool.getGroupById(room_id).setProperties(roomgroup=True)
-        groups_tool.setRolesForGroup(room_id,['Contributor','Editor'])
+        #groups_tool.setRolesForGroup(room_id,['Contributor','Editor'])
         groups_tool.addGroup(id='%s.notificheBig'%room_id)
         groups_tool.addGroup(id='%s.notificheSmall'%room_id)
         groups_tool.addGroup(id='%s.coordinator'%room_id)
-        groups_tool.setRolesForGroup('%s.coordinator'%room_id,['EditorAdv','LocalManager','Contributor','Editor'])
+#        groups_tool.setRolesForGroup('%s.coordinator'%room_id,['EditorAdv','LocalManager','Contributor','Editor'])
         groups_tool.addGroup(id='%s.hosts'%room_id)
-        groups_tool.setRolesForGroup('%s.hosts'%room_id,['Reader'])
+#        groups_tool.setRolesForGroup('%s.hosts'%room_id,['Reader'])
     
     
     def createRules(self,rule_type,group_type,types_list):
