@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="portal_workflow" meta_type="Plone Workflow Tool" purge="False">
+ <object name="room_workflow" meta_type="Workflow"/>
+ <bindings>
+  <type type_id="GroupRoom">
+  	<bound-workflow workflow_id="room_workflow" />
+  </type>
+ </bindings>
+</object>

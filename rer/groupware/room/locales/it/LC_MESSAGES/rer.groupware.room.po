@@ -39,3 +39,4 @@ msgstr "rer.groupware grandi notifiche: un nuovo oggetto e' stato creato"
 #: ./events/created_room.py
 msgid "notify_text"
 msgstr "${title} e' stato creato. Puoi cliccare sul link seguente, per vederlo.\n${url}"
+

@@ -21,15 +21,19 @@
 					</dt>
 					<dd>
 						<a href="" tal:attributes="href string:${here/absolute_url}?addToGroup=${group/id}.notificheBig">
-							<img src=""
-								 tal:attributes="src python:group.get('notification_big') and '++resource++group_true.png' or '++resource++group_false.png'"/>
+							<img tal:condition="python:group.get('notification_big')"
+								 tal:attributes="src string:${here/portal_url}/++resource++group_true.png"/>
+							<img tal:condition="python:not group.get('notification_big')"
+								 tal:attributes="src string:${here/portal_url}/++resource++group_false.png"/>
 							<span>Notifiche big</span>
 						</a>
 					</dd>
 					<dd>
 						<a href="" tal:attributes="href string:${here/absolute_url}?addToGroup=${group/id}.notificheSmall">
-							<img src=""
-								 tal:attributes="src python:group.get('notification_small') and '++resource++group_true.png' or '++resource++group_false.png'"/>
+							<img tal:condition="python:group.get('notification_small')"
+								 tal:attributes="src string:${here/portal_url}/++resource++group_true.png"/>
+							<img tal:condition="python:not group.get('notification_small')"
+								 tal:attributes="src string:${here/portal_url}/++resource++group_false.png"/>
 							<span>Notifiche small</span>
 						</a>
 					</dd>

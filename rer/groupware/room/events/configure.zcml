@@ -8,5 +8,9 @@
             	Products.Archetypes.interfaces.IObjectInitializedEvent"
            		handler = ".created_room.CreateRoomStructure"
             	/>
-				
+	
+	<subscriber for = "*
+            	Products.SimpleGroupsManagement.group_event.IUserAddedToGroup"
+           		handler = ".added_to_group.setNotifyGroup"
+            	/>
 </configure>
