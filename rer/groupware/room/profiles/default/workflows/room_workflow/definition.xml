@@ -20,6 +20,8 @@
    <permission-role>Reader</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="Change portal events"
                   acquired="False">
@@ -31,9 +33,11 @@
    <permission-role>Reader</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="Modify portal content"
-                  acquired="False">
+                  acquired="True">
    <permission-role>Manager</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
@@ -41,6 +45,8 @@
    <permission-role>Reader</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
   </permission-map>
  </state>
  <variable variable_id="action" for_catalog="False"

@@ -26,7 +26,7 @@ class CreateRoomStructure(object):
         self.portlet_page = self.createPortletPage()
         self.createGroups()
         self.createForum()
-        self.createBlog()
+#        self.createBlog()
         self.createFolders()
         self.createRules(rule_type='ruleSmall',
                         group_type='notificheSmall',
@@ -39,7 +39,7 @@ class CreateRoomStructure(object):
                                  list_groups=[{'id':self.context.getId(),'roles':['Contributor','Editor','Reader']},
                                               {'id':'%s.hosts'%self.context.getId(),'roles':['Reader']},
                                               {'id':'%s.coordinator'%self.context.getId(),'roles':['EditorAdv','LocalManager','Contributor','Editor','Reader','Reviewer']},])
-    
+        
     #WE CREATE THE PORTLETPAGE
     def createPortletPage(self):
         """
@@ -52,10 +52,7 @@ class CreateRoomStructure(object):
                                                   title="Homepage %s" %self.context.Title())
         
         #imposta la portletpage come vista pedefinita della stanza
-        if self.context.hasProperty('default_page'):
-            self.context._updateProperty("default_page",portletpage_id)
-        else:
-            self.context._setProperty("default_page",portletpage_id)
+        self.context.setDefaultPage(portletpage_id)
         return self.context.restrictedTraverse(portletpage_id)
     
     def createCollectionPortlet(self,collection_path,portlet_title,date_type):
@@ -113,29 +110,41 @@ class CreateRoomStructure(object):
                           title='Documenti',
                           types=['Document','File','Image','Folder'],
                           collection=True,
-                          groups=[{'id':base_id,'roles':['Contributor','Editor','Reader','Reviewer']},
-                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reader','Reviewer']},]
+                          groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
+                                  {'id':base_id,'roles':['Contributor','Editor',]},
+                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
                           )
         self.createFolder(id='eventi',
                           title='Eventi',
                           types=['Event'],
                           collection=True,
-                          groups=[{'id':base_id,'roles':['Contributor','Editor','Reader','Reviewer']},
-                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reader','Reviewer']},]
+                          groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
+                                  {'id':base_id,'roles':['Contributor','Editor',]},
+                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
                           )
         self.createFolder(id='news',
                           title='News',
                           types=['News Item'],
                           collection=True,
-                          groups=[{'id':base_id,'roles':['Reader','Reviewer']},
-                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reader','Reviewer']},]
+                          groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
+                                  {'id':base_id,'roles':['Reader']},
+                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
                           )
         self.createFolder(id='sondaggi',
                           title='Sondaggi',
                           types=['PlonePopoll'],
                           collection=False,
-                          groups=[{'id':base_id,'roles':['Contributor','Editor','Reader','Reviewer']},
-                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reader','Reviewer']},]
+                          groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
+                                  {'id':base_id,'roles':['Contributor','Editor']},
+                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
+                          )
+        self.createFolder(id='blog',
+                          title='Blog',
+                          types=['Document'],
+                          collection=False,
+                          groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
+                                  {'id':base_id,'roles':['Contributor','Editor']},
+                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
                           )
         
     def createFolder(self,id,title,types=[],collection=False,groups=[]):
@@ -182,6 +191,8 @@ class CreateRoomStructure(object):
         if types:
             folder_obj.setConstrainTypesMode(1)
             folder_obj.setLocallyAllowedTypes(types)
+        if id == 'blog':
+            folder_obj.setLayout('blog_view')
     
     def setFolderLocalRoles(self,folder,list_groups):
         """
@@ -222,9 +233,19 @@ class CreateRoomStructure(object):
     #THEN WE CREATE THE RULES FOR THE ROOM
     def createRules(self,rule_type,group_type,types_list):
         rule_title='%s-%s'%(self.context.getId(),rule_type)
+        
+        message_created=self.translation_service.translate(msgid='notify_msg_created',
+                                                           default='${title} has been created or modified. You can click on the following link to see it.\n${url}',
+                                                           domain="rer.groupware.room",
+                                                           context=self.context)
+        
+        message_deleted=self.translation_service.translate(msgid='notify_msg_deleted',
+                                                           default='${title} has been deleted.',
+                                                           domain="rer.groupware.room",
+                                                           context=self.context)
         if rule_type == 'ruleSmall':
             subject_created=self.translation_service.translate(msgid='notify_subj_created_small',
-                                                          default='rer.groupware small notifications: new news or event has been created',
+                                                          default='rer.groupware small notifications: new news or event has been created or modified',
                                                           domain="rer.groupware.room",
                                                           context=self.context)
             
@@ -237,12 +258,14 @@ class CreateRoomStructure(object):
                             rule_event=IObjectModifiedEvent,
                             group='%s.notificheSmall'%self.context.getId(),
                             types_list=types_list,
+                            message=message_created,
                             subject=subject_created)
             
             self.createRule(rule_title="%s-removed" %rule_title,
                             rule_event=IObjectRemovedEvent,
                             group='%s.notificheSmall'%self.context.getId(),
                             types_list=types_list,
+                            message=message_deleted,
                             subject=subject_deleted)
             
         if rule_type == 'ruleBig':
@@ -260,16 +283,18 @@ class CreateRoomStructure(object):
                             rule_event=IObjectModifiedEvent,
                             group='%s.notificheBig'%self.context.getId(),
                             types_list=types_list,
+                            message=message_created,
                             subject=subject_created)
             
             self.createRule(rule_title="%s-removed" %rule_title,
                             rule_event=IObjectRemovedEvent,
                             group='%s.notificheBig'%self.context.getId(),
                             types_list=types_list,
+                            message=message_deleted,
                             subject=subject_deleted)
             
         
-    def createRule(self,rule_title,rule_event,group,types_list,subject):
+    def createRule(self,rule_title,rule_event,group,types_list,message,subject):
         #create the rule
         rule=Rule()
         rule.event=rule_event
@@ -289,10 +314,7 @@ class CreateRoomStructure(object):
         action.source = None
         action.groups=[group]
         action.subject=subject
-        action.message=self.translation_service.translate(msgid='notify_text',
-                                                     default='${title} has been created. You can click on the following link to see it.\n${url}',
-                                                     domain="rer.groupware.room",
-                                                     context=self.context)
+        action.message=message
         rule.actions.append(action)
         #assignment
         rule_id=rule.id.replace('++rule++','')

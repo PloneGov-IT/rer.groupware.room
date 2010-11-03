@@ -25,18 +25,32 @@ msgstr "Stanza"
 msgid "A folder for the group activities"
 msgstr "Una cartella per le attivita' dei gruppi"
 
-#. Default: "rer.groupware small notifications: new news or event has been created"
+#. Default: "rer.groupware small notifications: new news or event has been created or modified"
 #: ./events/created_room.py
-msgid "notify_subj_small"
-msgstr "rer.groupware piccole notifiche: una nuova news o evento sono stati creati"
+msgid "notify_subj_created_small"
+msgstr "rer.groupware piccole notifiche: una nuova news o evento sono stati creati o modificati"
 
-#. Default: "rer.groupware big notifications: new object has been created"
+#. Default: "rer.groupware big notifications: new object has been created or modified"
 #: ./events/created_room.py
-msgid "notify_subj_big"
-msgstr "rer.groupware grandi notifiche: un nuovo oggetto e' stato creato"
+msgid "notify_subj_created_big"
+msgstr "rer.groupware grandi notifiche: un nuovo oggetto e' stato creato o modificato"
 
-#. Default: "${title} has been created. You can click on the following link to see it.\n${url}"
+#. Default: "rer.groupware small notifications: news or event has been deleted"
 #: ./events/created_room.py
-msgid "notify_text"
-msgstr "${title} e' stato creato. Puoi cliccare sul link seguente, per vederlo.\n${url}"
+msgid "notify_subj_deleted_small"
+msgstr "rer.groupware piccole notifiche: una nuova news o evento sono stati cancellati"
 
+#. Default: "rer.groupware big notifications: object has been deleted"
+#: ./events/created_room.py
+msgid "notify_subj_deleted_big"
+msgstr "rer.groupware grandi notifiche: un nuovo oggetto e' stato creato o modificato"
+
+#. Default: "${title} has been created or modified. You can click on the following link to see it.\n${url}"
+#: ./events/created_room.py
+msgid "notify_msg_created"
+msgstr "${title} e' stato creato o modificato. Puoi cliccare sul link seguente, per vederlo.\n${url}"
+
+#. Default: "${title} has been deleted."
+#: ./events/created_room.py
+msgid "notify_msg_deleted"
+msgstr "${title} e' stato cancellato."

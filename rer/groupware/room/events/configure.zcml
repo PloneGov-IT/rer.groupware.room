@@ -11,6 +11,12 @@
 	
 	<subscriber for = "*
             	Products.SimpleGroupsManagement.group_event.IUserAddedToGroup"
-           		handler = ".added_to_group.setNotifyGroup"
+           		handler = ".group_events.addNotifyGroup"
             	/>
+	
+	<subscriber for = "*
+            	Products.SimpleGroupsManagement.group_event.IUserRemovedFromGroup"
+           		handler = ".group_events.removeNotifyGroup"
+            	/>
+				
 </configure>
