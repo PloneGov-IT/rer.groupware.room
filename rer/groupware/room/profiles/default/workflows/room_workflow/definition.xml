@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <dc-workflow workflow_id="room_workflow"
              title="Room Single State Workflow"
-			 xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+             xmlns:i18n="http://xml.zope.org/namespaces/i18n"
 			 i18n:domain="plone"
              description="- Essentially a workflow with no transitions, but has a Closed state."
              state_variable="review_state"
@@ -16,11 +16,13 @@
 </description>
   <permission-map name="Access contents information"
                   acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Reader</permission-role>
-   <permission-role>Owner</permission-role>
    <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
+   <permission-role>EditorAdv</permission-role>
+   <permission-role>LocalManager</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="Change portal events"
@@ -29,23 +31,26 @@
   </permission-map>
   <permission-map name="List folder contents"
                   acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Reader</permission-role>
-   <permission-role>Owner</permission-role>
    <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
+   <permission-role>EditorAdv</permission-role>
+   <permission-role>LocalManager</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="Modify portal content"
-                  acquired="True">
+                  acquired="False">
    <permission-role>Manager</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Reader</permission-role>
-   <permission-role>Owner</permission-role>
    <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
+   <permission-role>EditorAdv</permission-role>
+   <permission-role>LocalManager</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
  </state>
