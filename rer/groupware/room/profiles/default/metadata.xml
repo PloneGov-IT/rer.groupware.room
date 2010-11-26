@@ -7,5 +7,7 @@
 		<dependency>profile-Products.Ploneboard:ploneboard</dependency>
 		<dependency>profile-Products.PloneboardModerationWorkflow:default</dependency>
 		<dependency>profile-collective.portlet.discussion:default</dependency>
+		<dependency>profile-collective.portlet.blogastarentries:default</dependency>
+		<dependency>profile-redturtle.portlet.custom_collection:default</dependency>
   </dependencies>
 </metadata>
