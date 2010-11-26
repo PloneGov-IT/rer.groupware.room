@@ -1,18 +1,25 @@
 # -*- coding: utf-8 -*-
-
 from Products.CMFCore.utils import getToolByName
-from zope.component import getMultiAdapter, getUtility,queryUtility
-from plone.contentrules.engine.interfaces import IRuleStorage
-from plone.app.contentrules.rule import Rule
-from plone.app.contentrules.conditions.portaltype import PortalTypeCondition
-from zope.app.container.interfaces import IObjectRemovedEvent,INameChooser
-from zope.lifecycleevent.interfaces import IObjectModifiedEvent
+from Products.PlonePopoll.browser.popoll import Assignment as PopollAssignment
+from Products.Ploneboard.portlet.recent_contextual import \
+    Assignment as PloneboardAssignment
 from collective.contentrules.mailtogroup.actions.mail import MailGroupAction
+from collective.portlet.blogstarentries.blogstarlastentries import \
+    Assignment as BlogAssignment
+from collective.portlet.discussion.discussionportlet import \
+    Assignment as DiscussionAssignment
+from plone.app.contentrules.conditions.portaltype import PortalTypeCondition
+from plone.app.contentrules.rule import Rule, get_assignments
 from plone.contentrules.engine.assignments import RuleAssignment
-from plone.contentrules.engine.interfaces import IRuleAssignmentManager
-from plone.app.contentrules.rule import get_assignments
-from redturtle.portlet.custom_collection.redturtle_custom_collection_portlet import Assignment as CollectionAssignment
-from plone.portlets.interfaces import IPortletManager, IPortletAssignment, IPortletAssignmentMapping
+from plone.contentrules.engine.interfaces import IRuleAssignmentManager, \
+    IRuleStorage
+from plone.portlets.interfaces import IPortletManager, IPortletAssignment, \
+    IPortletAssignmentMapping
+from redturtle.portlet.custom_collection.redturtle_custom_collection_portlet import \
+    Assignment as CollectionAssignment
+from zope.app.container.interfaces import IObjectRemovedEvent, INameChooser
+from zope.component import getMultiAdapter, getUtility, queryUtility
+from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 
 class CreateRoomStructure(object):
 
@@ -23,22 +30,30 @@ class CreateRoomStructure(object):
         """
         self.context = context
         self.translation_service=getToolByName(self.context,'translation_service')
+        self.root_path='/'.join(self.context.portal_url.getPortalObject().getPhysicalPath())
+        self.portlet_page_order={'collective.portletpage.firstcolumn':{},
+                                 'collective.portletpage.secondcolumn':{}}
+        #create room's areas
         self.portlet_page = self.createPortletPage()
         self.createGroups()
-        self.createForum()
-#        self.createBlog()
-        self.createFolders()
+        self.forum=self.createForum()
+        self.folders=self.createFolders()
+        
+        #create the rules
         self.createRules(rule_type='ruleSmall',
-                        group_type='notificheSmall',
+                        group_type='notifySmall',
                         types_list=set(['News Item','Event']))
         self.createRules(rule_type='ruleBig',
-                        group_type='notificheBig',
+                        group_type='notifyBig',
                         types_list=set(['Document','File','Image','Collection']))
         
+        #set local roles of the room
         self.setFolderLocalRoles(self.context,
-                                 list_groups=[{'id':self.context.getId(),'roles':['Contributor','Editor','Reader']},
+                                 list_groups=[{'id':self.context.getId(),'roles':['Reader']},
                                               {'id':'%s.hosts'%self.context.getId(),'roles':['Reader']},
-                                              {'id':'%s.coordinator'%self.context.getId(),'roles':['EditorAdv','LocalManager','Contributor','Editor','Reader','Reviewer']},])
+                                              {'id':'%s.coordinators'%self.context.getId(),'roles':['Reader']},])
+        
+        self.adjustPortletPage()
         
     #WE CREATE THE PORTLETPAGE
     def createPortletPage(self):
@@ -55,30 +70,6 @@ class CreateRoomStructure(object):
         self.context.setDefaultPage(portletpage_id)
         return self.context.restrictedTraverse(portletpage_id)
     
-    def createCollectionPortlet(self,collection_path,portlet_title,date_type):
-        """
-        imposta l'assignment per la collection portlet
-        """
-        assignment=CollectionAssignment(header=portlet_title,
-                                        target_collection=collection_path,
-                                        limit=3,
-                                        show_dates=True,
-                                        date_type=date_type,
-                                        show_more=True)
-        
-        return assignment
-    
-    def createPortlet(self,assignment,portlet_id,portlet_manager):
-            """
-            
-            """
-            manager = getUtility(IPortletManager, name=portlet_manager, context= self.portlet_page)
-            mapping = getMultiAdapter((self.portlet_page, manager), IPortletAssignmentMapping)
-    
-            # get hold of the user dashboard manager
-            mapping[portlet_id] = assignment
-            
-            
     #FIRST WE CREATE THE GROUPS
     def createGroups(self):
         groups_tool=getToolByName(self.context,'portal_groups')
@@ -88,17 +79,26 @@ class CreateRoomStructure(object):
         if not room_group:
             return
         groups_tool.getGroupById(room_id).setProperties(roomgroup=True)
-        groups_tool.addGroup(id='%s.notificheBig'%room_id)
-        groups_tool.addGroup(id='%s.notificheSmall'%room_id)
-        groups_tool.addGroup(id='%s.coordinator'%room_id)
-        groups_tool.addGroup(id='%s.hosts'%room_id)
+        groups_tool.addGroup(id='%s.notifyBig' %room_id,title='%s notifyBig' %room_title)
+        groups_tool.addGroup(id='%s.notifySmall' %room_id,title='%s notifySmall' %room_title)
+        groups_tool.addGroup(id='%s.coordinators' %room_id,title='%s coordinators' %room_title)
+        groups_tool.addGroup(id='%s.hosts'%room_id,title='%s hosts' %room_title)
 
     #THEN WE CREATE THE AREAS
     def createForum(self):
-        self.context.invokeFactory(id="forum-%s" %self.context.getId(),
-                                   type_name='PloneboardForum',
-                                   title="Forum %s" %self.context.Title())
-                   
+        room_id=self.context.getId()
+        forum_id=self.context.invokeFactory(id="forum-%s" %room_id,
+                                            type_name='PloneboardForum',
+                                            title="Forum %s" %self.context.Title())
+        if not forum_id:
+            return
+        forum=self.context.restrictedTraverse(forum_id)
+        self.setFolderLocalRoles(forum,
+                                 list_groups=[{'id':"%s.hosts"%room_id,'roles':['Reader']},
+                                              {'id':room_id,'roles':['Contributor','Editor',]},
+                                              {'id':'%s.coordinators'%room_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},])
+        return forum
+    
     def createBlog(self):
         self.context.invokeFactory(id="blog-%s" %self.context.getId(),
                                    type_name='Weblog',
@@ -106,46 +106,48 @@ class CreateRoomStructure(object):
     
     def createFolders(self):
         base_id= self.context.getId()
-        self.createFolder(id='documenti',
+        documents=self.createFolder(id='documenti',
                           title='Documenti',
                           types=['Document','File','Image','Folder'],
                           collection=True,
                           groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                   {'id':base_id,'roles':['Contributor','Editor',]},
-                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
+                                  {'id':'%s.coordinators'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
                           )
-        self.createFolder(id='eventi',
+        events=self.createFolder(id='eventi',
                           title='Eventi',
                           types=['Event'],
                           collection=True,
                           groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                   {'id':base_id,'roles':['Contributor','Editor',]},
-                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
+                                  {'id':'%s.coordinators'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
                           )
-        self.createFolder(id='news',
+        news=self.createFolder(id='news',
                           title='News',
                           types=['News Item'],
                           collection=True,
                           groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                   {'id':base_id,'roles':['Reader']},
-                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
+                                  {'id':'%s.coordinators'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
                           )
-        self.createFolder(id='sondaggi',
+        polls=self.createFolder(id='sondaggi',
                           title='Sondaggi',
                           types=['PlonePopoll'],
                           collection=False,
                           groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                   {'id':base_id,'roles':['Contributor','Editor']},
-                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
+                                  {'id':'%s.coordinators'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
                           )
-        self.createFolder(id='blog',
+        blog=self.createFolder(id='blog',
                           title='Blog',
                           types=['Document'],
                           collection=False,
                           groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                   {'id':base_id,'roles':['Contributor','Editor']},
-                                  {'id':'%s.coordinator'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
+                                  {'id':'%s.coordinators'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
                           )
+        
+        return {'documents':documents,'events':events,'news':news,'polls':polls,'blog':blog}
         
     def createFolder(self,id,title,types=[],collection=False,groups=[]):
         """
@@ -165,7 +167,8 @@ class CreateRoomStructure(object):
                                  review_state='published',
                                  title="Ultime %s" %title,
                                  portal_type=["News Item"],
-                                 portlet_manager='collective.portletpage.firstcolumn')
+                                 portlet_manager='collective.portletpage.firstcolumn',
+                                 portletpage_index=4)
             elif id=='documenti':
                 self.createTopic(folder=folder_obj,
                                  id="ultimi-%s-in-bozza" %id,
@@ -173,13 +176,15 @@ class CreateRoomStructure(object):
                                  review_state='visible',
                                  sort_on="modified",
                                  portal_type=["Page","File","Image"],
-                                 portlet_manager='collective.portletpage.firstcolumn')
+                                 portlet_manager='collective.portletpage.firstcolumn',
+                                 portletpage_index=2)
                 self.createTopic(folder=folder_obj,
                                  id="ultimi-%s-definitivi" %id,
                                  title="Ultimi %s definitivi" %title,
                                  review_state='published',
                                  portal_type=["Page","File","Image"],
-                                 portlet_manager='collective.portletpage.secondcolumn')
+                                 portlet_manager='collective.portletpage.secondcolumn',
+                                 portletpage_index=2)
             else:
                 self.createTopic(folder=folder_obj,
                                  id="ultimi-%s" %id,
@@ -187,12 +192,15 @@ class CreateRoomStructure(object):
                                  sort_on="start",
                                  title="Ultimi %s" %title,
                                  portal_type=["Event"],
-                                 portlet_manager='collective.portletpage.firstcolumn')
+                                 portlet_manager='collective.portletpage.firstcolumn',
+                                 portletpage_index=3)
         if types:
             folder_obj.setConstrainTypesMode(1)
             folder_obj.setLocallyAllowedTypes(types)
         if id == 'blog':
             folder_obj.setLayout('blog_view')
+        
+        return folder_obj
     
     def setFolderLocalRoles(self,folder,list_groups):
         """
@@ -206,7 +214,7 @@ class CreateRoomStructure(object):
         #reindex the security
         folder.reindexObjectSecurity()
         
-    def createTopic(self,folder,id,title,review_state,portlet_manager,sort_on="effective",portal_type=[]):
+    def createTopic(self,folder,id,title,review_state,portlet_manager,portletpage_index,sort_on="effective",portal_type=[]):
         """
         Create a collection
         """
@@ -224,10 +232,18 @@ class CreateRoomStructure(object):
         state_crit = topic.addCriterion('review_state', 'ATSimpleStringCriterion')
         state_crit.setValue(review_state)
         topic.setSortCriterion(sort_on, True)
+        limit=5
+        #set topic as view of the folder
+        if folder.getId() in ['news','eventi']:
+            folder.setDefaultPage(topic_id)
+            limit=5
+        
+        #create collection portlet for room's homepage
         assignment=self.createCollectionPortlet(collection_path='/'.join(topic.getPhysicalPath()),
+                                                limit=limit,
                                                 date_type=sort_on,
                                                 portlet_title=title)
-        self.createPortlet(assignment,portlet_id=id,portlet_manager=portlet_manager)
+        self.createPortlet(assignment,portlet_id=id,portlet_manager=portlet_manager,portletpage_index=portletpage_index)
     
     
     #THEN WE CREATE THE RULES FOR THE ROOM
@@ -245,50 +261,50 @@ class CreateRoomStructure(object):
                                                            context=self.context)
         if rule_type == 'ruleSmall':
             subject_created=self.translation_service.translate(msgid='notify_subj_created_small',
-                                                          default='rer.groupware small notifications: new news or event has been created or modified',
+                                                          default='New news or event has been created or modified',
                                                           domain="rer.groupware.room",
                                                           context=self.context)
             
             subject_deleted=self.translation_service.translate(msgid='notify_subj_deleted_small',
-                                                          default='rer.groupware small notifications: news or event has been deleted',
+                                                          default='News or event has been deleted',
                                                           domain="rer.groupware.room",
                                                           context=self.context)
             
             self.createRule(rule_title="%s-modified" %rule_title,
                             rule_event=IObjectModifiedEvent,
-                            group='%s.notificheSmall'%self.context.getId(),
+                            group='%s.notifySmall'%self.context.getId(),
                             types_list=types_list,
                             message=message_created,
                             subject=subject_created)
             
             self.createRule(rule_title="%s-removed" %rule_title,
                             rule_event=IObjectRemovedEvent,
-                            group='%s.notificheSmall'%self.context.getId(),
+                            group='%s.notifySmall'%self.context.getId(),
                             types_list=types_list,
                             message=message_deleted,
                             subject=subject_deleted)
             
         if rule_type == 'ruleBig':
             subject_created=self.translation_service.translate(msgid='notify_subj_created_big',
-                                                          default='rer.groupware big notifications: new object has been created',
+                                                          default='New document has been created',
                                                           domain="rer.groupware.room",
                                                           context=self.context)
             
             subject_deleted=self.translation_service.translate(msgid='notify_subj_deleted_big',
-                                                          default='rer.groupware big notifications: object has been deleted',
+                                                          default='Document has been deleted',
                                                           domain="rer.groupware.room",
                                                           context=self.context)
             
             self.createRule(rule_title="%s-modified" %rule_title,
                             rule_event=IObjectModifiedEvent,
-                            group='%s.notificheBig'%self.context.getId(),
+                            group='%s.notifyBig'%self.context.getId(),
                             types_list=types_list,
                             message=message_created,
                             subject=subject_created)
             
             self.createRule(rule_title="%s-removed" %rule_title,
                             rule_event=IObjectRemovedEvent,
-                            group='%s.notificheBig'%self.context.getId(),
+                            group='%s.notifyBig'%self.context.getId(),
                             types_list=types_list,
                             message=message_deleted,
                             subject=subject_deleted)
@@ -324,5 +340,78 @@ class CreateRoomStructure(object):
         get_assignments(storage[rule_id]).insert('/'.join(self.context.getPhysicalPath()))
         
         
-    #AND AT LEAST WE CREATE THE LAST PORTLETS FOR THE ROOM'S HOMEPAGE
+    #METHODS TO POPULATE PORTLETPAGE
+    def createCollectionPortlet(self,collection_path,limit,portlet_title,date_type):
+        """
+        imposta l'assignment per la collection portlet
+        """
+        fixed_path=collection_path.replace(self.root_path,'')
+        assignment=CollectionAssignment(header=portlet_title,
+                                        target_collection=fixed_path,
+                                        limit=limit,
+                                        show_dates=True,
+                                        date_type=date_type,
+                                        show_more=True)
+        
+        return assignment
     
+    def createPortlet(self,assignment,portlet_id,portletpage_index,portlet_manager):
+            """
+            
+            """
+            manager = getUtility(IPortletManager, name=portlet_manager, context= self.portlet_page)
+            mapping = getMultiAdapter((self.portlet_page, manager), IPortletAssignmentMapping)
+            # get hold of the user dashboard manager
+            mapping[portlet_id] = assignment
+            self.portlet_page_order[portlet_manager][portletpage_index]=portlet_id
+    
+    def createBlogPortlet(self):
+        if not self.folders.has_key('blog'):
+            return None
+        blog_folder='/'.join(self.folders.get('blog').getPhysicalPath())
+        fixed_path=blog_folder.replace(self.root_path,'')
+        assignment=BlogAssignment(portletTitle="Ultimi post nel blog",
+                                  blogFolder=fixed_path,
+                                  entries=3)
+        return assignment
+    
+    
+    def createDiscussionPortlet(self):
+        assignment=DiscussionAssignment(portletTitle="Ultimi commenti",
+                                        discussionFolder='/%s'%self.context.getId(),
+                                        nDiscussions=3)
+        return assignment
+    
+    def createForumPortlet(self):
+        assignment=PloneboardAssignment(title="Ultimi messaggi",
+                                        forumPath='/%s'%self.context.getId(),
+                                        count=3)
+        return assignment
+    
+    def createPopollPortlet(self):
+        assignment=PopollAssignment(selection_mode='subbranches',
+                                        number_of_polls=3)
+        return assignment
+    
+    def adjustPortletPage(self):
+        #create the blog portlet
+        blog_portlet_assignment=self.createBlogPortlet()
+        self.createPortlet(blog_portlet_assignment, 'last_blog_entries', 1, 'collective.portletpage.firstcolumn')
+        #create the discuss portlet
+        discuss_portlet_assignment=self.createDiscussionPortlet()
+        self.createPortlet(discuss_portlet_assignment, 'last_discussions', 1, 'collective.portletpage.secondcolumn')
+        #create the forum portlet
+        forum_portlet_assignment=self.createForumPortlet()
+        self.createPortlet(forum_portlet_assignment, 'last_forum_conversations', 3, 'collective.portletpage.secondcolumn')
+        #create popoll portlet
+        popoll_portlet_assignment=self.createPopollPortlet()
+        self.createPortlet(popoll_portlet_assignment, 'last_polls', 4, 'collective.portletpage.secondcolumn')
+        
+        for portlet_manager in ['collective.portletpage.firstcolumn','collective.portletpage.secondcolumn']:
+            manager = getUtility(IPortletManager, name=portlet_manager, context= self.portlet_page)
+            mapping = getMultiAdapter((self.portlet_page, manager), IPortletAssignmentMapping)
+            portlet_order=self.portlet_page_order[portlet_manager].keys()
+            portlet_order.sort()
+            new_order=[self.portlet_page_order[portlet_manager][x] for x in portlet_order]
+            mapping.updateOrder(new_order)
+        

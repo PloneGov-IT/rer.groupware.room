@@ -80,8 +80,8 @@ class Renderer(base.Renderer):
                     group_title= group_id
                 group_dict={'title':group_title,
                             'id':group_id,
-                            'notification_big':'%s.notificheBig'%group_id in user_groups,
-                            'notification_small':'%s.notificheSmall'%group_id in user_groups}
+                            'notification_big':'%s.notifyBig'%group_id in user_groups,
+                            'notification_small':'%s.notifySmall'%group_id in user_groups}
                 list_groups.append(group_dict)
         return list_groups
     

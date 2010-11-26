@@ -1,4 +1,11 @@
 <?xml version="1.0"?>
 <metadata>
   <version>1.0.0</version>
+  <dependencies>
+		<dependency>profile-collective.portletpage:default</dependency>
+        <dependency>profile-collective.blog.star:default</dependency>
+		<dependency>profile-Products.Ploneboard:ploneboard</dependency>
+		<dependency>profile-Products.PloneboardModerationWorkflow:default</dependency>
+		<dependency>profile-collective.portlet.discussion:default</dependency>
+  </dependencies>
 </metadata>

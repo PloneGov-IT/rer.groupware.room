@@ -1,40 +1,37 @@
 <dl class="portlet portletProjects"
-    i18n:domain="redturtle.plonetheme">
+    i18n:domain="rer.groupware.room">
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
-		<span i18n:translate="portlet_projects_technology_title">
-			Portlet gruppi
+		<span i18n:translate="portlet_room_title">
+			Notification management
 		</span>
         <span class="portletTopRight"></span>
     </dt>
     
     <dd class="portletItem">
     	<tal:groups define="groups view/listUserGroups">
-    		<div tal:condition="not:groups">
-    			<p>Non sei presente in nessun gruppo di lavoro.</p>
-    		</div>
 			<div tal:condition="groups">
 				<dl class="groupNotificationList"
 					tal:repeat="group groups">
 					<dt tal:content="group/title">
 					</dt>
 					<dd>
-						<a href="" tal:attributes="href string:${here/absolute_url}?addToGroup=${group/id}.notificheBig">
+						<a href="" tal:attributes="href string:${here/absolute_url}?addToGroup=${group/id}.notifyBig">
 							<img tal:condition="python:group.get('notification_big')"
 								 tal:attributes="src string:${here/portal_url}/++resource++group_true.png"/>
 							<img tal:condition="python:not group.get('notification_big')"
 								 tal:attributes="src string:${here/portal_url}/++resource++group_false.png"/>
-							<span>Notifiche big</span>
+							<span i18n:translate="portlet_room_label_big">Big notifications</span>
 						</a>
 					</dd>
 					<dd>
-						<a href="" tal:attributes="href string:${here/absolute_url}?addToGroup=${group/id}.notificheSmall">
+						<a href="" tal:attributes="href string:${here/absolute_url}?addToGroup=${group/id}.notifySmall">
 							<img tal:condition="python:group.get('notification_small')"
 								 tal:attributes="src string:${here/portal_url}/++resource++group_true.png"/>
 							<img tal:condition="python:not group.get('notification_small')"
 								 tal:attributes="src string:${here/portal_url}/++resource++group_false.png"/>
-							<span>Notifiche small</span>
+							<span i18n:translate="portlet_room_label_small">Small notifications</span>
 						</a>
 					</dd>
 				</dl>
