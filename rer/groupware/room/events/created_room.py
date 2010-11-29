@@ -106,6 +106,14 @@ class CreateRoomStructure(object):
     
     def createFolders(self):
         base_id= self.context.getId()
+        blog=self.createFolder(id='blog',
+                          title='Blog',
+                          types=['Document'],
+                          collection=False,
+                          groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
+                                  {'id':base_id,'roles':['Contributor','Editor']},
+                                  {'id':'%s.coordinators'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
+                          )
         documents=self.createFolder(id='documenti',
                           title='Documenti',
                           types=['Document','File','Image','Folder'],
@@ -133,14 +141,6 @@ class CreateRoomStructure(object):
         polls=self.createFolder(id='sondaggi',
                           title='Sondaggi',
                           types=['PlonePopoll'],
-                          collection=False,
-                          groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
-                                  {'id':base_id,'roles':['Contributor','Editor']},
-                                  {'id':'%s.coordinators'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
-                          )
-        blog=self.createFolder(id='blog',
-                          title='Blog',
-                          types=['Document'],
                           collection=False,
                           groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                   {'id':base_id,'roles':['Contributor','Editor']},
