@@ -68,7 +68,10 @@ class CreateRoomStructure(object):
         
         #imposta la portletpage come vista pedefinita della stanza
         self.context.setDefaultPage(portletpage_id)
-        return self.context.restrictedTraverse(portletpage_id)
+        
+        portletpage=self.context.restrictedTraverse(portletpage_id)
+        portletpage.manage_addLocalRoles('%s.coordinators'%self.context.getId(),['Editor','EditorAdv'])
+        return portletpage
     
     #FIRST WE CREATE THE GROUPS
     def createGroups(self):
