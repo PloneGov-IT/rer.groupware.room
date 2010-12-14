@@ -411,6 +411,7 @@ class CreateRoomStructure(object):
         fixed_path=collection_path.replace(self.root_path,'')
         assignment=CollectionAssignment(header=portlet_title,
                                         target_collection=fixed_path,
+                                        show_dates=True,
                                         limit=limit,
                                         show_more=True)
         

@@ -8,7 +8,7 @@
 		<dependency>profile-Products.Ploneboard:ploneboard</dependency>
 		<dependency>profile-Products.PloneboardModerationWorkflow:default</dependency>
 		<dependency>profile-collective.portlet.discussion:default</dependency>
-		<dependency>profile-collective.portlet.blogastarentries:default</dependency>
+		<dependency>profile-collective.portlet.blogstarentries:default</dependency>
 		<dependency>profile-redturtle.portlet.collection:default</dependency>
   </dependencies>
 </metadata>
