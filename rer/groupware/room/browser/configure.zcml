@@ -5,20 +5,12 @@
 
   <include package="plone.app.contentmenu" />
 
-  <browser:resource
-        name="room.png"
-		file="room.png"
-        />
- <browser:resource
-        name="group_true.png"
-		file="group_true.png"
-        />
-		
- <browser:resource
-        name="group_false.png"
-		file="group_false.png"
-        />
- 
+ <!-- Resource directory for images -->
+  <browser:resourceDirectory
+      name="rer.groupware.room.images"
+      directory="images"
+      />
+
  <browser:resource
       name="room.css"
 	  file="room.css"

@@ -15,10 +15,8 @@ from plone.contentrules.engine.interfaces import IRuleAssignmentManager, \
     IRuleStorage
 from plone.portlets.interfaces import IPortletManager, IPortletAssignment, \
     IPortletAssignmentMapping
-from redturtle.portlet.collection.rtcollectionportlet import \
+from redturtle.portlet.custom_collection.redturtle_custom_collection_portlet import \
     Assignment as CollectionAssignment
-from rer.groupware.custom.portlets.managers import \
-    Assignment as ProjectsAssignment
 from zope.app.container.interfaces import IObjectRemovedEvent, INameChooser
 from zope.component import getMultiAdapter, getUtility, queryUtility
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
@@ -40,7 +38,9 @@ class CreateRoomStructure(object):
         self.createGroups()
         self.blog=self.createBlog()
         self.forum=self.createForum()
-        self.areas=self.createAreas()
+        self.project=self.createProject()
+        self.folders=self.createFolders()
+        
         #create the rules
         self.createRules(rule_type='ruleSmall',
                         group_type='notifySmall',
@@ -51,8 +51,7 @@ class CreateRoomStructure(object):
         
         #set local roles of the room
         self.setFolderLocalRoles(self.context,
-                                 list_groups=[{'id':'%s.members'%self.context.getId(),'roles':['Reader']},
-                                              {'id':'%s.membersAdv'%self.context.getId(),'roles':['Reader']},
+                                 list_groups=[{'id':self.context.getId(),'roles':['Reader']},
                                               {'id':'%s.hosts'%self.context.getId(),'roles':['Reader']},
                                               {'id':'%s.coordinators'%self.context.getId(),'roles':['Reader']},])
         
@@ -73,7 +72,6 @@ class CreateRoomStructure(object):
         self.context.setDefaultPage(portletpage_id)
         
         portletpage=self.context.restrictedTraverse(portletpage_id)
-        portletpage.manage_addLocalRoles('%s.membersAdv'%self.context.getId(),['Editor','EditorAdv'])
         portletpage.manage_addLocalRoles('%s.coordinators'%self.context.getId(),['Editor','EditorAdv'])
         return portletpage
     
@@ -82,37 +80,15 @@ class CreateRoomStructure(object):
         groups_tool=getToolByName(self.context,'portal_groups')
         room_id=self.context.getId()
         room_title=self.context.Title()
-#        room_group=groups_tool.addGroup(id=room_id,title=room_title)
-#        if not room_group:
-#            return
-#        groups_tool.getGroupById(room_id).setProperties(roomgroup=True)
-        sgm_groups=[]
-        groups_tool.addGroup(id='%s.members' %room_id,title='%s members' %room_title)
-        sgm_groups.append('%s.members' %room_id)
-        groups_tool.addGroup(id='%s.membersAdv' %room_id,title='%s membersAdv' %room_title)
-        sgm_groups.append('%s.membersAdv' %room_id)
+        room_group=groups_tool.addGroup(id=room_id,title=room_title)
+        if not room_group:
+            return
+        groups_tool.getGroupById(room_id).setProperties(roomgroup=True)
         groups_tool.addGroup(id='%s.notifyBig' %room_id,title='%s notifyBig' %room_title)
         groups_tool.addGroup(id='%s.notifySmall' %room_id,title='%s notifySmall' %room_title)
         groups_tool.addGroup(id='%s.coordinators' %room_id,title='%s coordinators' %room_title)
         groups_tool.addGroup(id='%s.hosts'%room_id,title='%s hosts' %room_title)
-        sgm_groups.append('%s.hosts' %room_id)
-        
-        self.addSGMEntries(sgm_groups,'%s.coordinators' %room_id)
-        
-    def addSGMEntries(self,managed_groups,coordinator):
-        portal_properties = getToolByName(self.context, 'portal_properties', None)
-        if not portal_properties:
-            return
-        sgm_properties = getattr(portal_properties, 'simple_groups_management_properties', None)
-        if not sgm_properties:
-            return
-        sgm_groups = set(sgm_properties.getProperty('sgm_data', None))
-        for group in managed_groups:
-            sgm_groups.add('%s|%s' %(coordinator,group))
-        
-        sgm_properties._updateProperty('sgm_data',tuple(sgm_groups))
-        
-        
+
     #THEN WE CREATE THE AREAS
     def createForum(self):
         room_id=self.context.getId()
@@ -124,9 +100,8 @@ class CreateRoomStructure(object):
         forum=self.context.restrictedTraverse(forum_id)
         self.setFolderLocalRoles(forum,
                                  list_groups=[{'id':"%s.hosts"%room_id,'roles':['Reader']},
-                                              {'id':'%s.members'%room_id,'roles':['Contributor','Editor',]},
-                                              {'id':'%s.membersAdv'%room_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
-                                              {'id':'%s.coordinators'%room_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},])
+                                              {'id':room_id,'roles':['Contributor','Editor',]},
+                                              {'id':'%s.coordinators'%room_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},])
         return forum
     
     def createBlog(self):
@@ -139,131 +114,113 @@ class CreateRoomStructure(object):
         blog=self.context.restrictedTraverse(blog_id)
         self.setFolderLocalRoles(blog,
                                  list_groups=[{'id':"%s.hosts"%room_id,'roles':['Reader']},
-                                              {'id':'%s.members'%room_id,'roles':['Contributor','Editor',]},
-                                              {'id':'%s.membersAdv'%room_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
-                                              {'id':'%s.coordinators'%room_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},])
+                                              {'id':room_id,'roles':['Contributor','Editor',]},
+                                              {'id':'%s.coordinators'%room_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},])
         return blog
     
-#    def createProject(self):
-#        room_id=self.context.getId()
-#        project_id=self.context.invokeFactory(id="progetto-%s" %room_id,
-#                                              type_name='Project',
-#                                              title="Progetto %s" %self.context.Title())
-#        if not project_id:
-#            return
-#        project=self.context.restrictedTraverse(project_id)
-#        self.setFolderLocalRoles(project,
-#                                 list_groups=[{'id':"%s.hosts"%room_id,'roles':['Reader']},
-#                                              {'id':'%s.members'%room_id,'roles':['Contributor','Editor',]},
-#                                              {'id':'%s.membersAdv'%room_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
-#                                              {'id':'%s.coordinators'%room_id,'roles':['LocalManager','Reader']},])
-#        return project
+    def createProject(self):
+        room_id=self.context.getId()
+        project_id=self.context.invokeFactory(id="progetto-%s" %room_id,
+                                              type_name='Project',
+                                              title="Progetto %s" %self.context.Title())
+        if not project_id:
+            return
+        project=self.context.restrictedTraverse(project_id)
+        self.setFolderLocalRoles(project,
+                                 list_groups=[{'id':"%s.hosts"%room_id,'roles':['Reader']},
+                                              {'id':room_id,'roles':['Contributor','Editor']},
+                                              {'id':'%s.coordinators'%room_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer','Projectmanager']},])
+        return project
     
-    def createAreas(self):
+    def createFolders(self):
         base_id= self.context.getId()
-        documents=self.createArea(id='documenti',
-                                  title='Documenti',
-                                  collection=True,
-                                  portal_type="DocumentsArea",
-                                  types=['Document','File','Image','Folder'],
-                                  groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
-                                          {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
-                                          {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
-                                          {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
-                                  )
-        events=self.createArea(id='eventi',
-                               title='Eventi',
-                               collection=True,
-                               portal_type="EventsArea",
-                               types=['Event'],
-                               groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
-                                       {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
-                                       {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
-                                       {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
-                               )
-        news=self.createArea(id='news',
-                             title='News',
-                             collection=True,
-                             portal_type="NewsArea",
-                             types=['News Item'],
-                             groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
-                                     {'id':'%s.members'%base_id,'roles':['Reader']},
-                                     {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
-                                     {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
-                             )
-        projects=self.createArea(id='progetti',
-                                 title='Progetti',
-                                 collection=False,
-                                 portal_type="ProjectsArea",
-                                 types=['Project'],
-                                 groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
-                                         {'id':'%s.members'%base_id,'roles':['Contributor','Editor','Employee']},
-                                         {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Reviewer','Employee']},
-                                         {'id':'%s.coordinators'%base_id,'roles':['LocalManager','ProjectManager','Contributor','Editor','EditorAdv','Reviewer']},]
-                                 )
-        polls=self.createArea(id='sondaggi',
-                              title='Sondaggi',
-                              collection=False,
-                              portal_type="PollsArea",
-                              types=['PlonePopoll'],
-                              groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
-                                      {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
-                                      {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
-                                      {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
-                              )
+        documents=self.createFolder(id='documenti',
+                          title='Documenti',
+                          types=['Document','File','Image','Folder'],
+                          collection=True,
+                          groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
+                                  {'id':base_id,'roles':['Contributor','Editor',]},
+                                  {'id':'%s.coordinators'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
+                          )
+        events=self.createFolder(id='eventi',
+                          title='Eventi',
+                          types=['Event'],
+                          collection=True,
+                          groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
+                                  {'id':base_id,'roles':['Contributor','Editor',]},
+                                  {'id':'%s.coordinators'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
+                          )
+        news=self.createFolder(id='news',
+                          title='News',
+                          types=['News Item'],
+                          collection=True,
+                          groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
+                                  {'id':base_id,'roles':['Reader']},
+                                  {'id':'%s.coordinators'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
+                          )
+        polls=self.createFolder(id='sondaggi',
+                          title='Sondaggi',
+                          types=['PlonePopoll'],
+                          collection=False,
+                          groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
+                                  {'id':base_id,'roles':['Contributor','Editor']},
+                                  {'id':'%s.coordinators'%base_id,'roles':['EditorAdv','LocalManager','Contributor','Editor','Reviewer']},]
+                          )
         
-        return {'documents':documents,'events':events,'news':news,'projects':projects,'polls':polls}
+        return {'documents':documents,'events':events,'news':news,'polls':polls}
         
-    def createArea(self,id,title,portal_type,types=[],collection=False,groups=[]):
+    def createFolder(self,id,title,types=[],collection=False,groups=[]):
         """
         Create a folder with the given parameters
         """
-        folder_id=self.context.invokeFactory(id=id,
-                                             type_name=portal_type,
+        folder_id=self.context.invokeFactory(id= id,
+                                             type_name='Folder',
                                              title=title)
-        area_obj=self.context.restrictedTraverse(folder_id)
-        self.setFolderLocalRoles(area_obj,groups)
+        folder_obj=self.context.restrictedTraverse(folder_id)
+        self.setFolderLocalRoles(folder_obj,groups)
         if not types and not collection:
             return
         if collection:
-            if portal_type=='NewsArea':
-                self.createTopic(folder=area_obj,
+            if id=='news':
+                self.createTopic(folder=folder_obj,
                                  id="ultime-%s" %id,
                                  review_state='published',
                                  title="Ultime %s" %title,
                                  portal_type=["News Item"],
                                  portlet_manager='collective.portletpage.firstcolumn',
-                                 portletpage_index=5)
-            elif portal_type=='DocumentsArea':
-                self.createTopic(folder=area_obj,
+                                 portletpage_index=4)
+            elif id=='documenti':
+                self.createTopic(folder=folder_obj,
                                  id="ultimi-%s-in-bozza" %id,
                                  title="Ultimi %s in bozza" %title,
                                  review_state='visible',
                                  sort_on="modified",
                                  portal_type=["Page","File","Image"],
                                  portlet_manager='collective.portletpage.firstcolumn',
-                                 portletpage_index=3)
-                self.createTopic(folder=area_obj,
+                                 portletpage_index=2)
+                self.createTopic(folder=folder_obj,
                                  id="ultimi-%s-definitivi" %id,
                                  title="Ultimi %s definitivi" %title,
                                  review_state='published',
                                  portal_type=["Page","File","Image"],
                                  portlet_manager='collective.portletpage.secondcolumn',
                                  portletpage_index=2)
-            elif portal_type=='EventsArea':
-                self.createTopic(folder=area_obj,
+            else:
+                self.createTopic(folder=folder_obj,
                                  id="ultimi-%s" %id,
                                  review_state='published',
                                  sort_on="start",
                                  title="Ultimi %s" %title,
                                  portal_type=["Event"],
                                  portlet_manager='collective.portletpage.firstcolumn',
-                                 portletpage_index=4)
+                                 portletpage_index=3)
         if types:
-            area_obj.setConstrainTypesMode(1)
-            area_obj.setLocallyAllowedTypes(types)
+            folder_obj.setConstrainTypesMode(1)
+            folder_obj.setLocallyAllowedTypes(types)
+#        if id == 'blog':
+#            folder_obj.setLayout('blog_view')
         
-        return area_obj
+        return folder_obj
     
     def setFolderLocalRoles(self,folder,list_groups):
         """
@@ -412,6 +369,8 @@ class CreateRoomStructure(object):
         assignment=CollectionAssignment(header=portlet_title,
                                         target_collection=fixed_path,
                                         limit=limit,
+                                        show_dates=True,
+                                        date_type=date_type,
                                         show_more=True)
         
         return assignment
@@ -426,10 +385,6 @@ class CreateRoomStructure(object):
             mapping[portlet_id] = assignment
             self.portlet_page_order[portlet_manager][portletpage_index]=portlet_id
     
-    def createProjectsPortlet(self):
-        assignment=ProjectsAssignment()
-        return assignment
-        
     def createBlogPortlet(self):
         if not self.blog:
             return None
@@ -459,12 +414,9 @@ class CreateRoomStructure(object):
         return assignment
     
     def adjustPortletPage(self):
-        #create the projects portlet
-        projects_portlet_assignment=self.createProjectsPortlet()
-        self.createPortlet(projects_portlet_assignment, 'groupware-project-management', 1, 'collective.portletpage.firstcolumn')
         #create the blog portlet
         blog_portlet_assignment=self.createBlogPortlet()
-        self.createPortlet(blog_portlet_assignment, 'last_blog_entries', 2, 'collective.portletpage.firstcolumn')
+        self.createPortlet(blog_portlet_assignment, 'last_blog_entries', 1, 'collective.portletpage.firstcolumn')
         #create the discuss portlet
         discuss_portlet_assignment=self.createDiscussionPortlet()
         self.createPortlet(discuss_portlet_assignment, 'last_discussions', 1, 'collective.portletpage.secondcolumn')

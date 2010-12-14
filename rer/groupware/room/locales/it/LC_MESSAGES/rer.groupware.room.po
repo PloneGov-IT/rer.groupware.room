@@ -1,8 +1,7 @@
 msgid ""
 msgstr ""
-
 "Project-Id-Version: rer.groupware.room\n"
-"POT-Creation-Date: 2010-04-21 09:47+0000\n"
+"POT-Creation-Date: 2010-12-13 08:33+0000\n"
 "PO-Revision-Date: 2010-04-21 09:47+0000\n"
 "Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.it>\n"
 "Language-Team: RedTurtle Technology <info@redturtle.net>\n"
@@ -15,42 +14,77 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rer.groupware.room\n"
 
+#. Default: "A folder for the groups"
+#: ./profiles/default/types/GroupRoom.xml
+msgid "A folder for the groups"
+msgstr "Una cartella per i gruppi di lavoro"
+
+#. Default: "A folder for the room's documents area"
+#: ./profiles/default/types/DocumentsArea.xml
+msgid "A folder for the room's documents area"
+msgstr "Una cartella per l'area documenti delle stanze"
+
+#. Default: "A folder for the room's events area"
+#: ./profiles/default/types/EventsArea.xml
+msgid "A folder for the room's events area"
+msgstr "Una cartella per l'area eventi delle stanze "
+
+#. Default: "A folder for the room's news area"
+#: ./profiles/default/types/NewsArea.xml
+msgid "A folder for the room's news area"
+msgstr "Una cartella per l'area news delle stanze"
+
+#. Default: "A folder for the room's polls area"
+#: ./profiles/default/types/PollsArea.xml
+msgid "A folder for the room's polls area"
+msgstr "Una cartella per l'area sondaggi delle stanze"
+
+#. Default: "A folder for the room's projects area"
+#: ./profiles/default/types/ProjectsArea.xml
+msgid "A folder for the room's projects area"
+msgstr "Una cartella per l'area progetti delle stanze"
+
+#. Default: "Documents Area"
+#: ./profiles/default/types/DocumentsArea.xml
+msgid "Documents Area"
+msgstr "Area documenti"
+
+#. Default: "Events Area"
+#: ./profiles/default/types/EventsArea.xml
+msgid "Events Area"
+msgstr "Area eventi"
+
+#. Default: "News Area"
+#: ./profiles/default/types/NewsArea.xml
+msgid "News Area"
+msgstr "Area news"
+
+#. Default: "Polls Area"
+#: ./profiles/default/types/PollsArea.xml
+msgid "Polls Area"
+msgstr "Area sondaggi"
+
+#. Default: "Projects Area"
+#: ./profiles/default/types/ProjectsArea.xml
+msgid "Projects Area"
+msgstr "Area progetti"
+
 #. Default: "Room"
 #: ./profiles/default/types/GroupRoom.xml
 msgid "Room"
 msgstr "Stanza"
 
-#. Default: "A folder for the group activities"
-#: ./profiles/default/types/GroupRoom.xml
-msgid "A folder for the group activities"
-msgstr "Una cartella per le attivita' dei gruppi"
+#. Default: "Big notifications"
+#: ./portlets/groups_notification_portlet.pt:25
+msgid "portlet_room_label_big"
+msgstr "Notifiche big"
 
-#. Default: "rer.groupware small notifications: new news or event has been created or modified"
-#: ./events/created_room.py
-msgid "notify_subj_created_small"
-msgstr "rer.groupware piccole notifiche: una nuova news o evento sono stati creati o modificati"
+#. Default: "Small notifications"
+#: ./portlets/groups_notification_portlet.pt:34
+msgid "portlet_room_label_small"
+msgstr "Notifiche small"
 
-#. Default: "rer.groupware big notifications: new object has been created or modified"
-#: ./events/created_room.py
-msgid "notify_subj_created_big"
-msgstr "rer.groupware grandi notifiche: un nuovo oggetto e' stato creato o modificato"
-
-#. Default: "rer.groupware small notifications: news or event has been deleted"
-#: ./events/created_room.py
-msgid "notify_subj_deleted_small"
-msgstr "rer.groupware piccole notifiche: una nuova news o evento sono stati cancellati"
-
-#. Default: "rer.groupware big notifications: object has been deleted"
-#: ./events/created_room.py
-msgid "notify_subj_deleted_big"
-msgstr "rer.groupware grandi notifiche: un nuovo oggetto e' stato creato o modificato"
-
-#. Default: "${title} has been created or modified. You can click on the following link to see it.\n${url}"
-#: ./events/created_room.py
-msgid "notify_msg_created"
-msgstr "${title} e' stato creato o modificato. Puoi cliccare sul link seguente, per vederlo.\n${url}"
-
-#. Default: "${title} has been deleted."
-#: ./events/created_room.py
-msgid "notify_msg_deleted"
-msgstr "${title} e' stato cancellato."
+#. Default: "Notification management"
+#: ./portlets/groups_notification_portlet.pt:6
+msgid "portlet_room_title"
+msgstr "Gestione delle notifiche"

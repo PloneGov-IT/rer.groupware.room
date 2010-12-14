@@ -24,6 +24,7 @@ setup(name='rer.groupware.room',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'redturtle.portlet.collection',
           'collective.portletpage',
           'collective.blog.star',
       ],

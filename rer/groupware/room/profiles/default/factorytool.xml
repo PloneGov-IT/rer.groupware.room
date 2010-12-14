@@ -10,5 +10,10 @@
 <object name="portal_factory" meta_type="Plone Factory Tool">
   <factorytypes>
     <type portal_type="GroupRoom" />
+	<type portal_type="DocumentsArea" />
+	<type portal_type="EventsArea" />
+	<type portal_type="NewsArea" />
+	<type portal_type="PollsArea" />
+	<type portal_type="ProjectsArea" />
   </factorytypes>
 </object>

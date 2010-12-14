@@ -2,13 +2,10 @@ from zope.interface import implements
 
 from plone.app.portlets.portlets import base
 from plone.memoize.instance import memoize
-from zope import schema
-from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.portlets.interfaces import IPortletDataProvider
 from Products.CMFCore.utils import getToolByName
-from zope.schema import vocabulary as schemavocab
 
 class IGroupsNotificationPortlet(IPortletDataProvider):
     """
@@ -69,20 +66,27 @@ class Renderer(base.Renderer):
         user_groups=user.getGroups()
         if not user_groups:
             return []
-        
-        list_groups=[]
+        dict_groups={}
         for group in user_groups:
-            group_obj=self.pg.getGroupById(group)
-            if group_obj.getProperty('roomgroup'):
-                group_title= group_obj.getProperty('title')
-                group_id= group_obj.getId()
-                if not group_title:
-                    group_title= group_id
-                group_dict={'title':group_title,
-                            'id':group_id,
-                            'notification_big':'%s.notifyBig'%group_id in user_groups,
-                            'notification_small':'%s.notifySmall'%group_id in user_groups}
-                list_groups.append(group_dict)
+            if not '.' in group:
+                continue
+            room_id=group[:group.index('.')]
+            if dict_groups.has_key(room_id):
+                continue
+            room=self.context.portal_catalog(id=room_id,portal_type="GroupRoom")
+            if not room:
+                room_title=room_id
+            else:
+                room_title=room[0].Title
+            dict_groups[room_id]={'title':room_title,
+                                  'room_id':room_id,
+                                  'notification_big':'%s.notifyBig'%room_id in user_groups,
+                                  'notification_small':'%s.notifySmall'%room_id in user_groups}
+        groups_keys=dict_groups.keys()
+        groups_keys.sort()
+        list_groups=[]
+        for elem in groups_keys:
+            list_groups.append(dict_groups[elem])
         return list_groups
     
     def addUserToGroup(self,group_id):

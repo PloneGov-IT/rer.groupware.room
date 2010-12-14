@@ -1,24 +1,18 @@
 <?xml version="1.0"?>
-<object name="GroupRoom"
+<object name="Folder"
    meta_type="Factory-based Type Information with dynamic views"
    i18n:domain="rer.groupware.room" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title" i18n:translate="">Room</property>
+ <property name="title" i18n:translate="">News Area</property>
  <property name="description"
-     i18n:translate="">A folder for the groups</property>
- <property name="content_icon">++resource++rer.groupware.room.images/room.png</property>
- <property name="content_meta_type">GroupRoom</property>
- <property name="product">rer.groupware.room</property>
- <property name="factory">addGroupRoom</property>
+     i18n:translate="">A folder for the room's news area</property>
+ <property name="content_icon">++resource++rer.groupware.room.images/news_area.gif</property>
+ <property name="content_meta_type">NewsArea</property>
+ <property name="product">ATContentTypes</property>
+ <property name="factory">addATFolder</property>
  <property name="immediate_view">folder_listing</property>
- <property name="global_allow">True</property>
+ <property name="global_allow">False</property>
  <property name="filter_content_types">False</property>
- <property name="allowed_content_types">
-	<element value="DocumentsArea"/>
-	<element value="EventsArea"/>
-	<element value="NewsArea"/>
-	<element value="PollsArea"/>
-	<element value="ProjectsArea"/>
- </property>
+ <property name="allowed_content_types" />
  <property name="allow_discussion">False</property>
  <property name="default_view">folder_listing</property>
  <property name="view_methods">

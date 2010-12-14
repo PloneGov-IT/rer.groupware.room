@@ -9,4 +9,14 @@
 <object name="portal_types" meta_type="Plone Types Tool">
   <object name="GroupRoom"
     meta_type="Factory-based Type Information with dynamic views" />
+  <object name="DocumentsArea"
+    meta_type="Factory-based Type Information with dynamic views" />
+  <object name="EventsArea"
+    meta_type="Factory-based Type Information with dynamic views" />
+  <object name="NewsArea"
+    meta_type="Factory-based Type Information with dynamic views" />
+  <object name="PollsArea"
+    meta_type="Factory-based Type Information with dynamic views" />
+  <object name="ProjectsArea"
+    meta_type="Factory-based Type Information with dynamic views" />
 </object>

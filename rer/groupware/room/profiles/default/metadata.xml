@@ -4,10 +4,11 @@
   <dependencies>
 		<dependency>profile-collective.portletpage:default</dependency>
         <dependency>profile-collective.blog.star:default</dependency>
+		<dependency>profile-collective.blogstarentry:default</dependency>
 		<dependency>profile-Products.Ploneboard:ploneboard</dependency>
 		<dependency>profile-Products.PloneboardModerationWorkflow:default</dependency>
 		<dependency>profile-collective.portlet.discussion:default</dependency>
-		<!--dependency>profile-collective.portlet.blogastarentries:default</dependency-->
-		<dependency>profile-redturtle.portlet.custom_collection:default</dependency>
+		<dependency>profile-collective.portlet.blogastarentries:default</dependency>
+		<dependency>profile-redturtle.portlet.collection:default</dependency>
   </dependencies>
 </metadata>

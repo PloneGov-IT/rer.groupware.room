@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-11-17 10:34+0000\n"
+"POT-Creation-Date: 2010-12-13 08:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,47 +18,105 @@ msgstr ""
 "Domain: rer.groupware.room\n"
 
 #. Default: "A folder for the groups"
-#: ./rer/groupware/room/profiles/default/types/GroupRoom.xml
+#: ./profiles/default/types/GroupRoom.xml
 msgid "A folder for the groups"
 msgstr ""
 
+#. Default: "A folder for the room's documents area"
+#: ./profiles/default/types/DocumentsArea.xml
+msgid "A folder for the room's documents area"
+msgstr ""
+
+#. Default: "A folder for the room's events area"
+#: ./profiles/default/types/EventsArea.xml
+msgid "A folder for the room's events area"
+msgstr ""
+
+#. Default: "A folder for the room's news area"
+#: ./profiles/default/types/NewsArea.xml
+msgid "A folder for the room's news area"
+msgstr ""
+
+#. Default: "A folder for the room's polls area"
+#: ./profiles/default/types/PollsArea.xml
+msgid "A folder for the room's polls area"
+msgstr ""
+
+#. Default: "A folder for the room's projects area"
+#: ./profiles/default/types/ProjectsArea.xml
+msgid "A folder for the room's projects area"
+msgstr ""
+
+#. Default: "Documents Area"
+#: ./profiles/default/types/DocumentsArea.xml
+msgid "Documents Area"
+msgstr ""
+
 #. Default: "Edit"
-#: ./rer/groupware/room/profiles/default/types/GroupRoom.xml
+#: ./profiles/default/types/DocumentsArea.xml
+#: ./profiles/default/types/EventsArea.xml
+#: ./profiles/default/types/GroupRoom.xml
 msgid "Edit"
 msgstr ""
 
+#. Default: "Events Area"
+#: ./profiles/default/types/EventsArea.xml
+msgid "Events Area"
+msgstr ""
+
 #. Default: "Folder Listing"
-#: ./rer/groupware/room/profiles/default/types/GroupRoom.xml
+#: ./profiles/default/types/DocumentsArea.xml
+#: ./profiles/default/types/EventsArea.xml
+#: ./profiles/default/types/GroupRoom.xml
 msgid "Folder Listing"
 msgstr ""
 
+#. Default: "News Area"
+#: ./profiles/default/types/NewsArea.xml
+msgid "News Area"
+msgstr ""
+
+#. Default: "Polls Area"
+#: ./profiles/default/types/PollsArea.xml
+msgid "Polls Area"
+msgstr ""
+
+#. Default: "Projects Area"
+#: ./profiles/default/types/ProjectsArea.xml
+msgid "Projects Area"
+msgstr ""
+
 #. Default: "References"
-#: ./rer/groupware/room/profiles/default/types/GroupRoom.xml
+#: ./profiles/default/types/DocumentsArea.xml
+#: ./profiles/default/types/EventsArea.xml
+#: ./profiles/default/types/GroupRoom.xml
 msgid "References"
 msgstr ""
 
 #. Default: "Room"
-#: ./rer/groupware/room/profiles/default/types/GroupRoom.xml
+#: ./profiles/default/types/GroupRoom.xml
 msgid "Room"
 msgstr ""
 
 #. Default: "View"
-#: ./rer/groupware/room/profiles/default/types/GroupRoom.xml
+#: ./profiles/default/types/DocumentsArea.xml
+#: ./profiles/default/types/EventsArea.xml
+#: ./profiles/default/types/GroupRoom.xml
 msgid "View"
 msgstr ""
 
 #. Default: "Big notifications"
-#: ./rer/groupware/room/portlets/groups_notification_portlet.pt:25
+#: ./portlets/groups_notification_portlet.pt:25
 msgid "portlet_room_label_big"
 msgstr ""
 
 #. Default: "Small notifications"
-#: ./rer/groupware/room/portlets/groups_notification_portlet.pt:34
+#: ./portlets/groups_notification_portlet.pt:34
 msgid "portlet_room_label_small"
 msgstr ""
 
 #. Default: "Notification management"
-#: ./rer/groupware/room/portlets/groups_notification_portlet.pt:6
+#: ./portlets/groups_notification_portlet.pt:6
 msgid "portlet_room_title"
 msgstr ""
 
