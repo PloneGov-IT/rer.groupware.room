@@ -9,7 +9,18 @@ def import_various(context):
         return
     # Define portal properties
     portal = context.getSite()
+    updateSiteProperties(context,portal)
     addKeyToCatalog(context, portal)
+
+def updateSiteProperties(context,portal):
+    ptool = getToolByName(portal, 'portal_properties')
+    props = getattr(ptool, 'site_properties',None)
+    if not props:
+        return
+    types_not_searched=props.getProperty('types_not_searched')
+    new_value=[x for x in types_not_searched if not x=='PloneboardConversation']
+    props.manage_changeProperties(types_not_searched=new_value)
+    return
 
 def addKeyToCatalog(context, portal):
     '''

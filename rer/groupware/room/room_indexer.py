@@ -1,8 +1,7 @@
-from Products.ATContentTypes.interface.interfaces import IATContentType
-from Products.ATContentTypes.interface.event import IATEvent
+from Products.Archetypes.interfaces._base import IBaseObject
 from plone.indexer import indexer
 
-@indexer(IATContentType)
+@indexer(IBaseObject)
 def parent_room_index(object, **kw):
     parent_folder=object.getFolderWhenPortalFactory()
     for parent in parent_folder.aq_chain:
