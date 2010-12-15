@@ -74,7 +74,7 @@ class CreateRoomStructure(object):
         
         portletpage=self.context.restrictedTraverse(portletpage_id)
         portletpage.manage_addLocalRoles('%s.membersAdv'%self.context.getId(),['Editor','EditorAdv'])
-        portletpage.manage_addLocalRoles('%s.coordinators'%self.context.getId(),['Editor','EditorAdv'])
+        portletpage.manage_addLocalRoles('%s.coordinators'%self.context.getId(),['Editor','EditorAdv','LocalManager'])
         return portletpage
     
     #FIRST WE CREATE THE GROUPS
