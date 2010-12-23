@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <object name="PloneboardForum" meta_type="Factory-based Type Information"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n" purge="False">
+ <property name="content_icon">++resource++rer.groupware.room.images/forum_area.gif</property>
  <property name="global_allow">True</property>
 </object>

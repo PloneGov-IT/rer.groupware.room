@@ -46,8 +46,8 @@ class Renderer(base.Renderer):
         self.data = data
         self.pg=getToolByName(self.context, 'portal_groups')
         self.pm=getToolByName(self.context,'portal_membership')
-        if request.form.has_key('addToGroup'):
-            self.addUserToGroup(request.form.get('addToGroup'))
+        if request.form.has_key('group_to_add') and request.form.get('room_id'):
+            self.addUserToGroup(request.form.get('group_to_add'),request.form.get('room_id'))
             
     render = ViewPageTemplateFile('groups_notification_portlet.pt')
     
@@ -89,12 +89,17 @@ class Renderer(base.Renderer):
             list_groups.append(dict_groups[elem])
         return list_groups
     
-    def addUserToGroup(self,group_id):
-        group=self.pg.getGroupById(group_id)
+    def addUserToGroup(self,group_id,room_id):
+        if group_id == 'notifyBig':
+            other_group_id='notifySmall'
+        else:
+            other_group_id='notifyBig'
+        group=self.pg.getGroupById('%s.%s' %(room_id,group_id))
         group_members=group.getMemberIds()
         userid=self.pm.getAuthenticatedMember().id
         if userid not in group_members:
-            self.pg.addPrincipalToGroup(userid,group_id)
+            self.pg.addPrincipalToGroup(userid,'%s.%s' %(room_id,group_id))
+            self.pg.removePrincipalFromGroup(userid,'%s.%s' %(room_id,other_group_id))
         else:
             self.pg.removePrincipalFromGroup(userid,group_id)
         return self.request.RESPONSE.redirect(self.context.absolute_url())

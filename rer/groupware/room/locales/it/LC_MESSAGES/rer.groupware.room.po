@@ -77,14 +77,14 @@ msgstr "Stanza"
 #. Default: "Big notifications"
 #: ./portlets/groups_notification_portlet.pt:25
 msgid "portlet_room_label_big"
-msgstr "Notifiche big"
+msgstr "Tutte le notifiche"
 
 #. Default: "Small notifications"
 #: ./portlets/groups_notification_portlet.pt:34
 msgid "portlet_room_label_small"
-msgstr "Notifiche small"
+msgstr "News ed eventi"
 
 #. Default: "Notification management"
 #: ./portlets/groups_notification_portlet.pt:6
 msgid "portlet_room_title"
-msgstr "Gestione delle notifiche"
+msgstr "Impostazione notifiche"
