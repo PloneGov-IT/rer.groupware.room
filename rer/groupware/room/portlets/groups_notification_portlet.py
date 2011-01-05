@@ -101,7 +101,7 @@ class Renderer(base.Renderer):
             self.pg.addPrincipalToGroup(userid,'%s.%s' %(room_id,group_id))
             self.pg.removePrincipalFromGroup(userid,'%s.%s' %(room_id,other_group_id))
         else:
-            self.pg.removePrincipalFromGroup(userid,group_id)
+            self.pg.removePrincipalFromGroup(userid,'%s.%s' %(room_id,group_id))
         return self.request.RESPONSE.redirect(self.context.absolute_url())
         
         
