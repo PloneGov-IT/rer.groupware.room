@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rer.groupware.room\n"
-"POT-Creation-Date: 2010-12-13 08:33+0000\n"
+"POT-Creation-Date: 2011-01-05 08:51+0000\n"
 "PO-Revision-Date: 2010-04-21 09:47+0000\n"
 "Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.it>\n"
 "Language-Team: RedTurtle Technology <info@redturtle.net>\n"
@@ -74,12 +74,12 @@ msgstr "Area progetti"
 msgid "Room"
 msgstr "Stanza"
 
-#. Default: "Big notifications"
+#. Default: "All notifications"
 #: ./portlets/groups_notification_portlet.pt:25
 msgid "portlet_room_label_big"
 msgstr "Tutte le notifiche"
 
-#. Default: "Small notifications"
+#. Default: "News and events"
 #: ./portlets/groups_notification_portlet.pt:34
 msgid "portlet_room_label_small"
 msgstr "News ed eventi"
@@ -88,3 +88,33 @@ msgstr "News ed eventi"
 #: ./portlets/groups_notification_portlet.pt:6
 msgid "portlet_room_title"
 msgstr "Impostazione notifiche"
+
+#. Default: "${title} has been created or modified. You can click on the following link to see it.\n${url}"
+#: ./events/created_room.py
+msgid "notify_msg_created"
+msgstr "${title} è stato creato o modificato. Puoi cliccare sul seguente link per vederlo.\n${url}"
+
+#. Default: "${title} has been deleted."
+#: ./events/created_room.py
+msgid "notify_msg_deleted"
+msgstr "${title} è stato cancellato."
+
+#. Default: "New news or event has been created or modified"
+#: ./events/created_room.py
+msgid "notify_subj_created_small"
+msgstr "Una nuova news od evento sono stati creati o modificati"
+
+#. Default: "News or event has been deleted"
+#: ./events/created_room.py
+msgid "notify_subj_deleted_small"
+msgstr "Una news od evento sono stati cancellati"
+
+#. Default: "New document has been created or modified"
+#: ./events/created_room.py
+msgid "notify_subj_created_big"
+msgstr "Un nuovo documento è stato creato o modificato"
+
+#. Default: "Document has been deleted"
+#: ./events/created_room.py
+msgid "notify_subj_deleted_big"
+msgstr "Un documento è stato cancellato"

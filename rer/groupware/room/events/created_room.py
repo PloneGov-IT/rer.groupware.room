@@ -38,8 +38,6 @@ class CreateRoomStructure(object):
         #create room's areas
         self.portlet_page = self.createPortletPage()
         self.createGroups()
-        self.blog=self.createBlog()
-        self.forum=self.createForum()
         self.areas=self.createAreas()
         #create the rules
         self.createRules(rule_type='ruleSmall',
@@ -161,10 +159,11 @@ class CreateRoomStructure(object):
     
     def createAreas(self):
         base_id= self.context.getId()
+        self.blog=self.createBlog()
         documents=self.createArea(id='documenti',
                                   title='Documenti',
                                   portal_type="DocumentsArea",
-                                  types=['Document','File','Folder'],
+                                  types=['Document','File','Image','Folder'],
                                   groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                           {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
                                           {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
@@ -179,8 +178,9 @@ class CreateRoomStructure(object):
                                        {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
                                        {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
                                )
-        news=self.createArea(id='news',
-                             title='News',
+        self.forum=self.createForum()
+        news=self.createArea(id='notizie',
+                             title='Notizie',
                              portal_type="NewsArea",
                              types=['News Item'],
                              groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
@@ -195,7 +195,7 @@ class CreateRoomStructure(object):
                                  groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                          {'id':'%s.members'%base_id,'roles':['Contributor','Editor','Employee']},
                                          {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Reviewer','Employee']},
-                                         {'id':'%s.coordinators'%base_id,'roles':['LocalManager','ProjectManager','Contributor','Editor','EditorAdv','Reviewer']},]
+                                         {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Projectmanager','Contributor','Editor','EditorAdv','Reviewer']},]
                                  )
         polls=self.createArea(id='sondaggi',
                               title='Sondaggi',
@@ -234,14 +234,14 @@ class CreateRoomStructure(object):
                              title="%s in bozza" %title,
                              review_state='visible',
                              sort_on="modified",
-                             portal_type=["Page","File"],
+                             portal_type=["Page","File","Image"],
                              portlet_manager='collective.portletpage.firstcolumn',
                              portletpage_index=3)
             self.createTopic(folder=area_obj,
                              id="%s-definitivi" %id,
                              title="%s definitivi" %title,
                              review_state='published',
-                             portal_type=["Page","File"],
+                             portal_type=["Page","File","Image"],
                              portlet_manager='collective.portletpage.secondcolumn',
                              portletpage_index=2)
         elif portal_type=='EventsArea':
@@ -257,6 +257,7 @@ class CreateRoomStructure(object):
         elif portal_type=='PollsArea':
             self.createTopic(folder=area_obj,
                              id=id,
+                             review_state='published',
                              title=title,
                              portal_type=types,
                              portlet_manager='collective.portletpage.secondcolumn',
@@ -273,6 +274,7 @@ class CreateRoomStructure(object):
         if types:
             area_obj.setConstrainTypesMode(1)
             area_obj.setLocallyAllowedTypes(types)
+            area_obj.setImmediatelyAddableTypes(types)
         
         return area_obj
     
@@ -317,7 +319,7 @@ class CreateRoomStructure(object):
         limit=5
         #set topic as view of the folder
         if folder.portal_type != "DocumentsArea":
-            folder.setDefaultPage(topic_id)
+#            folder.setDefaultPage(topic_id)
             limit=3
         
         if folder.portal_type == "ProjectsArea":
@@ -354,7 +356,7 @@ class CreateRoomStructure(object):
                                                           default='News or event has been deleted',
                                                           domain="rer.groupware.room",
                                                           context=self.context)
-            
+            import pdb;pdb.set_trace()
             self.createRule(rule_title="%s-modified" %rule_title,
                             rule_event=IObjectModifiedEvent,
                             group='%s.notifySmall'%self.context.getId(),
@@ -371,7 +373,7 @@ class CreateRoomStructure(object):
             
         if rule_type == 'ruleBig':
             subject_created=self.translation_service.translate(msgid='notify_subj_created_big',
-                                                          default='New document has been created',
+                                                          default='New document has been created or modified',
                                                           domain="rer.groupware.room",
                                                           context=self.context)
             

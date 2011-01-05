@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-12-13 08:33+0000\n"
+"POT-Creation-Date: 2011-01-05 08:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,12 +105,12 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#. Default: "Big notifications"
+#. Default: "All notifications"
 #: ./portlets/groups_notification_portlet.pt:25
 msgid "portlet_room_label_big"
 msgstr ""
 
-#. Default: "Small notifications"
+#. Default: "News and events"
 #: ./portlets/groups_notification_portlet.pt:34
 msgid "portlet_room_label_small"
 msgstr ""
