@@ -227,7 +227,7 @@ class CreateRoomStructure(object):
                              title=title,
                              portal_type=types,
                              portlet_manager='collective.portletpage.firstcolumn',
-                             portletpage_index=5)
+                             portletpage_index=2)
         elif portal_type=='DocumentsArea':
             self.createTopic(folder=area_obj,
                              id="%s-in-bozza" %id,
@@ -236,14 +236,14 @@ class CreateRoomStructure(object):
                              sort_on="modified",
                              portal_type=["Page","File","Image"],
                              portlet_manager='collective.portletpage.firstcolumn',
-                             portletpage_index=3)
+                             portletpage_index=1)
             self.createTopic(folder=area_obj,
                              id="%s-definitivi" %id,
                              title="%s definitivi" %title,
                              review_state='published',
                              portal_type=["Page","File","Image"],
                              portlet_manager='collective.portletpage.secondcolumn',
-                             portletpage_index=2)
+                             portletpage_index=1)
         elif portal_type=='EventsArea':
             self.createTopic(folder=area_obj,
                              id=id,
@@ -252,7 +252,7 @@ class CreateRoomStructure(object):
                              title=title,
                              portal_type=types,
                              portlet_manager='collective.portletpage.firstcolumn',
-                             portletpage_index=4)
+                             portletpage_index=3)
             
         elif portal_type=='PollsArea':
             self.createTopic(folder=area_obj,
@@ -269,7 +269,7 @@ class CreateRoomStructure(object):
                              title=title,
                              portal_type=types,
                              portlet_manager='collective.portletpage.firstcolumn',
-                             portletpage_index=1)
+                             portletpage_index=5)
             
         if types:
             area_obj.setConstrainTypesMode(1)
@@ -356,7 +356,6 @@ class CreateRoomStructure(object):
                                                           default='News or event has been deleted',
                                                           domain="rer.groupware.room",
                                                           context=self.context)
-            import pdb;pdb.set_trace()
             self.createRule(rule_title="%s-modified" %rule_title,
                             rule_event=IObjectModifiedEvent,
                             group='%s.notifySmall'%self.context.getId(),
@@ -489,10 +488,10 @@ class CreateRoomStructure(object):
 #        self.createPortlet(projects_portlet_assignment, 'groupware-project-management', 1, 'collective.portletpage.firstcolumn')
         #create the blog portlet
         blog_portlet_assignment=self.createBlogPortlet()
-        self.createPortlet(blog_portlet_assignment, 'last_blog_entries', 2, 'collective.portletpage.firstcolumn')
+        self.createPortlet(blog_portlet_assignment, 'last_blog_entries', 4, 'collective.portletpage.firstcolumn')
         #create the discuss portlet
         discuss_portlet_assignment=self.createDiscussionPortlet()
-        self.createPortlet(discuss_portlet_assignment, 'last_discussions', 1, 'collective.portletpage.secondcolumn')
+        self.createPortlet(discuss_portlet_assignment, 'last_discussions', 2, 'collective.portletpage.secondcolumn')
         #create the forum portlet
         forum_portlet_assignment=self.createForumPortlet()
         self.createPortlet(forum_portlet_assignment, 'last_forum_conversations', 3, 'collective.portletpage.secondcolumn')
