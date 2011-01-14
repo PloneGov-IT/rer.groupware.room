@@ -74,10 +74,10 @@ msgstr "Area progetti"
 msgid "Room"
 msgstr "Stanza"
 
-#. Default: "All notifications"
+#. Default: "All"
 #: ./portlets/groups_notification_portlet.pt:25
 msgid "portlet_room_label_big"
-msgstr "Tutte le notifiche"
+msgstr "Tutte"
 
 #. Default: "News and events"
 #: ./portlets/groups_notification_portlet.pt:34

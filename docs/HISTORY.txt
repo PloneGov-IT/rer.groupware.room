@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.0.1 (2010-01-14)
+------------------
+
+* Fix creation method [andrea]
+* fixed notification portlet [andrea]
+
 1.0.0 (xxxx-xx-xx)
 ------------------
 

@@ -60,34 +60,56 @@ class Renderer(base.Renderer):
             return False
         return True
     
+#    @memoize
+#    def listUserGroups(self):
+#        user=self.pm.getAuthenticatedMember()
+#        user_groups=user.getGroups()
+#        if not user_groups:
+#            return []
+#        dict_groups={}
+#        for group in user_groups:
+#            if not '.' in group:
+#                continue
+#            room_id=group[:group.index('.')]
+#            if dict_groups.has_key(room_id):
+#                continue
+#            room=self.context.portal_catalog(id=room_id,portal_type="GroupRoom")
+#            if not room:
+#                room_title=room_id
+#            else:
+#                room_title=room[0].Title
+#            dict_groups[room_id]={'title':room_title,
+#                                  'room_id':room_id,
+#                                  'notification_big':'%s.notifyBig'%room_id in user_groups,
+#                                  'notification_small':'%s.notifySmall'%room_id in user_groups}
+#        groups_keys=dict_groups.keys()
+#        groups_keys.sort()
+#        list_groups=[]
+#        for elem in groups_keys:
+#            list_groups.append(dict_groups[elem])
+#        return list_groups
+    
     @memoize
     def listUserGroups(self):
+        room=None
+        for parent in self.context.aq_inner.aq_chain:
+            if getattr(parent,'portal_type','') == 'GroupRoom':
+                room=parent
+        if not room:
+            #i'm not in a room or subtree and the portlet will not be visible
+            return {}
+        room_id = room.getId()
         user=self.pm.getAuthenticatedMember()
         user_groups=user.getGroups()
         if not user_groups:
-            return []
-        dict_groups={}
-        for group in user_groups:
-            if not '.' in group:
-                continue
-            room_id=group[:group.index('.')]
-            if dict_groups.has_key(room_id):
-                continue
-            room=self.context.portal_catalog(id=room_id,portal_type="GroupRoom")
-            if not room:
-                room_title=room_id
-            else:
-                room_title=room[0].Title
-            dict_groups[room_id]={'title':room_title,
-                                  'room_id':room_id,
-                                  'notification_big':'%s.notifyBig'%room_id in user_groups,
-                                  'notification_small':'%s.notifySmall'%room_id in user_groups}
-        groups_keys=dict_groups.keys()
-        groups_keys.sort()
-        list_groups=[]
-        for elem in groups_keys:
-            list_groups.append(dict_groups[elem])
-        return list_groups
+            return {}
+        room_groups=[x for x in user_groups if x.startswith(room_id)]
+        if not room_groups:
+            return {}
+        return {'title':room.Title(),
+                'room_id':room_id,
+                'notification_big':'%s.notifyBig'%room_id in user_groups,
+                'notification_small':'%s.notifySmall'%room_id in user_groups}
     
     def addUserToGroup(self,group_id,room_id):
         if group_id == 'notifyBig':

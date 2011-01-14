@@ -23,6 +23,9 @@ from zope.app.container.interfaces import IObjectRemovedEvent, INameChooser
 from zope.component import getMultiAdapter, getUtility, queryUtility
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 
+import logging
+logger = logging.getLogger('rer.groupware.room')
+
 class CreateRoomStructure(object):
 
     def __init__(self, context, event):
@@ -55,6 +58,7 @@ class CreateRoomStructure(object):
                                               {'id':'%s.coordinators'%self.context.getId(),'roles':['Reader']},])
         
         self.adjustPortletPage()
+        logger.info('Stanza creata')
         
     #WE CREATE THE PORTLETPAGE
     def createPortletPage(self):
@@ -109,6 +113,7 @@ class CreateRoomStructure(object):
             sgm_groups.add('%s|%s' %(coordinator,group))
         
         sgm_properties._updateProperty('sgm_data',tuple(sgm_groups))
+        logger.info('SGM properties set.')
         
         
     #THEN WE CREATE THE AREAS
@@ -223,43 +228,31 @@ class CreateRoomStructure(object):
         if portal_type=='NewsArea':
             self.createTopic(folder=area_obj,
                              id=id,
-                             review_state='published',
                              title=title,
-                             portal_type=types,
+                             portal_types=types,
                              portlet_manager='collective.portletpage.firstcolumn',
                              portletpage_index=2)
         elif portal_type=='DocumentsArea':
             self.createTopic(folder=area_obj,
-                             id="%s-in-bozza" %id,
-                             title="%s in bozza" %title,
-                             review_state='visible',
-                             sort_on="modified",
-                             portal_type=["Page","File","Image"],
+                             id=id,
+                             title=title,
+                             portal_types=["Page","File","Image"],
                              portlet_manager='collective.portletpage.firstcolumn',
-                             portletpage_index=1)
-            self.createTopic(folder=area_obj,
-                             id="%s-definitivi" %id,
-                             title="%s definitivi" %title,
-                             review_state='published',
-                             portal_type=["Page","File","Image"],
-                             portlet_manager='collective.portletpage.secondcolumn',
                              portletpage_index=1)
         elif portal_type=='EventsArea':
             self.createTopic(folder=area_obj,
                              id=id,
-                             review_state='published',
                              sort_on="start",
                              title=title,
-                             portal_type=types,
+                             portal_types=types,
                              portlet_manager='collective.portletpage.firstcolumn',
                              portletpage_index=3)
             
         elif portal_type=='PollsArea':
             self.createTopic(folder=area_obj,
                              id=id,
-                             review_state='published',
                              title=title,
-                             portal_type=types,
+                             portal_types=types,
                              portlet_manager='collective.portletpage.secondcolumn',
                              portletpage_index=4)
         
@@ -267,9 +260,9 @@ class CreateRoomStructure(object):
             self.createTopic(folder=area_obj,
                              id=id,
                              title=title,
-                             portal_type=types,
+                             portal_types=types,
                              portlet_manager='collective.portletpage.firstcolumn',
-                             portletpage_index=5)
+                             portletpage_index=4)
             
         if types:
             area_obj.setConstrainTypesMode(1)
@@ -290,48 +283,62 @@ class CreateRoomStructure(object):
         #reindex the security
         folder.reindexObjectSecurity()
         
-    def createTopic(self,folder,id,title,portlet_manager,portletpage_index,review_state="",sort_on="effective",portal_type=[]):
+    def createAreaTopics(self,folder,id,title,**kwargs):
         """
         Create a collection
         """
-        if folder.portal_type=="DocumentsArea":
-            title=title+" più recenti"
-            id=id+"-piu-recenti"
+        #create the first topic for default view
+        self.createTopic(folder,id,title,kwargs.get('portal_types',[]))
+        title=title+" per portlet"
+        id=id+"-per-portlet"
+        if kwargs.get('create_collection_portlet',False):
+            kwargs['portlet_id']=id
+            kwargs['portlet_title']=title
+        self.createTopic(folder,id,title,**kwargs)
         
+    def createTopic(self,folder,id,title,**kwargs):
+        """
+        Create a collection
+        """
         topic_id=folder.invokeFactory(id=id,
                                       type_name='Topic',
                                       title=title)
         topic=folder.restrictedTraverse(topic_id)
-        if portal_type:
-            if "PlonePopoll" in portal_type:
-                portal_type='label_popoll'
-            type_crit = topic.addCriterion('Type','ATPortalTypeCriterion')
-            type_crit.setValue(portal_type)
-#        sort_crit = topic.addCriterion('effective','ATSortCriterion')
-#        sort_crit.setReversed(True)
         path_crit=topic.addCriterion('path','ATPathCriterion')
         path_crit.setValue(folder.UID())
         path_crit.setRecurse(True)
-        if review_state:
-            state_crit = topic.addCriterion('review_state', 'ATSimpleStringCriterion')
-            state_crit.setValue(review_state)
-        topic.setSortCriterion(sort_on, True)
-        limit=5
+
         #set topic as view of the folder
-        if folder.portal_type != "DocumentsArea":
-#            folder.setDefaultPage(topic_id)
-            limit=3
+        folder.setDefaultPage(topic_id)
         
+        #optional settings
+        portal_types= kwargs.get('portal_types',[])
+        if portal_types:   
+            if "PlonePopoll" in portal_types:
+                portal_types='label_popoll'
+            type_crit = topic.addCriterion('Type','ATPortalTypeCriterion')
+            type_crit.setValue(portal_types)
+        if kwargs.get('review_state',''):
+            state_crit = topic.addCriterion('review_state', 'ATSimpleStringCriterion')
+            state_crit.setValue(kwargs.get('review_state',''))
+        if kwargs.get('sort_on',''):
+            topic.setSortCriterion(kwargs.get('sort_on',''), True)
+        
+        limit=3
+        if folder.portal_type == "DocumentsArea":
+            limit=5
         if folder.portal_type == "ProjectsArea":
             title="Gestione progetti"
-        
         #create collection portlet for room's homepage
         assignment=self.createCollectionPortlet(collection_path='/'.join(topic.getPhysicalPath()),
                                                 limit=limit,
-                                                date_type=sort_on,
                                                 portlet_title=title)
-        self.createPortlet(assignment,portlet_id=id,portlet_manager=portlet_manager,portletpage_index=portletpage_index)
-    
+        self.createPortlet(assignment,
+                           portlet_id=id,
+                           portlet_manager=kwargs.get('portlet_manager',''),
+                           portletpage_index=kwargs.get('portletpage_index',0))
+            
+            
     
     #THEN WE CREATE THE RULES FOR THE ROOM
     def createRules(self,rule_type,group_type,types_list):
@@ -427,7 +434,7 @@ class CreateRoomStructure(object):
         
         
     #METHODS TO POPULATE PORTLETPAGE
-    def createCollectionPortlet(self,collection_path,limit,portlet_title,date_type):
+    def createCollectionPortlet(self,collection_path,limit,portlet_title):
         """
         imposta l'assignment per la collection portlet
         """
@@ -488,13 +495,13 @@ class CreateRoomStructure(object):
 #        self.createPortlet(projects_portlet_assignment, 'groupware-project-management', 1, 'collective.portletpage.firstcolumn')
         #create the blog portlet
         blog_portlet_assignment=self.createBlogPortlet()
-        self.createPortlet(blog_portlet_assignment, 'last_blog_entries', 4, 'collective.portletpage.firstcolumn')
+        self.createPortlet(blog_portlet_assignment, 'last_blog_entries', 3, 'collective.portletpage.secondcolumn')
         #create the discuss portlet
         discuss_portlet_assignment=self.createDiscussionPortlet()
-        self.createPortlet(discuss_portlet_assignment, 'last_discussions', 2, 'collective.portletpage.secondcolumn')
+        self.createPortlet(discuss_portlet_assignment, 'last_discussions', 1, 'collective.portletpage.secondcolumn')
         #create the forum portlet
         forum_portlet_assignment=self.createForumPortlet()
-        self.createPortlet(forum_portlet_assignment, 'last_forum_conversations', 3, 'collective.portletpage.secondcolumn')
+        self.createPortlet(forum_portlet_assignment, 'last_forum_conversations', 2, 'collective.portletpage.secondcolumn')
         #create popoll portlet
 #        popoll_portlet_assignment=self.createPopollPortlet()
 #        self.createPortlet(popoll_portlet_assignment, 'last_polls', 4, 'collective.portletpage.secondcolumn')
