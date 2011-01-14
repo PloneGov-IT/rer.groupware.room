@@ -112,16 +112,11 @@ class Renderer(base.Renderer):
                 'notification_small':'%s.notifySmall'%room_id in user_groups}
     
     def addUserToGroup(self,group_id,room_id):
-        if group_id == 'notifyBig':
-            other_group_id='notifySmall'
-        else:
-            other_group_id='notifyBig'
         group=self.pg.getGroupById('%s.%s' %(room_id,group_id))
         group_members=group.getMemberIds()
         userid=self.pm.getAuthenticatedMember().id
         if userid not in group_members:
             self.pg.addPrincipalToGroup(userid,'%s.%s' %(room_id,group_id))
-            self.pg.removePrincipalFromGroup(userid,'%s.%s' %(room_id,other_group_id))
         else:
             self.pg.removePrincipalFromGroup(userid,'%s.%s' %(room_id,group_id))
         return self.request.RESPONSE.redirect(self.context.absolute_url())
