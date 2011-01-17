@@ -77,7 +77,7 @@ msgstr "Stanza"
 #. Default: "All"
 #: ./portlets/groups_notification_portlet.pt:25
 msgid "portlet_room_label_big"
-msgstr "Tutte"
+msgstr "Documenti"
 
 #. Default: "News and events"
 #: ./portlets/groups_notification_portlet.pt:34

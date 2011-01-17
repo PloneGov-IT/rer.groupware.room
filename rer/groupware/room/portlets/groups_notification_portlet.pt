@@ -21,7 +21,7 @@
 								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_true.png"/>
 							<img tal:condition="python:not group.get('notification_big')"
 								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_false.png"/>
-							<span i18n:translate="portlet_room_label_big">All</span>
+							<span i18n:translate="portlet_room_label_big">Documents</span>
 						</a>
 					</dd>
 					<dd>
