@@ -59,36 +59,7 @@ class Renderer(base.Renderer):
         if not self.listUserGroups():
             return False
         return True
-    
-#    @memoize
-#    def listUserGroups(self):
-#        user=self.pm.getAuthenticatedMember()
-#        user_groups=user.getGroups()
-#        if not user_groups:
-#            return []
-#        dict_groups={}
-#        for group in user_groups:
-#            if not '.' in group:
-#                continue
-#            room_id=group[:group.index('.')]
-#            if dict_groups.has_key(room_id):
-#                continue
-#            room=self.context.portal_catalog(id=room_id,portal_type="GroupRoom")
-#            if not room:
-#                room_title=room_id
-#            else:
-#                room_title=room[0].Title
-#            dict_groups[room_id]={'title':room_title,
-#                                  'room_id':room_id,
-#                                  'notification_big':'%s.notifyBig'%room_id in user_groups,
-#                                  'notification_small':'%s.notifySmall'%room_id in user_groups}
-#        groups_keys=dict_groups.keys()
-#        groups_keys.sort()
-#        list_groups=[]
-#        for elem in groups_keys:
-#            list_groups.append(dict_groups[elem])
-#        return list_groups
-    
+
     @memoize
     def listUserGroups(self):
         room=None
@@ -108,8 +79,8 @@ class Renderer(base.Renderer):
             return {}
         return {'title':room.Title(),
                 'room_id':room_id,
-                'notification_big':'%s.notifyBig'%room_id in user_groups,
-                'notification_small':'%s.notifySmall'%room_id in user_groups}
+                'notification_docs':'%s.notifyDocs'%room_id in user_groups,
+                'notification_news_events':'%s.notifyNewsEvents'%room_id in user_groups}
     
     def addUserToGroup(self,group_id,room_id):
         group=self.pg.getGroupById('%s.%s' %(room_id,group_id))

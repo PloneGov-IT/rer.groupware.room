@@ -76,12 +76,12 @@ msgstr "Stanza"
 
 #. Default: "All"
 #: ./portlets/groups_notification_portlet.pt:25
-msgid "portlet_room_label_big"
+msgid "portlet_room_label_docs"
 msgstr "Documenti"
 
 #. Default: "News and events"
 #: ./portlets/groups_notification_portlet.pt:34
-msgid "portlet_room_label_small"
+msgid "portlet_room_label_news_events"
 msgstr "News ed eventi"
 
 #. Default: "Notification management"

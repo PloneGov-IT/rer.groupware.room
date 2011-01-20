@@ -43,11 +43,11 @@ class CreateRoomStructure(object):
         self.createGroups()
         self.areas=self.createAreas()
         #create the rules
-        self.createRules(rule_type='ruleSmall',
-                        group_type='notifySmall',
+        self.createRules(rule_type='ruleNewsEvents',
+                        group_type='notifyNewsEvents',
                         types_list=set(['News Item','Event']))
-        self.createRules(rule_type='ruleBig',
-                        group_type='notifyBig',
+        self.createRules(rule_type='ruleDocs',
+                        group_type='notifyDocs',
                         types_list=set(['Document','File','Image','Collection']))
         
         #set local roles of the room
@@ -93,8 +93,8 @@ class CreateRoomStructure(object):
         sgm_groups.append('%s.members' %room_id)
         groups_tool.addGroup(id='%s.membersAdv' %room_id,title='%s membersAdv' %room_title)
         sgm_groups.append('%s.membersAdv' %room_id)
-        groups_tool.addGroup(id='%s.notifyBig' %room_id,title='%s notifyBig' %room_title)
-        groups_tool.addGroup(id='%s.notifySmall' %room_id,title='%s notifySmall' %room_title)
+        groups_tool.addGroup(id='%s.notifyDocs' %room_id,title='%s notifyDocs' %room_title)
+        groups_tool.addGroup(id='%s.notifyNewsEvents' %room_id,title='%s notifyNewsEvents' %room_title)
         groups_tool.addGroup(id='%s.coordinators' %room_id,title='%s coordinators' %room_title)
         groups_tool.addGroup(id='%s.hosts'%room_id,title='%s hosts' %room_title)
         sgm_groups.append('%s.hosts' %room_id)
@@ -125,6 +125,8 @@ class CreateRoomStructure(object):
         if not forum_id:
             return
         forum=self.context.restrictedTraverse(forum_id)
+        wf_tool=getToolByName(self.context,'portal_workflow')
+        wf_tool.doActionFor(forum, 'make_freeforall')
         self.setFolderLocalRoles(forum,
                                  list_groups=[{'id':"%s.hosts"%room_id,'roles':['Reader']},
                                               {'id':'%s.members'%room_id,'roles':['Contributor','Editor',]},
@@ -307,6 +309,7 @@ class CreateRoomStructure(object):
         path_crit=topic.addCriterion('path','ATPathCriterion')
         path_crit.setValue(folder.UID())
         path_crit.setRecurse(True)
+        topic.setSortCriterion(kwargs.get('sort_on','modified'), True)
 
         #set topic as view of the folder
         folder.setDefaultPage(topic_id)
@@ -321,8 +324,6 @@ class CreateRoomStructure(object):
         if kwargs.get('review_state',''):
             state_crit = topic.addCriterion('review_state', 'ATSimpleStringCriterion')
             state_crit.setValue(kwargs.get('review_state',''))
-        if kwargs.get('sort_on',''):
-            topic.setSortCriterion(kwargs.get('sort_on',''), True)
         
         limit=3
         if folder.portal_type == "DocumentsArea":
@@ -353,7 +354,7 @@ class CreateRoomStructure(object):
                                                            default='${title} has been deleted.',
                                                            domain="rer.groupware.room",
                                                            context=self.context)
-        if rule_type == 'ruleSmall':
+        if rule_type == 'ruleNewsEvents':
             subject_created=self.translation_service.translate(msgid='notify_subj_created_small',
                                                           default='New news or event has been created or modified',
                                                           domain="rer.groupware.room",
@@ -365,19 +366,19 @@ class CreateRoomStructure(object):
                                                           context=self.context)
             self.createRule(rule_title="%s-modified" %rule_title,
                             rule_event=IObjectModifiedEvent,
-                            group='%s.notifySmall'%self.context.getId(),
+                            group='%s.notifyNewsEvents'%self.context.getId(),
                             types_list=types_list,
                             message=message_created,
                             subject=subject_created)
             
             self.createRule(rule_title="%s-removed" %rule_title,
                             rule_event=IObjectRemovedEvent,
-                            group='%s.notifySmall'%self.context.getId(),
+                            group='%s.notifyNewsEvents'%self.context.getId(),
                             types_list=types_list,
                             message=message_deleted,
                             subject=subject_deleted)
             
-        if rule_type == 'ruleBig':
+        if rule_type == 'ruleDocs':
             subject_created=self.translation_service.translate(msgid='notify_subj_created_big',
                                                           default='New document has been created or modified',
                                                           domain="rer.groupware.room",
@@ -390,14 +391,14 @@ class CreateRoomStructure(object):
             
             self.createRule(rule_title="%s-modified" %rule_title,
                             rule_event=IObjectModifiedEvent,
-                            group='%s.notifyBig'%self.context.getId(),
+                            group='%s.notifyDocs'%self.context.getId(),
                             types_list=types_list,
                             message=message_created,
                             subject=subject_created)
             
             self.createRule(rule_title="%s-removed" %rule_title,
                             rule_event=IObjectRemovedEvent,
-                            group='%s.notifyBig'%self.context.getId(),
+                            group='%s.notifyDocs'%self.context.getId(),
                             types_list=types_list,
                             message=message_deleted,
                             subject=subject_deleted)

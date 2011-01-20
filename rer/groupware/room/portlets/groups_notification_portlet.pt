@@ -16,21 +16,21 @@
 					<dt tal:content="group/title">
 					</dt>
 					<dd>
-						<a href="" tal:attributes="href string:${here/absolute_url}?group_to_add=notifyBig&room_id=${group/room_id}">
-							<img tal:condition="python:group.get('notification_big')"
+						<a href="" tal:attributes="href string:${here/absolute_url}?group_to_add=notifyDocs&room_id=${group/room_id}">
+							<img tal:condition="python:group.get('notification_docs')"
 								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_true.png"/>
-							<img tal:condition="python:not group.get('notification_big')"
+							<img tal:condition="python:not group.get('notification_docs')"
 								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_false.png"/>
-							<span i18n:translate="portlet_room_label_big">Documents</span>
+							<span i18n:translate="portlet_room_label_docs">Documents</span>
 						</a>
 					</dd>
 					<dd>
-						<a href="" tal:attributes="href string:${here/absolute_url}?group_to_add=notifySmall&room_id=${group/room_id}">
-							<img tal:condition="python:group.get('notification_small')"
+						<a href="" tal:attributes="href string:${here/absolute_url}?group_to_add=notifyNewsEvents&room_id=${group/room_id}">
+							<img tal:condition="python:group.get('notification_news_events')"
 								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_true.png"/>
-							<img tal:condition="python:not group.get('notification_small')"
+							<img tal:condition="python:not group.get('notification_news_events')"
 								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_false.png"/>
-							<span i18n:translate="portlet_room_label_small">News and events</span>
+							<span i18n:translate="portlet_room_label_news_events">News and events</span>
 						</a>
 					</dd>
 				</dl>

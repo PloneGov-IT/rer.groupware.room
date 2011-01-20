@@ -107,12 +107,12 @@ msgstr ""
 
 #. Default: "All"
 #: ./portlets/groups_notification_portlet.pt:25
-msgid "portlet_room_label_big"
+msgid "portlet_room_label_docs"
 msgstr ""
 
 #. Default: "News and events"
 #: ./portlets/groups_notification_portlet.pt:34
-msgid "portlet_room_label_small"
+msgid "portlet_room_label_news_events"
 msgstr ""
 
 #. Default: "Notification management"
