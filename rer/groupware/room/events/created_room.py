@@ -329,7 +329,7 @@ class CreateRoomStructure(object):
         if folder.portal_type == "DocumentsArea":
             limit=5
         if folder.portal_type == "ProjectsArea":
-            title="Gestione progetti"
+            title="Progetti"
         #create collection portlet for room's homepage
         assignment=self.createCollectionPortlet(collection_path='/'.join(topic.getPhysicalPath()),
                                                 limit=limit,
