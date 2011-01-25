@@ -238,13 +238,12 @@ class CreateRoomStructure(object):
             self.createTopic(folder=area_obj,
                              id=id,
                              title=title,
-                             portal_types=["Page","File","Image"],
+                             portal_types=types,
                              portlet_manager='collective.portletpage.firstcolumn',
                              portletpage_index=1)
         elif portal_type=='EventsArea':
             self.createTopic(folder=area_obj,
                              id=id,
-                             sort_on="start",
                              title=title,
                              portal_types=types,
                              portlet_manager='collective.portletpage.firstcolumn',
@@ -284,19 +283,6 @@ class CreateRoomStructure(object):
             folder.manage_addLocalRoles(group.get('id'),group.get('roles'))
         #reindex the security
         folder.reindexObjectSecurity()
-        
-    def createAreaTopics(self,folder,id,title,**kwargs):
-        """
-        Create a collection
-        """
-        #create the first topic for default view
-        self.createTopic(folder,id,title,kwargs.get('portal_types',[]))
-        title=title+" per portlet"
-        id=id+"-per-portlet"
-        if kwargs.get('create_collection_portlet',False):
-            kwargs['portlet_id']=id
-            kwargs['portlet_title']=title
-        self.createTopic(folder,id,title,**kwargs)
         
     def createTopic(self,folder,id,title,**kwargs):
         """
@@ -467,14 +453,14 @@ class CreateRoomStructure(object):
             return None
         blog_folder='/'.join(self.blog.getPhysicalPath())
         fixed_path=blog_folder.replace(self.root_path,'')
-        assignment=BlogAssignment(portletTitle="Ultimi post nel blog",
+        assignment=BlogAssignment(portletTitle="Post del blog",
                                   blogFolder=fixed_path,
                                   entries=3)
         return assignment
     
     
     def createDiscussionPortlet(self):
-        assignment=DiscussionAssignment(portletTitle="Ultimi commenti",
+        assignment=DiscussionAssignment(portletTitle="Commenti",
                                         discussionFolder='/%s'%self.context.getId(),
                                         nDiscussions=3)
         return assignment
