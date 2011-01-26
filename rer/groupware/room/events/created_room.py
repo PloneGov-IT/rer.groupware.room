@@ -229,6 +229,7 @@ class CreateRoomStructure(object):
             return
         if portal_type=='NewsArea':
             self.createTopic(folder=area_obj,
+                             set_as_default_view=True,
                              id=id,
                              title=title,
                              portal_types=types,
@@ -236,13 +237,20 @@ class CreateRoomStructure(object):
                              portletpage_index=2)
         elif portal_type=='DocumentsArea':
             self.createTopic(folder=area_obj,
+                             set_as_default_view=True,
                              id=id,
                              title=title,
-                             portal_types=types,
+                             portal_types=types)
+            self.createTopic(folder=area_obj,
+                             id="documenti-piu-recenti",
+                             title=u"Documenti più recenti",
+                             portal_types=['Page','File','Image'],
                              portlet_manager='collective.portletpage.firstcolumn',
-                             portletpage_index=1)
+                             portletpage_index=1,
+                             set_recurse=True,)
         elif portal_type=='EventsArea':
             self.createTopic(folder=area_obj,
+                             set_as_default_view=True,
                              id=id,
                              title=title,
                              portal_types=types,
@@ -251,6 +259,7 @@ class CreateRoomStructure(object):
             
         elif portal_type=='PollsArea':
             self.createTopic(folder=area_obj,
+                             set_as_default_view=True,
                              id=id,
                              title=title,
                              portal_types=types,
@@ -259,6 +268,7 @@ class CreateRoomStructure(object):
         
         elif portal_type=='ProjectsArea':
             self.createTopic(folder=area_obj,
+                             set_as_default_view=True,
                              id=id,
                              title=title,
                              portal_types=types,
@@ -294,13 +304,18 @@ class CreateRoomStructure(object):
         topic=folder.restrictedTraverse(topic_id)
         path_crit=topic.addCriterion('path','ATPathCriterion')
         path_crit.setValue(folder.UID())
-        #path_crit.setRecurse(True)
+        
         topic.setSortCriterion(kwargs.get('sort_on','modified'), True)
 
-        #set topic as view of the folder
-        folder.setDefaultPage(topic_id)
         
         #optional settings
+        if kwargs.get('set_as_default_view'):
+            #set topic as view of the folder
+            folder.setDefaultPage(topic_id)
+        
+        if kwargs.get('set_recurse'):
+            path_crit.setRecurse(True)
+
         portal_types= kwargs.get('portal_types',[])
         if portal_types:   
             if "PlonePopoll" in portal_types:
@@ -310,20 +325,20 @@ class CreateRoomStructure(object):
         if kwargs.get('review_state',''):
             state_crit = topic.addCriterion('review_state', 'ATSimpleStringCriterion')
             state_crit.setValue(kwargs.get('review_state',''))
-        
-        limit=3
-        if folder.portal_type == "DocumentsArea":
-            limit=5
-        if folder.portal_type == "ProjectsArea":
-            title="Progetti"
-        #create collection portlet for room's homepage
-        assignment=self.createCollectionPortlet(collection_path='/'.join(topic.getPhysicalPath()),
-                                                limit=limit,
-                                                portlet_title=title)
-        self.createPortlet(assignment,
-                           portlet_id=id,
-                           portlet_manager=kwargs.get('portlet_manager',''),
-                           portletpage_index=kwargs.get('portletpage_index',0))
+        if kwargs.get('portlet_manager','') and kwargs.get('portletpage_index',0):
+            limit=3
+            if folder.portal_type == "DocumentsArea":
+                limit=5
+            if folder.portal_type == "ProjectsArea":
+                title="Progetti"
+            #create collection portlet for room's homepage
+            assignment=self.createCollectionPortlet(collection_path='/'.join(topic.getPhysicalPath()),
+                                                    limit=limit,
+                                                    portlet_title=title)
+            self.createPortlet(assignment,
+                               portlet_id=id,
+                               portlet_manager=kwargs.get('portlet_manager',''),
+                               portletpage_index=kwargs.get('portletpage_index',0))
             
             
     
