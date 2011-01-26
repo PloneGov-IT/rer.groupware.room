@@ -294,7 +294,7 @@ class CreateRoomStructure(object):
         topic=folder.restrictedTraverse(topic_id)
         path_crit=topic.addCriterion('path','ATPathCriterion')
         path_crit.setValue(folder.UID())
-        path_crit.setRecurse(True)
+        #path_crit.setRecurse(True)
         topic.setSortCriterion(kwargs.get('sort_on','modified'), True)
 
         #set topic as view of the folder
