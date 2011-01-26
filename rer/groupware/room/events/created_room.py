@@ -238,12 +238,12 @@ class CreateRoomStructure(object):
         elif portal_type=='DocumentsArea':
             self.createTopic(folder=area_obj,
                              set_as_default_view=True,
-                             id=id,
-                             title=title,
+                             id="documenti-e-cartelle",
+                             title="Documenti e cartelle",
                              portal_types=types)
             self.createTopic(folder=area_obj,
-                             id="documenti-piu-recenti",
-                             title=u"Documenti più recenti",
+                             id="documenti",
+                             title=u"Documenti",
                              portal_types=['Page','File','Image'],
                              portlet_manager='collective.portletpage.firstcolumn',
                              portletpage_index=1,
@@ -309,11 +309,11 @@ class CreateRoomStructure(object):
 
         
         #optional settings
-        if kwargs.get('set_as_default_view'):
+        if kwargs.get('set_as_default_view',False):
             #set topic as view of the folder
             folder.setDefaultPage(topic_id)
         
-        if kwargs.get('set_recurse'):
+        if kwargs.get('set_recurse',False):
             path_crit.setRecurse(True)
 
         portal_types= kwargs.get('portal_types',[])
