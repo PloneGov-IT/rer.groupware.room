@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rer.groupware.room\n"
-"POT-Creation-Date: 2011-01-05 08:51+0000\n"
+"POT-Creation-Date: 2011-03-22 13:22+0000\n"
 "PO-Revision-Date: 2010-04-21 09:47+0000\n"
 "Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.it>\n"
 "Language-Team: RedTurtle Technology <info@redturtle.net>\n"
@@ -49,10 +49,32 @@ msgstr "Una cartella per l'area progetti delle stanze"
 msgid "Documents Area"
 msgstr "Area documenti"
 
+#. Default: "Edit"
+#: ./profiles/default/types/DocumentsArea.xml
+#: ./profiles/default/types/EventsArea.xml
+#: ./profiles/default/types/GroupRoom.xml
+msgid "Edit"
+msgstr ""
+
+#: ./events/modified_object.py:62
+msgid "Edit notify email sent to users"
+msgstr "Mail di notifica per la modifica spedita agli utenti"
+
 #. Default: "Events Area"
 #: ./profiles/default/types/EventsArea.xml
 msgid "Events Area"
 msgstr "Area eventi"
+
+#. Default: "Folder Listing"
+#: ./profiles/default/types/DocumentsArea.xml
+#: ./profiles/default/types/EventsArea.xml
+#: ./profiles/default/types/GroupRoom.xml
+msgid "Folder Listing"
+msgstr ""
+
+#: ./events/modified_object.py:65
+msgid "Impossible sending the message: "
+msgstr "Impossibile spedire il messaggio: "
 
 #. Default: "News Area"
 #: ./profiles/default/types/NewsArea.xml
@@ -69,18 +91,89 @@ msgstr "Area sondaggi"
 msgid "Projects Area"
 msgstr "Area progetti"
 
+#. Default: "References"
+#: ./profiles/default/types/DocumentsArea.xml
+#: ./profiles/default/types/EventsArea.xml
+#: ./profiles/default/types/GroupRoom.xml
+msgid "References"
+msgstr ""
+
 #. Default: "Room"
 #: ./profiles/default/types/GroupRoom.xml
 msgid "Room"
 msgstr "Stanza"
 
-#. Default: "All"
-#: ./portlets/groups_notification_portlet.pt:25
+#. Default: "The object \"${obj_title}\" has been modified. <br />You can click on the following link to see it."
+#: ./browser/modified_mail_template.pt:17
+msgid "The object &quot;${obj_title}&quot; has been modified. <br />You can click on the following link to see it."
+msgstr "L'oggetto &quot;${obj_title}&quot; è stato modificato. <br />Puoi cliccare sul seguente link per vederlo."
+
+#. Default: "View"
+#: ./profiles/default/types/DocumentsArea.xml
+#: ./profiles/default/types/EventsArea.xml
+#: ./profiles/default/types/GroupRoom.xml
+msgid "View"
+msgstr ""
+
+#. Default: "[Groupware] modification of a content"
+#: ./browser/modified_mail_template.pt:11
+msgid "[Groupware] modification of a content"
+msgstr "[Groupware] modifica di un contenuto"
+
+#. Default: "enable documents notify"
+#: ./portlets/groups_notification_portlet.pt:19
+msgid "enable documents notify"
+msgstr "abilita la notifica dei documenti"
+
+#. Default: "enable news and events notify"
+#: ./portlets/groups_notification_portlet.pt:32
+msgid "enable news and events notify"
+msgstr "abilita la notifica per news ed eventi"
+
+#. Default: "Impossible sending the notification. Mail template not set."
+#: ./events/modified_object.py:50
+msgid "mailtemplate_not_set"
+msgstr "Impossibile spedire la notifica. Mail template non impostato"
+
+#. Default: "${title} has been created. You can click on the following link to see it.\n${url}"
+#: ./events/created_room.py
+msgid "notify_msg_created"
+msgstr ""
+"${title} è stato creato. Puoi cliccare sul seguente link per vederlo.\n"
+"${url}"
+
+#. Default: "${title} has been deleted."
+#: ./events/created_room.py
+msgid "notify_msg_deleted"
+msgstr "${title} è stato cancellato."
+
+#. Default: "New document has been created"
+#: ./events/created_room.py
+msgid "notify_subj_created_big"
+msgstr "Un nuovo documento è stato creato"
+
+#. Default: "New news or event has been created"
+#: ./events/created_room.py
+msgid "notify_subj_created_small"
+msgstr "Una nuova news od evento sono stati creati"
+
+#. Default: "Document has been deleted"
+#: ./events/created_room.py
+msgid "notify_subj_deleted_big"
+msgstr "Un documento è stato cancellato"
+
+#. Default: "News or event has been deleted"
+#: ./events/created_room.py
+msgid "notify_subj_deleted_small"
+msgstr "Una news od evento sono stati cancellati"
+
+#. Default: "Documents"
+#: ./portlets/groups_notification_portlet.pt:28
 msgid "portlet_room_label_docs"
 msgstr "Documenti"
 
 #. Default: "News and events"
-#: ./portlets/groups_notification_portlet.pt:34
+#: ./portlets/groups_notification_portlet.pt:41
 msgid "portlet_room_label_news_events"
 msgstr "News ed eventi"
 
@@ -89,32 +182,8 @@ msgstr "News ed eventi"
 msgid "portlet_room_title"
 msgstr "Impostazione notifiche"
 
-#. Default: "${title} has been created or modified. You can click on the following link to see it.\n${url}"
-#: ./events/created_room.py
-msgid "notify_msg_created"
-msgstr "${title} è stato creato o modificato. Puoi cliccare sul seguente link per vederlo.\n${url}"
+#. Default: "Impossible sending the notification. Mailserver not set in the portal."
+#: ./events/modified_object.py:42
+msgid "server_not_set"
+msgstr "Impossibile spedire la notifica. Il mailserver non è stato impostato."
 
-#. Default: "${title} has been deleted."
-#: ./events/created_room.py
-msgid "notify_msg_deleted"
-msgstr "${title} è stato cancellato."
-
-#. Default: "New news or event has been created or modified"
-#: ./events/created_room.py
-msgid "notify_subj_created_small"
-msgstr "Una nuova news od evento sono stati creati o modificati"
-
-#. Default: "News or event has been deleted"
-#: ./events/created_room.py
-msgid "notify_subj_deleted_small"
-msgstr "Una news od evento sono stati cancellati"
-
-#. Default: "New document has been created or modified"
-#: ./events/created_room.py
-msgid "notify_subj_created_big"
-msgstr "Un nuovo documento è stato creato o modificato"
-
-#. Default: "Document has been deleted"
-#: ./events/created_room.py
-msgid "notify_subj_deleted_big"
-msgstr "Un documento è stato cancellato"

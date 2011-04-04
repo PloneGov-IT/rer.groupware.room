@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-01-05 08:51+0000\n"
+"POT-Creation-Date: 2011-03-22 13:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,6 +59,10 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+#: ./events/modified_object.py:62
+msgid "Edit notify email sent to users"
+msgstr ""
+
 #. Default: "Events Area"
 #: ./profiles/default/types/EventsArea.xml
 msgid "Events Area"
@@ -69,6 +73,10 @@ msgstr ""
 #: ./profiles/default/types/EventsArea.xml
 #: ./profiles/default/types/GroupRoom.xml
 msgid "Folder Listing"
+msgstr ""
+
+#: ./events/modified_object.py:65
+msgid "Impossible sending the message: "
 msgstr ""
 
 #. Default: "News Area"
@@ -98,6 +106,11 @@ msgstr ""
 msgid "Room"
 msgstr ""
 
+#. Default: "The object \"${obj_title}\" has been modified. <br />You can click on the following link to see it."
+#: ./browser/modified_mail_template.pt:17
+msgid "The object &quot;${obj_title}&quot; has been modified. <br />You can click on the following link to see it."
+msgstr ""
+
 #. Default: "View"
 #: ./profiles/default/types/DocumentsArea.xml
 #: ./profiles/default/types/EventsArea.xml
@@ -105,18 +118,73 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#. Default: "All"
-#: ./portlets/groups_notification_portlet.pt:25
+#. Default: "[Groupware] modification of a content"
+#: ./browser/modified_mail_template.pt:11
+msgid "[Groupware] modification of a content"
+msgstr ""
+
+#. Default: "enable documents notify"
+#: ./portlets/groups_notification_portlet.pt:19
+msgid "enable documents notify"
+msgstr ""
+
+#. Default: "enable news and events notify"
+#: ./portlets/groups_notification_portlet.pt:32
+msgid "enable news and events notify"
+msgstr ""
+
+#. Default: "Impossible sending the notification. Mail template not set."
+#: ./events/modified_object.py:50
+msgid "mailtemplate_not_set"
+msgstr ""
+
+#. Default: "${title} has been created. You can click on the following link to see it.\n${url}"
+#: ./events/created_room.py
+msgid "notify_msg_created"
+msgstr ""
+
+#. Default: "${title} has been deleted."
+#: ./events/created_room.py
+msgid "notify_msg_deleted"
+msgstr ""
+
+#. Default: "New document has been created"
+#: ./events/created_room.py
+msgid "notify_subj_created_big"
+msgstr ""
+
+#. Default: "New news or event has been created"
+#: ./events/created_room.py
+msgid "notify_subj_created_small"
+msgstr ""
+
+#. Default: "Document has been deleted"
+#: ./events/created_room.py
+msgid "notify_subj_deleted_big"
+msgstr ""
+
+#. Default: "News or event has been deleted"
+#: ./events/created_room.py
+msgid "notify_subj_deleted_small"
+msgstr ""
+
+#. Default: "Documents"
+#: ./portlets/groups_notification_portlet.pt:28
 msgid "portlet_room_label_docs"
 msgstr ""
 
 #. Default: "News and events"
-#: ./portlets/groups_notification_portlet.pt:34
+#: ./portlets/groups_notification_portlet.pt:41
 msgid "portlet_room_label_news_events"
 msgstr ""
 
 #. Default: "Notification management"
 #: ./portlets/groups_notification_portlet.pt:6
 msgid "portlet_room_title"
+msgstr ""
+
+#. Default: "Impossible sending the notification. Mailserver not set in the portal."
+#: ./events/modified_object.py:42
+msgid "server_not_set"
 msgstr ""
 

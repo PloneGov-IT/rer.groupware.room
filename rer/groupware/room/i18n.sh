@@ -2,7 +2,7 @@
 
 DOMAIN='rer.groupware.room'
 
-i18ndude rebuild-pot --pot locales/${DOMAIN}.pot --create ${DOMAIN} .
+i18ndude rebuild-pot --pot locales/${DOMAIN}.pot --create ${DOMAIN} --merge locales/manual.pot .
 
 i18ndude sync --pot locales/${DOMAIN}.pot locales/*/LC_MESSAGES/${DOMAIN}.po
 

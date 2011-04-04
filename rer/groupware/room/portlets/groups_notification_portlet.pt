@@ -16,7 +16,11 @@
 					<dt tal:content="group/title">
 					</dt>
 					<dd>
-						<a href="" tal:attributes="href string:${here/absolute_url}?group_to_add=notifyDocs&room_id=${group/room_id}">
+						<a href=""
+						   alt="enable documents notify"
+						   title="enable documents notify"
+						   i18n:attributes="alt; title"
+						   tal:attributes="href string:${here/absolute_url}?group_to_add=notifyDocs&room_id=${group/room_id}">
 							<img tal:condition="python:group.get('notification_docs')"
 								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_true.png"/>
 							<img tal:condition="python:not group.get('notification_docs')"
@@ -25,7 +29,11 @@
 						</a>
 					</dd>
 					<dd>
-						<a href="" tal:attributes="href string:${here/absolute_url}?group_to_add=notifyNewsEvents&room_id=${group/room_id}">
+						<a href=""
+						   alt="enable news and events notify"
+                           title="enable news and events notify"
+                           i18n:attributes="alt; title"
+						   tal:attributes="href string:${here/absolute_url}?group_to_add=notifyNewsEvents&room_id=${group/room_id}">
 							<img tal:condition="python:group.get('notification_news_events')"
 								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_true.png"/>
 							<img tal:condition="python:not group.get('notification_news_events')"

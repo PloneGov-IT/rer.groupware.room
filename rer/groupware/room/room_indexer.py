@@ -5,6 +5,6 @@ from plone.indexer import indexer
 def parent_room_index(object, **kw):
     parent_folder=object.getFolderWhenPortalFactory()
     for parent in parent_folder.aq_chain:
-        if parent.portal_type == 'GroupRoom':
+        if getattr(parent,'portal_type','') == 'GroupRoom':
             return parent.Title()
     return ''

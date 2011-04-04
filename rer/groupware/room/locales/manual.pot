@@ -1,0 +1,48 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-02-21 08:12+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: rer.groupware.room\n"
+
+#. Default: "${title} has been created. You can click on the following link to see it.\n${url}"
+#: ./events/created_room.py
+msgid "notify_msg_created"
+msgstr ""
+
+#. Default: "${title} has been deleted."
+#: ./events/created_room.py
+msgid "notify_msg_deleted"
+msgstr ""
+
+#. Default: "New news or event has been created"
+#: ./events/created_room.py
+msgid "notify_subj_created_small"
+msgstr ""
+
+#. Default: "News or event has been deleted"
+#: ./events/created_room.py
+msgid "notify_subj_deleted_small"
+msgstr ""
+
+#. Default: "New document has been created"
+#: ./events/created_room.py
+msgid "notify_subj_created_big"
+msgstr ""
+
+#. Default: "Document has been deleted"
+#: ./events/created_room.py
+msgid "notify_subj_deleted_big"
+msgstr ""

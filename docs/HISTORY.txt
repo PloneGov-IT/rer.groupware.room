@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1.0-Unreleased (2010-04-??)
+------------------
+
+* removed reviewer role to editorAdv [andrea]
+* customized notification methods: now creation and delete are managed by roles, and changes by an event [andrea]
+
 1.0.7 (2010-01-26)
 ------------------
 

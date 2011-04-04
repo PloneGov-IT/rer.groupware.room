@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0.7'
+version = '1.1.0-Unreleased'
 
 setup(name='rer.groupware.room',
       version=version,

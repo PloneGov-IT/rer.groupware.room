@@ -19,11 +19,11 @@ from redturtle.portlet.collection.rtcollectionportlet import \
     Assignment as CollectionAssignment
 from rer.groupware.custom.portlets.managers import \
     Assignment as ProjectsAssignment
-from zope.app.container.interfaces import IObjectRemovedEvent, INameChooser
+from zope.app.container.interfaces import IObjectAddedEvent, IObjectRemovedEvent, \
+    INameChooser
 from zope.component import getMultiAdapter, getUtility, queryUtility
-from zope.lifecycleevent.interfaces import IObjectModifiedEvent
-
 import logging
+
 logger = logging.getLogger('rer.groupware.room')
 
 class CreateRoomStructure(object):
@@ -130,7 +130,7 @@ class CreateRoomStructure(object):
         self.setFolderLocalRoles(forum,
                                  list_groups=[{'id':"%s.hosts"%room_id,'roles':['Reader']},
                                               {'id':'%s.members'%room_id,'roles':['Contributor','Editor',]},
-                                              {'id':'%s.membersAdv'%room_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
+                                              {'id':'%s.membersAdv'%room_id,'roles':['Contributor','Editor','EditorAdv']},
                                               {'id':'%s.coordinators'%room_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},])
         return forum
     
@@ -145,7 +145,7 @@ class CreateRoomStructure(object):
         self.setFolderLocalRoles(blog,
                                  list_groups=[{'id':"%s.hosts"%room_id,'roles':['Reader']},
                                               {'id':'%s.members'%room_id,'roles':['Contributor','Editor',]},
-                                              {'id':'%s.membersAdv'%room_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
+                                              {'id':'%s.membersAdv'%room_id,'roles':['Contributor','Editor','EditorAdv']},
                                               {'id':'%s.coordinators'%room_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},])
         return blog
     
@@ -173,7 +173,7 @@ class CreateRoomStructure(object):
                                   types=['Document','File','Image','Folder'],
                                   groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                           {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
-                                          {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
+                                          {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
                                           {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
                                   )
         events=self.createArea(id='eventi',
@@ -182,7 +182,7 @@ class CreateRoomStructure(object):
                                types=['Event'],
                                groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                        {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
-                                       {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
+                                       {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
                                        {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
                                )
         self.forum=self.createForum()
@@ -192,7 +192,7 @@ class CreateRoomStructure(object):
                              types=['News Item'],
                              groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                      {'id':'%s.members'%base_id,'roles':['Reader']},
-                                     {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
+                                     {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
                                      {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
                              )
         projects=self.createArea(id='progetti',
@@ -201,7 +201,7 @@ class CreateRoomStructure(object):
                                  types=['Project'],
                                  groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                          {'id':'%s.members'%base_id,'roles':['Contributor','Editor','Employee']},
-                                         {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Reviewer','Employee']},
+                                         {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Employee']},
                                          {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Projectmanager','Contributor','Editor','EditorAdv','Reviewer']},]
                                  )
         polls=self.createArea(id='sondaggi',
@@ -210,7 +210,7 @@ class CreateRoomStructure(object):
                               types=['PlonePopoll'],
                               groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                       {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
-                                      {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Reviewer']},
+                                      {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
                                       {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
                               )
         
@@ -347,7 +347,7 @@ class CreateRoomStructure(object):
         rule_title='%s-%s'%(self.context.getId(),rule_type)
         
         message_created=self.translation_service.translate(msgid='notify_msg_created',
-                                                           default='${title} has been created or modified. You can click on the following link to see it.\n${url}',
+                                                           default='${title} has been created. You can click on the following link to see it.\n${url}',
                                                            domain="rer.groupware.room",
                                                            context=self.context)
         
@@ -357,7 +357,7 @@ class CreateRoomStructure(object):
                                                            context=self.context)
         if rule_type == 'ruleNewsEvents':
             subject_created=self.translation_service.translate(msgid='notify_subj_created_small',
-                                                          default='New news or event has been created or modified',
+                                                          default='New news or event has been created',
                                                           domain="rer.groupware.room",
                                                           context=self.context)
             
@@ -365,8 +365,8 @@ class CreateRoomStructure(object):
                                                           default='News or event has been deleted',
                                                           domain="rer.groupware.room",
                                                           context=self.context)
-            self.createRule(rule_title="%s-modified" %rule_title,
-                            rule_event=IObjectModifiedEvent,
+            self.createRule(rule_title="%s-created" %rule_title,
+                            rule_event=IObjectAddedEvent,
                             group='%s.notifyNewsEvents'%self.context.getId(),
                             types_list=types_list,
                             message=message_created,
@@ -381,7 +381,7 @@ class CreateRoomStructure(object):
             
         if rule_type == 'ruleDocs':
             subject_created=self.translation_service.translate(msgid='notify_subj_created_big',
-                                                          default='New document has been created or modified',
+                                                          default='New document has been created',
                                                           domain="rer.groupware.room",
                                                           context=self.context)
             
@@ -390,8 +390,8 @@ class CreateRoomStructure(object):
                                                           domain="rer.groupware.room",
                                                           context=self.context)
             
-            self.createRule(rule_title="%s-modified" %rule_title,
-                            rule_event=IObjectModifiedEvent,
+            self.createRule(rule_title="%s-created" %rule_title,
+                            rule_event=IObjectAddedEvent,
                             group='%s.notifyDocs'%self.context.getId(),
                             types_list=types_list,
                             message=message_created,

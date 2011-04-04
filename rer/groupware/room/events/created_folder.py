@@ -5,7 +5,17 @@ from zope.app.component.hooks import getSite
 
 def setParentFilteredTypes(obj,event):
     parent=obj.aq_parent
-    if obj.portal_type == 'GroupRoom' or parent.portal_type == 'GroupRoom':
+    portal=obj.portal_url.getPortalObject()
+    pquickinstaller = getToolByName(portal, 'portal_quickinstaller')
+    installed_products = pquickinstaller.listInstalledProducts()
+    GPWRoomFound=False
+    for p in installed_products:
+        if p['title'] == u'RER: Groupware Room':
+            GPWRoomFound = True
+            break
+    if not GPWRoomFound:
+        return
+    if obj.portal_type == 'GroupRoom' or parent.portal_type in ['GroupRoom','Plone Site']:
         return
     obj.setConstrainTypesMode(parent.getConstrainTypesMode())
     obj.setLocallyAllowedTypes(parent.getLocallyAllowedTypes())
