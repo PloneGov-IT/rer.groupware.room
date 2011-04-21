@@ -5,7 +5,7 @@
 				  item_type python:options['item_type'];
 				  item python:options['item'];"
 >From: <span tal:replace="mfrom" />
-To: <span tal:replace="mto" />
+bcc: <span tal:replace="mto" />
 Mime-Version: 1.0
 Content-Type: text/html; charset=utf-8
 Subject: <p tal:omit-tag="" i18n:domain="rer.groupware.room" i18n:translate="">

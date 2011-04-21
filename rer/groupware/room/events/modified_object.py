@@ -22,7 +22,6 @@ def sendNotificationOnModify(obj,event):
     if not room:
         #the item isn't created in a room, and there is nothing to do
         return
-    import pdb;pdb.set_trace()
     if obj.portal_type in notify_newsevents:
         sendMail(obj,room=room,group_type='notifyNewsEvents')
     elif obj.portal_type in notify_docs:
@@ -52,7 +51,7 @@ def sendMail(obj,room,group_type):
         return
     friendly_type=portal_types.getTypeInfo(obj.portal_type).Title()
     mail_text = mail_template(mfrom=sender_mail,
-                              mto='andrea.cecchi@redturtle.net',
+                              mto=dest,
                               item=obj,
                               item_type=translation_service.utranslate(msgid=friendly_type,domain='plone',context=obj),   
                               charset=encoding,
@@ -64,7 +63,7 @@ def sendMail(obj,room,group_type):
         
     except Exception, err:
         msg_text=_(u'Impossible sending the message: ')
-        obj.plone_log(msg_text+ err)
+        obj.plone_log(msg_text+ err[0])
 
 def getEmailDest(portal,group_id):
     acl_users = getToolByName(portal, 'acl_users')
