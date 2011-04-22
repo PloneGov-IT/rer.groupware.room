@@ -121,10 +121,12 @@ class CreateRoomStructure(object):
         room_id=self.context.getId()
         forum_id=self.context.invokeFactory(id="forum",
                                             type_name='PloneboardForum',
-                                            title="Forum")
+                                            title="Forum",
+                                            maxAttachmentSize=10000)
         if not forum_id:
             return
         forum=self.context.restrictedTraverse(forum_id)
+        
         wf_tool=getToolByName(self.context,'portal_workflow')
         wf_tool.doActionFor(forum, 'make_freeforall')
         self.setFolderLocalRoles(forum,

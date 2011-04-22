@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.2 (2011-04-22)
+------------------
+
+* fixed default attachment dimension for forums [andrea]
+
 1.1.1 (2011-04-21)
 ------------------
 
