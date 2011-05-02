@@ -1,0 +1,4 @@
+<div id="roomTitle" tal:define="room nocall:view/room">
+	<h2 tal:content="room/Title">sede di roma</h2>
+	<p tal:condition="room/Description" tal:content="room/Description">description</p>
+</div>

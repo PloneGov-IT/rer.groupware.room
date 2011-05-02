@@ -1,6 +1,6 @@
 from zope.interface import Interface
 
-class IRERGroupRoomLayer(Interface):
+class IRERGroupwareRoomLayer(Interface):
     """A Layer interface"""
 
 

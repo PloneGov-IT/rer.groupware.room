@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-03-22 13:22+0000\n"
+"POT-Creation-Date: 2011-04-29 12:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,6 +181,16 @@ msgstr ""
 #. Default: "Notification management"
 #: ./portlets/groups_notification_portlet.pt:6
 msgid "portlet_room_title"
+msgstr ""
+
+#. Default: "Image"
+#: ./content/group_room.py:21
+msgid "rer_grouproom_image"
+msgstr ""
+
+#. Default: "Insert an image for the viewlet with the group name."
+#: ./content/group_room.py:22
+msgid "rer_grouproom_image_help"
 msgstr ""
 
 #. Default: "Impossible sending the notification. Mailserver not set in the portal."

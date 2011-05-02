@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.3 (2011-04-???)
+------------------
+
+* Added image field for the room, and a viewlet that show the title of the room [andrea]
+
 1.1.2 (2011-04-22)
 ------------------
 

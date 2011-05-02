@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rer.groupware.room\n"
-"POT-Creation-Date: 2011-03-22 13:22+0000\n"
+"POT-Creation-Date: 2011-04-29 12:30+0000\n"
 "PO-Revision-Date: 2010-04-21 09:47+0000\n"
 "Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.it>\n"
 "Language-Team: RedTurtle Technology <info@redturtle.net>\n"
@@ -138,9 +138,7 @@ msgstr "Impossibile spedire la notifica. Mail template non impostato"
 #. Default: "${title} has been created. You can click on the following link to see it.\n${url}"
 #: ./events/created_room.py
 msgid "notify_msg_created"
-msgstr ""
-"${title} è stato creato. Puoi cliccare sul seguente link per vederlo.\n"
-"${url}"
+msgstr "${title} è stato creato. Puoi cliccare sul seguente link per vederlo.\n${url}"
 
 #. Default: "${title} has been deleted."
 #: ./events/created_room.py
@@ -181,6 +179,16 @@ msgstr "News ed eventi"
 #: ./portlets/groups_notification_portlet.pt:6
 msgid "portlet_room_title"
 msgstr "Impostazione notifiche"
+
+#. Default: "Image"
+#: ./content/group_room.py:21
+msgid "rer_grouproom_image"
+msgstr "Immagine"
+
+#. Default: "Insert an image for the viewlet with the group name."
+#: ./content/group_room.py:22
+msgid "rer_grouproom_image_help"
+msgstr "Inserisci un immagine per la viewlet col titolo."
 
 #. Default: "Impossible sending the notification. Mailserver not set in the portal."
 #: ./events/modified_object.py:42

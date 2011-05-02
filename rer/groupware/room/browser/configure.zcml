@@ -11,7 +11,23 @@
         template="modified_mail_template.pt"
         permission="zope.Public"
         />  
-		
+
+ <!-- title viewlet -->
+  <browser:viewlet
+      name="rer.groupware_room_title"
+      manager="plone.app.layout.viewlets.interfaces.IPortalTop"
+      class=".viewlets.RERGroupwareRoomTitleViewlet"
+      layer="..interfaces.IRERGroupwareRoomLayer"
+      permission="zope2.View"
+      />
+ <!-- Styles management -->
+    <browser:viewlet
+      name="room_styles.viewlet"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+      class=".viewlets.RERGroupwareRoomColorViewlet"
+      layer="..interfaces.IRERGroupwareRoomLayer"
+      permission="zope.Public"
+        />
  <!-- Resource directory for images -->
   <browser:resourceDirectory
       name="rer.groupware.room.images"
