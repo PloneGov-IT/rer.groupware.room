@@ -35,7 +35,7 @@ class RERGroupwareRoomColorViewlet(GroupwareRoomViewletBase):
         css = '#roomTitle {background-color:#552649'
         if image:
             styles=[]
-            css='%s;background-image:url(%s)' %(css,image.absolute_url())
+            css='%s;background-image:url(%s); background-position: 100%% 0;' %(css,image.absolute_url())
             css =css+'}'
             return_string = "<style type='text/css'>%s</style>" %css
         return return_string
