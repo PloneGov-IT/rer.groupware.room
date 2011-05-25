@@ -5,6 +5,7 @@ Changelog
 ------------------
 
 * Added image field for the room, and a viewlet that show the title of the room [andrea]
+* Fixed accessibility of notification portlet with WAI ARIA roles [andrea]
 
 1.1.2 (2011-04-22)
 ------------------

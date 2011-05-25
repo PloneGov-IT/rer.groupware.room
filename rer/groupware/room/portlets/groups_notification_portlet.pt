@@ -22,9 +22,17 @@
 						   i18n:attributes="alt; title"
 						   tal:attributes="href string:${here/absolute_url}?group_to_add=notifyDocs&room_id=${group/room_id}">
 							<img tal:condition="python:group.get('notification_docs')"
-								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_true.png"/>
+								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_true.png"
+								 role="checkbox"
+								 alt="enable documents notify"
+								 aria-checked="true"
+								 i18n:attributes="alt" />
 							<img tal:condition="python:not group.get('notification_docs')"
-								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_false.png"/>
+								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_false.png"
+								 alt="enable documents notify"
+								 role="checkbox"
+                                 aria-checked="false"
+								 i18n:attributes="alt" />
 							<span i18n:translate="portlet_room_label_docs">Documents</span>
 						</a>
 					</dd>
@@ -35,9 +43,17 @@
                            i18n:attributes="alt; title"
 						   tal:attributes="href string:${here/absolute_url}?group_to_add=notifyNewsEvents&room_id=${group/room_id}">
 							<img tal:condition="python:group.get('notification_news_events')"
-								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_true.png"/>
+								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_true.png"
+								 alt="enable news and events notify"
+								 role="checkbox"
+                                 aria-checked="true"
+                                 i18n:attributes="alt"  />
 							<img tal:condition="python:not group.get('notification_news_events')"
-								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_false.png"/>
+								 tal:attributes="src string:${here/portal_url}/++resource++rer.groupware.room.images/group_false.png"
+								 alt="enable news and events notify"
+								 role="checkbox"
+                                 aria-checked="false"
+                                 i18n:attributes="alt"  />
 							<span i18n:translate="portlet_room_label_news_events">News and events</span>
 						</a>
 					</dd>
