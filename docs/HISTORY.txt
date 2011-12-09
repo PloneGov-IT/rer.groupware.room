@@ -4,7 +4,6 @@ Changelog
 1.1.4 (2011-12-12)
 ------------------
 
-* fixed SGM views to show the title of the groups [andrea]
 * fixed mail text for rules and event when creating new items in a room [andrea]
 
 1.1.3 (2011-07-08)
