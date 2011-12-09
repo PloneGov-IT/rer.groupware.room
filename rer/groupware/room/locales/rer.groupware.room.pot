@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-04-29 12:30+0000\n"
+"POT-Creation-Date: 2011-12-09 16:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: ./events/modified_object.py:62
+#: ./events/modified_object.py:63
 msgid "Edit notify email sent to users"
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Folder Listing"
 msgstr ""
 
-#: ./events/modified_object.py:65
+#: ./events/modified_object.py:66
 msgid "Impossible sending the message: "
 msgstr ""
 
@@ -107,7 +107,7 @@ msgid "Room"
 msgstr ""
 
 #. Default: "The object \"${obj_title}\" has been modified. <br />You can click on the following link to see it."
-#: ./browser/modified_mail_template.pt:17
+#: ./browser/modified_mail_template.pt:20
 msgid "The object &quot;${obj_title}&quot; has been modified. <br />You can click on the following link to see it."
 msgstr ""
 
@@ -123,27 +123,72 @@ msgstr ""
 msgid "[Groupware] modification of a content"
 msgstr ""
 
+#. Default: "Blog"
+#: ./events/created_room.py:188
+msgid "area_blog_title"
+msgstr ""
+
+#. Default: "Documents"
+#: ./events/created_room.py:185
+msgid "area_documents_title"
+msgstr ""
+
+#. Default: "Events"
+#: ./events/created_room.py:186
+msgid "area_events_title"
+msgstr ""
+
+#. Default: "Forum"
+#: ./events/created_room.py:187
+msgid "area_forum_title"
+msgstr ""
+
+#. Default: "News"
+#: ./events/created_room.py:189
+msgid "area_news_title"
+msgstr ""
+
+#. Default: "Polls"
+#: ./events/created_room.py:191
+msgid "area_polls_title"
+msgstr ""
+
+#. Default: "Projects"
+#: ./events/created_room.py:190
+msgid "area_projects_title"
+msgstr ""
+
 #. Default: "enable documents notify"
 #: ./portlets/groups_notification_portlet.pt:19
 msgid "enable documents notify"
 msgstr ""
 
 #. Default: "enable news and events notify"
-#: ./portlets/groups_notification_portlet.pt:32
+#: ./portlets/groups_notification_portlet.pt:40
 msgid "enable news and events notify"
 msgstr ""
 
+#. Default: "Image"
+#: ./content/group_room.py:39
+msgid "label_image"
+msgstr ""
+
 #. Default: "Impossible sending the notification. Mail template not set."
-#: ./events/modified_object.py:50
+#: ./events/modified_object.py:51
 msgid "mailtemplate_not_set"
 msgstr ""
 
-#. Default: "${title} has been created. You can click on the following link to see it.\n${url}"
+#. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender."
+#: ./browser/modified_mail_template.pt:16
+msgid "no_reply_label"
+msgstr ""
+
+#. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender.\n\n ${title} has been created. You can click on the following link to see it.\n${url}"
 #: ./events/created_room.py
 msgid "notify_msg_created"
 msgstr ""
 
-#. Default: "${title} has been deleted."
+#. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender.\n\n ${title} has been deleted."
 #: ./events/created_room.py
 msgid "notify_msg_deleted"
 msgstr ""
@@ -169,12 +214,12 @@ msgid "notify_subj_deleted_small"
 msgstr ""
 
 #. Default: "Documents"
-#: ./portlets/groups_notification_portlet.pt:28
+#: ./portlets/groups_notification_portlet.pt:36
 msgid "portlet_room_label_docs"
 msgstr ""
 
 #. Default: "News and events"
-#: ./portlets/groups_notification_portlet.pt:41
+#: ./portlets/groups_notification_portlet.pt:57
 msgid "portlet_room_label_news_events"
 msgstr ""
 
@@ -183,18 +228,8 @@ msgstr ""
 msgid "portlet_room_title"
 msgstr ""
 
-#. Default: "Image"
-#: ./content/group_room.py:21
-msgid "rer_grouproom_image"
-msgstr ""
-
-#. Default: "Insert an image for the viewlet with the group name."
-#: ./content/group_room.py:22
-msgid "rer_grouproom_image_help"
-msgstr ""
-
 #. Default: "Impossible sending the notification. Mailserver not set in the portal."
-#: ./events/modified_object.py:42
+#: ./events/modified_object.py:43
 msgid "server_not_set"
 msgstr ""
 

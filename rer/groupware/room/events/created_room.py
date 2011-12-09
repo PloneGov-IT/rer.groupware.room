@@ -25,6 +25,10 @@ from zope.component import getMultiAdapter, getUtility, queryUtility
 import logging
 
 logger = logging.getLogger('rer.groupware.room')
+from plone.i18n.normalizer.interfaces import IURLNormalizer
+from zope.component._api import queryUtility
+from rer.groupware.room import roomMessageFactory as _
+from zope.i18n import translate
 
 class CreateRoomStructure(object):
 
@@ -59,7 +63,17 @@ class CreateRoomStructure(object):
         
         self.adjustPortletPage()
         logger.info('Stanza creata')
-        
+    
+    def generateId(self, title):
+        """
+        Obtain a nice id from the title in two steps: 
+        first we remove forbidden 
+        chars and the we ensure ourselves it is unique
+        """
+        title=' '.join(title.split())
+        id = queryUtility(IURLNormalizer).normalize(title)
+        return id
+    
     #WE CREATE THE PORTLETPAGE
     def createPortletPage(self):
         """
@@ -117,11 +131,11 @@ class CreateRoomStructure(object):
         
         
     #THEN WE CREATE THE AREAS
-    def createForum(self):
+    def createForum(self,title):
         room_id=self.context.getId()
-        forum_id=self.context.invokeFactory(id="forum",
+        forum_id=self.context.invokeFactory(id=self.generateId(title),
                                             type_name='PloneboardForum',
-                                            title="Forum",
+                                            title=title,
                                             maxAttachmentSize=10000)
         if not forum_id:
             return
@@ -136,11 +150,11 @@ class CreateRoomStructure(object):
                                               {'id':'%s.coordinators'%room_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},])
         return forum
     
-    def createBlog(self):
+    def createBlog(self,title):
         room_id=self.context.getId()
-        blog_id=self.context.invokeFactory(id="blog",
+        blog_id=self.context.invokeFactory(id=self.generateId(title),
                                    type_name='Blog',
-                                   title="Blog")
+                                   title=title)
         if not blog_id:
             return
         blog=self.context.restrictedTraverse(blog_id)
@@ -168,9 +182,16 @@ class CreateRoomStructure(object):
     
     def createAreas(self):
         base_id= self.context.getId()
-        self.blog=self.createBlog()
-        documents=self.createArea(id='documenti',
-                                  title='Documenti',
+        documents_title=translate(_('area_documents_title',default="Documents"),context=self.context.REQUEST)
+        events_title=translate(_('area_events_title',default="Events"),context=self.context.REQUEST)
+        forum_title=translate(_('area_forum_title',default="Forum"),context=self.context.REQUEST)
+        blog_title=translate(_('area_blog_title',default="Blog"),context=self.context.REQUEST)
+        news_title=translate(_('area_news_title',default="News"),context=self.context.REQUEST)
+        projects_title=translate(_('area_projects_title',default="Projects"),context=self.context.REQUEST)
+        polls_title=translate(_('area_polls_title',default="Polls"),context=self.context.REQUEST)
+        self.blog=self.createBlog(blog_title)
+        documents=self.createArea(id=self.generateId(documents_title),
+                                  title=documents_title,
                                   portal_type="DocumentsArea",
                                   types=['Document','File','Image','Folder'],
                                   groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
@@ -178,8 +199,8 @@ class CreateRoomStructure(object):
                                           {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
                                           {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
                                   )
-        events=self.createArea(id='eventi',
-                               title='Eventi',
+        events=self.createArea(id=self.generateId(events_title),
+                               title=events_title,
                                portal_type="EventsArea",
                                types=['Event'],
                                groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
@@ -187,9 +208,9 @@ class CreateRoomStructure(object):
                                        {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
                                        {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
                                )
-        self.forum=self.createForum()
-        news=self.createArea(id='notizie',
-                             title='Notizie',
+        self.forum=self.createForum(forum_title)
+        news=self.createArea(id=self.generateId(news_title),
+                             title=news_title,
                              portal_type="NewsArea",
                              types=['News Item'],
                              groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
@@ -197,8 +218,8 @@ class CreateRoomStructure(object):
                                      {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
                                      {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
                              )
-        projects=self.createArea(id='progetti',
-                                 title='Progetti',
+        projects=self.createArea(id=self.generateId(projects_title),
+                                 title=projects_title,
                                  portal_type="ProjectsArea",
                                  types=['Project'],
                                  groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
@@ -206,8 +227,8 @@ class CreateRoomStructure(object):
                                          {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Employee']},
                                          {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Projectmanager','Contributor','Editor','EditorAdv','Reviewer']},]
                                  )
-        polls=self.createArea(id='sondaggi',
-                              title='Sondaggi',
+        polls=self.createArea(id=self.generateId(polls_title),
+                              title=polls_title,
                               portal_type="PollsArea",
                               types=['PlonePopoll'],
                               groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
@@ -347,14 +368,14 @@ class CreateRoomStructure(object):
     #THEN WE CREATE THE RULES FOR THE ROOM
     def createRules(self,rule_type,group_type,types_list):
         rule_title='%s-%s'%(self.context.getId(),rule_type)
-        
+        no_reply_txt="This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender.\n\n"
         message_created=self.translation_service.translate(msgid='notify_msg_created',
-                                                           default='${title} has been created. You can click on the following link to see it.\n${url}',
+                                                           default="%s ${title} has been created. You can click on the following link to see it.\n${url}" %no_reply_txt,
                                                            domain="rer.groupware.room",
                                                            context=self.context)
         
         message_deleted=self.translation_service.translate(msgid='notify_msg_deleted',
-                                                           default='${title} has been deleted.',
+                                                           default='%s ${title} has been deleted.' %no_reply_txt,
                                                            domain="rer.groupware.room",
                                                            context=self.context)
         if rule_type == 'ruleNewsEvents':

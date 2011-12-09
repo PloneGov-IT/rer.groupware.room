@@ -4,7 +4,7 @@
                   mto python:options['mto'];
 				  item_type python:options['item_type'];
 				  item python:options['item'];"
->From: <span tal:replace="mfrom" />
+>From: <span tal:replace="structure mfrom" />
 bcc: <span tal:replace="mto" />
 Mime-Version: 1.0
 Content-Type: text/html; charset=utf-8
@@ -13,6 +13,9 @@ Subject: <p tal:omit-tag="" i18n:domain="rer.groupware.room" i18n:translate="">
 Precedence: bulk
 
 
+<p i18n:domain="rer.groupware.room" i18n:translate="no_reply_label">
+This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender.
+</p>
 <p i18n:domain="rer.groupware.room" i18n:translate="">
     The object &quot;<span tal:replace="item/Title" i18n:name="obj_title" />&quot; has been modified.
 	<br />You can click on the following link to see it.

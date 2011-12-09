@@ -17,12 +17,12 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rer.groupware.room\n"
 
-#. Default: "${title} has been created. You can click on the following link to see it.\n${url}"
+#. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender.\n\n ${title} has been created. You can click on the following link to see it.\n${url}"
 #: ./events/created_room.py
 msgid "notify_msg_created"
 msgstr ""
 
-#. Default: "${title} has been deleted."
+#. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender.\n\n ${title} has been deleted."
 #: ./events/created_room.py
 msgid "notify_msg_deleted"
 msgstr ""

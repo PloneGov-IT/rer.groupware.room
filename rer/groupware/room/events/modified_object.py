@@ -38,6 +38,7 @@ def sendMail(obj,room,group_type):
     portal_types=getToolByName(portal, "portal_types")
     translation_service=getToolByName(portal, "translation_service")
     sender_mail=portal.email_from_address
+    sender_name=portal.email_from_name
     if not sender_mail:
         message=_('server_not_set',default=u'Impossible sending the notification. Mailserver not set in the portal.')
         putils.addPortalMessage(message, type='error')
@@ -50,7 +51,7 @@ def sendMail(obj,room,group_type):
         message=_('mailtemplate_not_set',default=u'Impossible sending the notification. Mail template not set.')
         return
     friendly_type=portal_types.getTypeInfo(obj.portal_type).Title()
-    mail_text = mail_template(mfrom=sender_mail,
+    mail_text = mail_template(mfrom="%s <%s>" %(sender_name,sender_mail),
                               mto=dest,
                               item=obj,
                               item_type=translation_service.utranslate(msgid=friendly_type,domain='plone',context=obj),   
