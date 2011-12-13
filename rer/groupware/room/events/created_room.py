@@ -189,6 +189,15 @@ class CreateRoomStructure(object):
         news_title=translate(_('area_news_title',default="News"),context=self.context.REQUEST)
         projects_title=translate(_('area_projects_title',default="Projects"),context=self.context.REQUEST)
         polls_title=translate(_('area_polls_title',default="Polls"),context=self.context.REQUEST)
+        news=self.createArea(id=self.generateId(news_title),
+                             title=news_title,
+                             portal_type="NewsArea",
+                             types=['News Item'],
+                             groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
+                                     {'id':'%s.members'%base_id,'roles':['Reader']},
+                                     {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
+                                     {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
+                             )
         self.blog=self.createBlog(blog_title)
         documents=self.createArea(id=self.generateId(documents_title),
                                   title=documents_title,
@@ -209,15 +218,7 @@ class CreateRoomStructure(object):
                                        {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
                                )
         self.forum=self.createForum(forum_title)
-        news=self.createArea(id=self.generateId(news_title),
-                             title=news_title,
-                             portal_type="NewsArea",
-                             types=['News Item'],
-                             groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
-                                     {'id':'%s.members'%base_id,'roles':['Reader']},
-                                     {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
-                                     {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
-                             )
+        
         projects=self.createArea(id=self.generateId(projects_title),
                                  title=projects_title,
                                  portal_type="ProjectsArea",
