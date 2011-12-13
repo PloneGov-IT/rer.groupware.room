@@ -6,6 +6,7 @@ Changelog
 
 * fixed mail text for rules and event when creating new items in a room [andrea]
 * fixed created room event: now is fixed the default view for topics [andrea]
+* added tiny configuration for room types [andrea]
 
 1.1.3 (2011-07-08)
 ------------------

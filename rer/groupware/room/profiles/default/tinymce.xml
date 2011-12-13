@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<object>
+ <resourcetypes>
+  <linkable purge="False">
+   <element value="DocumentsArea" />
+   <element value="EventsArea" />
+   <element value="NewsArea" />
+   <element value="PollsArea" />
+   <element value="ProjectsArea" />
+   <element value="GroupRoom" />
+   <element value="Blog" />
+  </linkable>
+  <containsobjects purge="False">
+   <element value="DocumentsArea" />
+   <element value="EventsArea" />
+   <element value="NewsArea" />
+   <element value="PollsArea" />
+   <element value="ProjectsArea" />
+   <element value="GroupRoom" />
+   <element value="Blog" />
+  </containsobjects>
+ </resourcetypes>
+</object>
