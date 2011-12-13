@@ -332,6 +332,8 @@ class CreateRoomStructure(object):
 
         
         #optional settings
+        topic.selectViewTemplate(templateId='groupware_topic_view')
+        
         if kwargs.get('set_as_default_view',False):
             #set topic as view of the folder
             folder.setDefaultPage(topic_id)
