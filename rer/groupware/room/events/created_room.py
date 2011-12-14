@@ -370,27 +370,46 @@ class CreateRoomStructure(object):
     
     #THEN WE CREATE THE RULES FOR THE ROOM
     def createRules(self,rule_type,group_type,types_list):
+        room_title=self.context.Title()
         rule_title='%s-%s'%(self.context.getId(),rule_type)
         no_reply_txt="This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender.\n\n"
-        message_created=self.translation_service.translate(msgid='notify_msg_created',
-                                                           default="%s ${title} has been created. You can click on the following link to see it.\n${url}" %no_reply_txt,
-                                                           domain="rer.groupware.room",
-                                                           context=self.context)
-        
-        message_deleted=self.translation_service.translate(msgid='notify_msg_deleted',
-                                                           default='%s ${title} has been deleted.' %no_reply_txt,
-                                                           domain="rer.groupware.room",
-                                                           context=self.context)
+        msg_created_txt=u'%s The content "${title}" has been created.\nYou can click on the following link to see it:${url}' %no_reply_txt
+        msg_deleted_txt=u'%s The content "${title}" has been deleted.' %no_reply_txt
+        message_created=translate(_('notify_msg_created',
+                                default=msg_created_txt),
+                                context=self.context.REQUEST)
+        message_deleted=translate(_('notify_msg_deleted',
+                                default=msg_deleted_txt),
+                                context=self.context.REQUEST)
+#        message_created=self.translation_service.translate(msgid='notify_msg_created',
+#                                                           default="%s ${title} has been created. You can click on the following link to see it.\n${url}" %no_reply_txt,
+#                                                           domain="rer.groupware.room",
+#                                                           context=self.context)
+#        
+#        message_deleted=self.translation_service.translate(msgid='notify_msg_deleted',
+#                                                           default='%s ${title} has been deleted.' %no_reply_txt,
+#                                                           domain="rer.groupware.room",
+#                                                           context=self.context)
         if rule_type == 'ruleNewsEvents':
-            subject_created=self.translation_service.translate(msgid='notify_subj_created_small',
-                                                          default='New news or event has been created',
-                                                          domain="rer.groupware.room",
-                                                          context=self.context)
+            subject_created=translate(_('notify_subj_created_small',
+                                        default='New news or event has been created in the group: ${room_title}',
+                                        mapping={u"room_title" :room_title,}),
+                                       context=self.context.REQUEST)
             
-            subject_deleted=self.translation_service.translate(msgid='notify_subj_deleted_small',
-                                                          default='News or event has been deleted',
-                                                          domain="rer.groupware.room",
-                                                          context=self.context)
+            subject_deleted=translate(_('notify_subj_deleted_small',
+                                        default='A news or event has been deleted in the group: ${room_title}',
+                                        mapping={u"room_title" :room_title,}),
+                                       context=self.context.REQUEST)
+            
+#            subject_created=self.translation_service.translate(msgid='notify_subj_created_small',
+#                                                          default='New news or event has been created',
+#                                                          domain="rer.groupware.room",
+#                                                          context=self.context)
+#            
+#            subject_deleted=self.translation_service.translate(msgid='notify_subj_deleted_small',
+#                                                          default='News or event has been deleted',
+#                                                          domain="rer.groupware.room",
+#                                                          context=self.context)
             self.createRule(rule_title="%s-created" %rule_title,
                             rule_event=IObjectAddedEvent,
                             group='%s.notifyNewsEvents'%self.context.getId(),
@@ -406,15 +425,26 @@ class CreateRoomStructure(object):
                             subject=subject_deleted)
             
         if rule_type == 'ruleDocs':
-            subject_created=self.translation_service.translate(msgid='notify_subj_created_big',
-                                                          default='New document has been created',
-                                                          domain="rer.groupware.room",
-                                                          context=self.context)
             
-            subject_deleted=self.translation_service.translate(msgid='notify_subj_deleted_big',
-                                                          default='Document has been deleted',
-                                                          domain="rer.groupware.room",
-                                                          context=self.context)
+            subject_created=translate(_('notify_subj_created_big',
+                                        default='A New document has been created in the group: ${room_title}',
+                                        mapping={u"room_title" :room_title,}),
+                                       context=self.context.REQUEST)
+            
+            subject_deleted=translate(_('notify_subj_deleted_big',
+                                        default='A document has been deleted in the group: ${room_title}',
+                                        mapping={u"room_title" :room_title,}),
+                                       context=self.context.REQUEST)
+            
+#            subject_created=self.translation_service.translate(msgid='notify_subj_created_big',
+#                                                          default='New document has been created in the group: %s',
+#                                                          domain="rer.groupware.room",
+#                                                          context=self.context)
+#            
+#            subject_deleted=self.translation_service.translate(msgid='notify_subj_deleted_big',
+#                                                          default='Document has been deleted',
+#                                                          domain="rer.groupware.room",
+#                                                          context=self.context)
             
             self.createRule(rule_title="%s-created" %rule_title,
                             rule_event=IObjectAddedEvent,

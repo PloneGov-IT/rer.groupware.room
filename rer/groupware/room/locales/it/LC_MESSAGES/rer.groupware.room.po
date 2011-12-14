@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rer.groupware.room\n"
-"POT-Creation-Date: 2011-12-09 16:10+0000\n"
+"POT-Creation-Date: 2011-12-14 09:06+0000\n"
 "PO-Revision-Date: 2010-04-21 09:47+0000\n"
 "Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.it>\n"
 "Language-Team: RedTurtle Technology <info@redturtle.net>\n"
@@ -13,6 +13,11 @@ msgstr ""
 "Language-Name: Italian\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rer.groupware.room\n"
+
+#. Default: "A document has been modified in the group: ${room_title}"
+#: ./browser/modified_mail_template.pt:14
+msgid "A document has been modified in the group: ${room_title}"
+msgstr "Un documento è stato modificato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "A folder for the groups"
 #: ./profiles/default/types/GroupRoom.xml
@@ -43,6 +48,11 @@ msgstr "Una cartella per l'area sondaggi delle stanze"
 #: ./profiles/default/types/ProjectsArea.xml
 msgid "A folder for the room's projects area"
 msgstr "Una cartella per l'area progetti delle stanze"
+
+#. Default: "A news or event has been modified in the group: ${room_title}"
+#: ./browser/modified_mail_template.pt:12
+msgid "A news or event has been modified in the group: ${room_title}"
+msgstr "Un avviso o evento è stato modificato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "Documents Area"
 #: ./profiles/default/types/DocumentsArea.xml
@@ -103,10 +113,10 @@ msgstr ""
 msgid "Room"
 msgstr "Stanza"
 
-#. Default: "The object \"${obj_title}\" has been modified. <br />You can click on the following link to see it."
-#: ./browser/modified_mail_template.pt:20
-msgid "The object &quot;${obj_title}&quot; has been modified. <br />You can click on the following link to see it."
-msgstr "L'oggetto &quot;${obj_title}&quot; è stato modificato. <br />Puoi cliccare sul seguente link per vederlo."
+#. Default: "The item \"${obj_title}\" has been modified. <br />You can click on the following link to see it:"
+#: ./browser/modified_mail_template.pt:22
+msgid "The item &quot;${obj_title}&quot; has been modified. <br />You can click on the following link to see it:"
+msgstr "Il contenuto &quot;${obj_title}&quot; è stato modificato. <br />Puoi cliccare sul seguente link per vederlo:"
 
 #. Default: "View"
 #: ./profiles/default/types/DocumentsArea.xml
@@ -114,11 +124,6 @@ msgstr "L'oggetto &quot;${obj_title}&quot; è stato modificato. <br />Puoi clicc
 #: ./profiles/default/types/GroupRoom.xml
 msgid "View"
 msgstr ""
-
-#. Default: "[Groupware] modification of a content"
-#: ./browser/modified_mail_template.pt:11
-msgid "[Groupware] modification of a content"
-msgstr "[Groupware] modifica di un contenuto"
 
 #. Default: "Blog"
 #: ./events/created_room.py:188
@@ -176,44 +181,39 @@ msgid "mailtemplate_not_set"
 msgstr "Impossibile spedire la notifica. Mail template non impostato"
 
 #. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender."
-#: ./browser/modified_mail_template.pt:16
+#: ./browser/modified_mail_template.pt:18
 msgid "no_reply_label"
 msgstr "Questa è una notifica automatica dell'amministratore del Groupware Regione Emilia-Romagna. Si prega di NON rispondere a questo mittente."
 
-#. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender.\n\n ${title} has been created. You can click on the following link to see it.\n${url}"
-#: ./events/created_room.py
+#: ./events/created_room.py:378
 msgid "notify_msg_created"
 msgstr ""
-"Questa è una notifica automatica dell'amministratore del Groupware Regione Emilia-Romagna. Si prega di NON rispondere a questo mittente.\n\n"
-"${title} è stato creato. Puoi cliccare sul seguente link per vederlo.\n"
-"${url}"
+"Il contenuto \"${title}\" è stato creato.\n"
+"Puoi cliccare sul seguente link per vederlo: ${url}"
 
-#. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender.\n\n ${title} has been deleted."
-#: ./events/created_room.py
+#: ./events/created_room.py:381
 msgid "notify_msg_deleted"
-msgstr ""
-"Questa è una notifica automatica dell'amministratore del Groupware Regione Emilia-Romagna. Si prega di NON rispondere a questo mittente.\n\n"
-"${title} è stato cancellato."
+msgstr "Il contenuto \"${title}\" è stato eliminato."
 
-#. Default: "New document has been created"
-#: ./events/created_room.py
+#. Default: "A New document has been created in the group: ${room_title}"
+#: ./events/created_room.py:429
 msgid "notify_subj_created_big"
-msgstr "Un nuovo documento è stato creato"
+msgstr "Un nuovo documento è stato creato nel gruppo di collaborazione: ${room_title}"
 
-#. Default: "New news or event has been created"
-#: ./events/created_room.py
+#. Default: "New news or event has been created in the group: ${room_title}"
+#: ./events/created_room.py:394
 msgid "notify_subj_created_small"
-msgstr "Una nuova news od evento sono stati creati"
+msgstr "Un nuovo avviso o evento è stato creato nel gruppo di collaborazione: ${room_title}"
 
-#. Default: "Document has been deleted"
-#: ./events/created_room.py
+#. Default: "A document has been deleted in the group: ${room_title}"
+#: ./events/created_room.py:434
 msgid "notify_subj_deleted_big"
-msgstr "Un documento è stato cancellato"
+msgstr "Un documento è stato eliminato nel gruppo di collaborazione: ${room_title}"
 
-#. Default: "News or event has been deleted"
-#: ./events/created_room.py
+#. Default: "A news or event has been deleted in the group: ${room_title}"
+#: ./events/created_room.py:399
 msgid "notify_subj_deleted_small"
-msgstr "Una news od evento sono stati cancellati"
+msgstr "Un avviso o evento è stato eliminato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "Documents"
 #: ./portlets/groups_notification_portlet.pt:36

@@ -17,32 +17,23 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rer.groupware.room\n"
 
-#. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender.\n\n ${title} has been created. You can click on the following link to see it.\n${url}"
-#: ./events/created_room.py
-msgid "notify_msg_created"
-msgstr ""
 
-#. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender.\n\n ${title} has been deleted."
-#: ./events/created_room.py
-msgid "notify_msg_deleted"
-msgstr ""
-
-#. Default: "New news or event has been created"
+#. Default: "New news or event has been created in the group: ${room_title}"
 #: ./events/created_room.py
 msgid "notify_subj_created_small"
 msgstr ""
 
-#. Default: "News or event has been deleted"
+#. Default: "New news or event has been deleted in the group: ${room_title}"
 #: ./events/created_room.py
 msgid "notify_subj_deleted_small"
 msgstr ""
 
-#. Default: "New document has been created"
+#. Default: "New document has been created in the group: ${room_title}"
 #: ./events/created_room.py
 msgid "notify_subj_created_big"
 msgstr ""
 
-#. Default: "Document has been deleted"
+#. Default: "New document has been deleted in the group: ${room_title}"
 #: ./events/created_room.py
 msgid "notify_subj_deleted_big"
 msgstr ""

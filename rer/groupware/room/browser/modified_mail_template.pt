@@ -2,23 +2,23 @@
                   dummy python:request.RESPONSE.setHeader('Content-Type', 'text/plain;; charset=%s' % options['charset']);
                   mfrom python:options['mfrom'];
                   mto python:options['mto'];
-				  item_type python:options['item_type'];
-				  item python:options['item'];"
+				  item python:options['item'];
+				  room_title python:options['room_title']"
 >From: <span tal:replace="structure mfrom" />
 bcc: <span tal:replace="mto" />
 Mime-Version: 1.0
 Content-Type: text/html; charset=utf-8
-Subject: <p tal:omit-tag="" i18n:domain="rer.groupware.room" i18n:translate="">
-    [Groupware] modification of a content</p>
+Subject: <p tal:condition="python:item.portal_type in ['News Item','Event']" tal:omit-tag="" i18n:domain="rer.groupware.room" i18n:translate="">
+    A news or event has been modified in the group: <span tal:replace="room_title" i18n:name="room_title"></span></p>
+	<p tal:condition="python:item.portal_type not in ['News Item','Event']" tal:omit-tag="" i18n:domain="rer.groupware.room" i18n:translate="">
+    A document has been modified in the group: <span tal:replace="room_title" i18n:name="room_title"></span></p>
 Precedence: bulk
 
 
 <p i18n:domain="rer.groupware.room" i18n:translate="no_reply_label">
 This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender.
 </p>
-<p i18n:domain="rer.groupware.room" i18n:translate="">
-    The object &quot;<span tal:replace="item/Title" i18n:name="obj_title" />&quot; has been modified.
-	<br />You can click on the following link to see it.
-</p>
-<a tal:attributes="href item/absolute_url;" tal:content="item/absolute_url"></a>
+<p i18n:domain="rer.groupware.room">
+    <span i18n:translate="" tal:omit-tag="">The item &quot;<tal:title replace="item/Title" i18n:name="obj_title" />&quot; has been modified.
+	<br />You can click on the following link to see it:</span>&nbsp;<a tal:attributes="href item/absolute_url;" tal:content="item/absolute_url"></a></p>
 </tal:root>

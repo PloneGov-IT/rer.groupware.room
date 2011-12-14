@@ -54,7 +54,7 @@ def sendMail(obj,room,group_type):
     mail_text = mail_template(mfrom="%s <%s>" %(sender_name,sender_mail),
                               mto=dest,
                               item=obj,
-                              item_type=translation_service.utranslate(msgid=friendly_type,domain='plone',context=obj),   
+                              room_title=room.Title(),
                               charset=encoding,
                               request=obj.REQUEST)
     try:
