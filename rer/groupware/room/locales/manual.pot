@@ -18,22 +18,3 @@ msgstr ""
 "Domain: rer.groupware.room\n"
 
 
-#. Default: "New news or event has been created in the group: ${room_title}"
-#: ./events/created_room.py
-msgid "notify_subj_created_small"
-msgstr ""
-
-#. Default: "New news or event has been deleted in the group: ${room_title}"
-#: ./events/created_room.py
-msgid "notify_subj_deleted_small"
-msgstr ""
-
-#. Default: "New document has been created in the group: ${room_title}"
-#: ./events/created_room.py
-msgid "notify_subj_created_big"
-msgstr ""
-
-#. Default: "New document has been deleted in the group: ${room_title}"
-#: ./events/created_room.py
-msgid "notify_subj_deleted_big"
-msgstr ""

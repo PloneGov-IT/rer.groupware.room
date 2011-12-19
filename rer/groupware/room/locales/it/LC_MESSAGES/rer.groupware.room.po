@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rer.groupware.room\n"
-"POT-Creation-Date: 2011-12-14 09:06+0000\n"
+"POT-Creation-Date: 2011-12-15 10:16+0000\n"
 "PO-Revision-Date: 2010-04-21 09:47+0000\n"
 "Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.it>\n"
 "Language-Team: RedTurtle Technology <info@redturtle.net>\n"
@@ -185,33 +185,33 @@ msgstr "Impossibile spedire la notifica. Mail template non impostato"
 msgid "no_reply_label"
 msgstr "Questa è una notifica automatica dell'amministratore del Groupware Regione Emilia-Romagna. Si prega di NON rispondere a questo mittente."
 
-#: ./events/created_room.py:378
+#: ./events/created_room.py:380
 msgid "notify_msg_created"
 msgstr ""
 "Il contenuto \"${title}\" è stato creato.\n"
 "Puoi cliccare sul seguente link per vederlo: ${url}"
 
-#: ./events/created_room.py:381
+#: ./events/created_room.py:383
 msgid "notify_msg_deleted"
 msgstr "Il contenuto \"${title}\" è stato eliminato."
 
 #. Default: "A New document has been created in the group: ${room_title}"
-#: ./events/created_room.py:429
+#: ./events/created_room.py:414
 msgid "notify_subj_created_big"
 msgstr "Un nuovo documento è stato creato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "New news or event has been created in the group: ${room_title}"
-#: ./events/created_room.py:394
+#: ./events/created_room.py:388
 msgid "notify_subj_created_small"
 msgstr "Un nuovo avviso o evento è stato creato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "A document has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:434
+#: ./events/created_room.py:419
 msgid "notify_subj_deleted_big"
 msgstr "Un documento è stato eliminato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "A news or event has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:399
+#: ./events/created_room.py:393
 msgid "notify_subj_deleted_small"
 msgstr "Un avviso o evento è stato eliminato nel gruppo di collaborazione: ${room_title}"
 

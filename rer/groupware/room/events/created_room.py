@@ -372,24 +372,18 @@ class CreateRoomStructure(object):
     def createRules(self,rule_type,group_type,types_list):
         room_title=self.context.Title()
         rule_title='%s-%s'%(self.context.getId(),rule_type)
-        no_reply_txt="This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender.\n\n"
-        msg_created_txt=u'%s The content "${title}" has been created.\nYou can click on the following link to see it:${url}' %no_reply_txt
-        msg_deleted_txt=u'%s The content "${title}" has been deleted.' %no_reply_txt
+        no_reply_txt=translate(_('no_reply_label',
+                                default="This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender."),
+                                context=self.context.REQUEST)
+        msg_created_txt=u'The content "${title}" has been created.\nYou can click on the following link to see it:${url}'
+        msg_deleted_txt=u'The content "${title}" has been deleted.'
         message_created=translate(_('notify_msg_created',
                                 default=msg_created_txt),
                                 context=self.context.REQUEST)
         message_deleted=translate(_('notify_msg_deleted',
                                 default=msg_deleted_txt),
                                 context=self.context.REQUEST)
-#        message_created=self.translation_service.translate(msgid='notify_msg_created',
-#                                                           default="%s ${title} has been created. You can click on the following link to see it.\n${url}" %no_reply_txt,
-#                                                           domain="rer.groupware.room",
-#                                                           context=self.context)
-#        
-#        message_deleted=self.translation_service.translate(msgid='notify_msg_deleted',
-#                                                           default='%s ${title} has been deleted.' %no_reply_txt,
-#                                                           domain="rer.groupware.room",
-#                                                           context=self.context)
+
         if rule_type == 'ruleNewsEvents':
             subject_created=translate(_('notify_subj_created_small',
                                         default='New news or event has been created in the group: ${room_title}',
@@ -401,27 +395,18 @@ class CreateRoomStructure(object):
                                         mapping={u"room_title" :room_title,}),
                                        context=self.context.REQUEST)
             
-#            subject_created=self.translation_service.translate(msgid='notify_subj_created_small',
-#                                                          default='New news or event has been created',
-#                                                          domain="rer.groupware.room",
-#                                                          context=self.context)
-#            
-#            subject_deleted=self.translation_service.translate(msgid='notify_subj_deleted_small',
-#                                                          default='News or event has been deleted',
-#                                                          domain="rer.groupware.room",
-#                                                          context=self.context)
             self.createRule(rule_title="%s-created" %rule_title,
                             rule_event=IObjectAddedEvent,
                             group='%s.notifyNewsEvents'%self.context.getId(),
                             types_list=types_list,
-                            message=message_created,
+                            message="%s\n\n%s" %(no_reply_txt,message_created),
                             subject=subject_created)
             
             self.createRule(rule_title="%s-removed" %rule_title,
                             rule_event=IObjectRemovedEvent,
                             group='%s.notifyNewsEvents'%self.context.getId(),
                             types_list=types_list,
-                            message=message_deleted,
+                            message="%s\n\n%s" %(no_reply_txt,message_deleted),
                             subject=subject_deleted)
             
         if rule_type == 'ruleDocs':
@@ -436,28 +421,18 @@ class CreateRoomStructure(object):
                                         mapping={u"room_title" :room_title,}),
                                        context=self.context.REQUEST)
             
-#            subject_created=self.translation_service.translate(msgid='notify_subj_created_big',
-#                                                          default='New document has been created in the group: %s',
-#                                                          domain="rer.groupware.room",
-#                                                          context=self.context)
-#            
-#            subject_deleted=self.translation_service.translate(msgid='notify_subj_deleted_big',
-#                                                          default='Document has been deleted',
-#                                                          domain="rer.groupware.room",
-#                                                          context=self.context)
-            
             self.createRule(rule_title="%s-created" %rule_title,
                             rule_event=IObjectAddedEvent,
                             group='%s.notifyDocs'%self.context.getId(),
                             types_list=types_list,
-                            message=message_created,
+                            message="%s\n\n%s" %(no_reply_txt,message_created),
                             subject=subject_created)
             
             self.createRule(rule_title="%s-removed" %rule_title,
                             rule_event=IObjectRemovedEvent,
                             group='%s.notifyDocs'%self.context.getId(),
                             types_list=types_list,
-                            message=message_deleted,
+                            message="%s\n\n%s" %(no_reply_txt,message_deleted),
                             subject=subject_deleted)
             
         

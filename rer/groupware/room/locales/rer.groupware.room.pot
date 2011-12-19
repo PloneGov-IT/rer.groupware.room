@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-12-14 09:06+0000\n"
+"POT-Creation-Date: 2011-12-15 10:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,31 +188,31 @@ msgstr ""
 msgid "no_reply_label"
 msgstr ""
 
-#: ./events/created_room.py:378
+#: ./events/created_room.py:380
 msgid "notify_msg_created"
 msgstr ""
 
-#: ./events/created_room.py:381
+#: ./events/created_room.py:383
 msgid "notify_msg_deleted"
 msgstr ""
 
 #. Default: "A New document has been created in the group: ${room_title}"
-#: ./events/created_room.py:429
+#: ./events/created_room.py:414
 msgid "notify_subj_created_big"
 msgstr ""
 
 #. Default: "New news or event has been created in the group: ${room_title}"
-#: ./events/created_room.py:394
+#: ./events/created_room.py:388
 msgid "notify_subj_created_small"
 msgstr ""
 
 #. Default: "A document has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:434
+#: ./events/created_room.py:419
 msgid "notify_subj_deleted_big"
 msgstr ""
 
 #. Default: "A news or event has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:399
+#: ./events/created_room.py:393
 msgid "notify_subj_deleted_small"
 msgstr ""
 
