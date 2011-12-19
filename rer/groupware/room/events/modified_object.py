@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from rer.groupware.room import roomMessageFactory as _
 from Products.CMFCore.utils import getToolByName
+from zope.i18n import translate
 
 def sendNotificationOnModify(obj,event):
     portal=obj.portal_url.getPortalObject()
@@ -54,7 +55,7 @@ def sendMail(obj,room,group_type):
     mail_text = mail_template(mfrom="%s <%s>" %(sender_name,sender_mail),
                               mto=dest,
                               item=obj,
-                              room_title=room.Title(),
+                              subject=getSubject(obj,room.Title()),
                               charset=encoding,
                               request=obj.REQUEST)
     try:
@@ -64,7 +65,15 @@ def sendMail(obj,room,group_type):
         
     except Exception, err:
         msg_text=_(u'Impossible sending the message: ')
-        obj.plone_log(msg_text+ err[0])
+        obj.plone_log("%s%s" %(msg_text,err[0]))
+
+def getSubject(item,room_title):
+    if item.portal_type in ['News Item','Event']:
+        return translate(_(u"A news or event has been modified in the group: ${room_title}",
+                           mapping={u"room_title" :room_title,}),context=item.REQUEST)
+    else:
+        return translate(_(u"A document has been modified in the group: ${room_title}",
+                           mapping={u"room_title" :room_title,}),context=item.REQUEST)
 
 def getEmailDest(portal,group_id):
     acl_users = getToolByName(portal, 'acl_users')

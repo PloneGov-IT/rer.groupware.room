@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1.4 (2011-12-??)
+1.1.4 (2011-12-19)
 ------------------
 
 * fixed mail text for rules and event when creating new items in a room [andrea]

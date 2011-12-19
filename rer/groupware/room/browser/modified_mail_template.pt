@@ -2,17 +2,14 @@
                   dummy python:request.RESPONSE.setHeader('Content-Type', 'text/plain;; charset=%s' % options['charset']);
                   mfrom python:options['mfrom'];
                   mto python:options['mto'];
-				  item python:options['item'];
-				  room_title python:options['room_title']"
+				  subject python:options['subject'];
+				  item python:options['item'];"
 >From: <span tal:replace="structure mfrom" />
 bcc: <span tal:replace="mto" />
 Mime-Version: 1.0
 Content-Type: text/html; charset=utf-8
-Subject: <p tal:condition="python:item.portal_type in ['News Item','Event']" tal:omit-tag="" i18n:domain="rer.groupware.room" i18n:translate="">
-    A news or event has been modified in the group: <span tal:replace="room_title" i18n:name="room_title"></span></p>
-	<p tal:condition="python:item.portal_type not in ['News Item','Event']" tal:omit-tag="" i18n:domain="rer.groupware.room" i18n:translate="">
-    A document has been modified in the group: <span tal:replace="room_title" i18n:name="room_title"></span></p>
 Precedence: bulk
+Subject: <span tal:replace="subject"></span>
 
 
 <p i18n:domain="rer.groupware.room" i18n:translate="no_reply_label">
