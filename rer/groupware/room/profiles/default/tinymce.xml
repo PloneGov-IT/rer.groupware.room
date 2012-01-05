@@ -18,6 +18,7 @@
    <element value="ProjectsArea" />
    <element value="GroupRoom" />
    <element value="Blog" />
+   <element value="BlogEntry" />
   </containsobjects>
  </resourcetypes>
 </object>

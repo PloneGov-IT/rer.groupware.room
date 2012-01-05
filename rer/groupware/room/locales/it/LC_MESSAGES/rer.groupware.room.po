@@ -223,7 +223,7 @@ msgstr "Documenti"
 #. Default: "News and events"
 #: ./portlets/groups_notification_portlet.pt:57
 msgid "portlet_room_label_news_events"
-msgstr "News ed eventi"
+msgstr "Avvisi ed eventi"
 
 #. Default: "Notification management"
 #: ./portlets/groups_notification_portlet.pt:6

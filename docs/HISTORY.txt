@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1.5 (2012-01-09)
+------------------
+
+* fixed labels (#335 & #349) [andrea]
+* added BlogEntry to tiny linked items [andrea]
+
 1.1.4 (2011-12-19)
 ------------------
 

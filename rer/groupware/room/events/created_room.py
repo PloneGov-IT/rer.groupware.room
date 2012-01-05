@@ -83,7 +83,7 @@ class CreateRoomStructure(object):
         portletpage_id=self.context.invokeFactory(id="i-contenuti-piu-recenti",
                                                   type_name='Portlet Page',
                                                   show_dates=True,
-                                                  title=u"I contenuti più recenti")
+                                                  title=u"I contenuti più recenti di questo gruppo")
         
         #imposta la portletpage come vista pedefinita della stanza
         self.context.setDefaultPage(portletpage_id)
