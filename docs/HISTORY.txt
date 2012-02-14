@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.7 (2012-02-??)
+------------------
+
+* fixed topic criteria for DocumentsArea [andrea]
+
 1.1.6 (2012-02-13)
 ------------------
 

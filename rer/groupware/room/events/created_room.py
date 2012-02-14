@@ -202,7 +202,7 @@ class CreateRoomStructure(object):
         documents=self.createArea(id=self.generateId(documents_title),
                                   title=documents_title,
                                   portal_type="DocumentsArea",
-                                  types=['Page','File','Image','Folder'],
+                                  types=['Document','File','Image','Folder'],
                                   groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                           {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
                                           {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
@@ -264,11 +264,11 @@ class CreateRoomStructure(object):
                              set_as_default_view=True,
                              id="documenti-e-cartelle",
                              title="Documenti e cartelle",
-                             portal_types=types)
+                             portal_types=['Page','File','Image','Folder'])
             self.createTopic(folder=area_obj,
                              id="documenti",
                              title=u"Documenti",
-                             portal_types=types,
+                             portal_types=['Page','File','Image','Folder'],
                              portlet_manager='collective.portletpage.firstcolumn',
                              portletpage_index=1,
                              set_recurse=True,)
