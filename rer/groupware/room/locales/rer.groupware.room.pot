@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-12-15 10:16+0000\n"
+"POT-Creation-Date: 2012-02-23 08:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,111 +17,116 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rer.groupware.room\n"
 
-#. Default: "A document has been modified in the group: ${room_title}"
-#: ./browser/modified_mail_template.pt:14
+#: ./events/created_room.py:125
+msgid "${room_title} coordinators"
+msgstr ""
+
+#: ./events/created_room.py:129
+msgid "${room_title} hosts"
+msgstr ""
+
+#: ./events/created_room.py:107
+msgid "${room_title} members"
+msgstr ""
+
+#: ./events/created_room.py:112
+msgid "${room_title} membersAdv"
+msgstr ""
+
+#: ./events/created_room.py:117
+msgid "${room_title} notifyDocs"
+msgstr ""
+
+#: ./events/created_room.py:121
+msgid "${room_title} notifyNewsEvents"
+msgstr ""
+
+#: ./events/modified_object.py:75
 msgid "A document has been modified in the group: ${room_title}"
 msgstr ""
 
-#. Default: "A folder for the groups"
 #: ./profiles/default/types/GroupRoom.xml
 msgid "A folder for the groups"
 msgstr ""
 
-#. Default: "A folder for the room's documents area"
 #: ./profiles/default/types/DocumentsArea.xml
 msgid "A folder for the room's documents area"
 msgstr ""
 
-#. Default: "A folder for the room's events area"
 #: ./profiles/default/types/EventsArea.xml
 msgid "A folder for the room's events area"
 msgstr ""
 
-#. Default: "A folder for the room's news area"
 #: ./profiles/default/types/NewsArea.xml
 msgid "A folder for the room's news area"
 msgstr ""
 
-#. Default: "A folder for the room's polls area"
 #: ./profiles/default/types/PollsArea.xml
 msgid "A folder for the room's polls area"
 msgstr ""
 
-#. Default: "A folder for the room's projects area"
 #: ./profiles/default/types/ProjectsArea.xml
 msgid "A folder for the room's projects area"
 msgstr ""
 
-#. Default: "A news or event has been modified in the group: ${room_title}"
-#: ./browser/modified_mail_template.pt:12
+#: ./events/modified_object.py:72
 msgid "A news or event has been modified in the group: ${room_title}"
 msgstr ""
 
-#. Default: "Documents Area"
 #: ./profiles/default/types/DocumentsArea.xml
 msgid "Documents Area"
 msgstr ""
 
-#. Default: "Edit"
 #: ./profiles/default/types/DocumentsArea.xml
 #: ./profiles/default/types/EventsArea.xml
 #: ./profiles/default/types/GroupRoom.xml
 msgid "Edit"
 msgstr ""
 
-#: ./events/modified_object.py:63
+#: ./events/modified_object.py:64
 msgid "Edit notify email sent to users"
 msgstr ""
 
-#. Default: "Events Area"
 #: ./profiles/default/types/EventsArea.xml
 msgid "Events Area"
 msgstr ""
 
-#. Default: "Folder Listing"
 #: ./profiles/default/types/DocumentsArea.xml
 #: ./profiles/default/types/EventsArea.xml
 #: ./profiles/default/types/GroupRoom.xml
 msgid "Folder Listing"
 msgstr ""
 
-#: ./events/modified_object.py:66
+#: ./events/modified_object.py:67
 msgid "Impossible sending the message: "
 msgstr ""
 
-#. Default: "News Area"
 #: ./profiles/default/types/NewsArea.xml
 msgid "News Area"
 msgstr ""
 
-#. Default: "Polls Area"
 #: ./profiles/default/types/PollsArea.xml
 msgid "Polls Area"
 msgstr ""
 
-#. Default: "Projects Area"
 #: ./profiles/default/types/ProjectsArea.xml
 msgid "Projects Area"
 msgstr ""
 
-#. Default: "References"
 #: ./profiles/default/types/DocumentsArea.xml
 #: ./profiles/default/types/EventsArea.xml
 #: ./profiles/default/types/GroupRoom.xml
 msgid "References"
 msgstr ""
 
-#. Default: "Room"
 #: ./profiles/default/types/GroupRoom.xml
 msgid "Room"
 msgstr ""
 
-#. Default: "The item \"${obj_title}\" has been modified. <br />You can click on the following link to see it:"
-#: ./browser/modified_mail_template.pt:22
+#: ./browser/modified_mail_template.pt:19
 msgid "The item &quot;${obj_title}&quot; has been modified. <br />You can click on the following link to see it:"
 msgstr ""
 
-#. Default: "View"
 #: ./profiles/default/types/DocumentsArea.xml
 #: ./profiles/default/types/EventsArea.xml
 #: ./profiles/default/types/GroupRoom.xml
@@ -129,46 +134,44 @@ msgid "View"
 msgstr ""
 
 #. Default: "Blog"
-#: ./events/created_room.py:188
+#: ./events/created_room.py:206
 msgid "area_blog_title"
 msgstr ""
 
 #. Default: "Documents"
-#: ./events/created_room.py:185
+#: ./events/created_room.py:203
 msgid "area_documents_title"
 msgstr ""
 
 #. Default: "Events"
-#: ./events/created_room.py:186
+#: ./events/created_room.py:204
 msgid "area_events_title"
 msgstr ""
 
 #. Default: "Forum"
-#: ./events/created_room.py:187
+#: ./events/created_room.py:205
 msgid "area_forum_title"
 msgstr ""
 
 #. Default: "News"
-#: ./events/created_room.py:189
+#: ./events/created_room.py:207
 msgid "area_news_title"
 msgstr ""
 
 #. Default: "Polls"
-#: ./events/created_room.py:191
+#: ./events/created_room.py:209
 msgid "area_polls_title"
 msgstr ""
 
 #. Default: "Projects"
-#: ./events/created_room.py:190
+#: ./events/created_room.py:208
 msgid "area_projects_title"
 msgstr ""
 
-#. Default: "enable documents notify"
 #: ./portlets/groups_notification_portlet.pt:19
 msgid "enable documents notify"
 msgstr ""
 
-#. Default: "enable news and events notify"
 #: ./portlets/groups_notification_portlet.pt:40
 msgid "enable news and events notify"
 msgstr ""
@@ -179,40 +182,41 @@ msgid "label_image"
 msgstr ""
 
 #. Default: "Impossible sending the notification. Mail template not set."
-#: ./events/modified_object.py:51
+#: ./events/modified_object.py:52
 msgid "mailtemplate_not_set"
 msgstr ""
 
 #. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender."
-#: ./browser/modified_mail_template.pt:18
+#: ./browser/modified_mail_template.pt:15
+#: ./events/created_room.py:393
 msgid "no_reply_label"
 msgstr ""
 
-#: ./events/created_room.py:380
+#: ./events/created_room.py:398
 msgid "notify_msg_created"
 msgstr ""
 
-#: ./events/created_room.py:383
+#: ./events/created_room.py:401
 msgid "notify_msg_deleted"
 msgstr ""
 
 #. Default: "A New document has been created in the group: ${room_title}"
-#: ./events/created_room.py:414
+#: ./events/created_room.py:432
 msgid "notify_subj_created_big"
 msgstr ""
 
 #. Default: "New news or event has been created in the group: ${room_title}"
-#: ./events/created_room.py:388
+#: ./events/created_room.py:406
 msgid "notify_subj_created_small"
 msgstr ""
 
 #. Default: "A document has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:419
+#: ./events/created_room.py:437
 msgid "notify_subj_deleted_big"
 msgstr ""
 
 #. Default: "A news or event has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:393
+#: ./events/created_room.py:411
 msgid "notify_subj_deleted_small"
 msgstr ""
 
@@ -232,7 +236,7 @@ msgid "portlet_room_title"
 msgstr ""
 
 #. Default: "Impossible sending the notification. Mailserver not set in the portal."
-#: ./events/modified_object.py:43
+#: ./events/modified_object.py:44
 msgid "server_not_set"
 msgstr ""
 

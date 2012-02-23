@@ -95,27 +95,48 @@ class CreateRoomStructure(object):
     
     #FIRST WE CREATE THE GROUPS
     def createGroups(self):
+        """
+        Create the groups for this room.
+        These groups will be used to manage localroles
+        """
         groups_tool=getToolByName(self.context,'portal_groups')
         room_id=self.context.getId()
         room_title=self.context.Title()
-#        room_group=groups_tool.addGroup(id=room_id,title=room_title)
-#        if not room_group:
-#            return
-#        groups_tool.getGroupById(room_id).setProperties(roomgroup=True)
         sgm_groups=[]
-        groups_tool.addGroup(id='%s.members' %room_id,title='%s members' %room_title)
+        groups_tool.addGroup(id='%s.members' %room_id,
+                             title=translate(_(u"${room_title} members",
+                                               mapping={u"room_title" :room_title,}),
+                                             context=self.context.REQUEST))
         sgm_groups.append('%s.members' %room_id)
-        groups_tool.addGroup(id='%s.membersAdv' %room_id,title='%s membersAdv' %room_title)
+        groups_tool.addGroup(id='%s.membersAdv' %room_id,
+                             title=translate(_(u"${room_title} membersAdv",
+                                               mapping={u"room_title" :room_title,}),
+                                             context=self.context.REQUEST))
         sgm_groups.append('%s.membersAdv' %room_id)
-        groups_tool.addGroup(id='%s.notifyDocs' %room_id,title='%s notifyDocs' %room_title)
-        groups_tool.addGroup(id='%s.notifyNewsEvents' %room_id,title='%s notifyNewsEvents' %room_title)
-        groups_tool.addGroup(id='%s.coordinators' %room_id,title='%s coordinators' %room_title)
-        groups_tool.addGroup(id='%s.hosts'%room_id,title='%s hosts' %room_title)
+        groups_tool.addGroup(id='%s.notifyDocs' %room_id,
+                             title=translate(_(u"${room_title} notifyDocs",
+                                               mapping={u"room_title" :room_title,}),
+                                             context=self.context.REQUEST))
+        groups_tool.addGroup(id='%s.notifyNewsEvents' %room_id,
+                             title=translate(_(u"${room_title} notifyNewsEvents",
+                                               mapping={u"room_title" :room_title,}),
+                                             context=self.context.REQUEST))
+        groups_tool.addGroup(id='%s.coordinators' %room_id,
+                             title=translate(_(u"${room_title} coordinators",
+                                               mapping={u"room_title" :room_title,}),
+                                             context=self.context.REQUEST))
+        groups_tool.addGroup(id='%s.hosts'%room_id,
+                             title=translate(_(u"${room_title} hosts",
+                                               mapping={u"room_title" :room_title,}),
+                                             context=self.context.REQUEST))
         sgm_groups.append('%s.hosts' %room_id)
         
         self.addSGMEntries(sgm_groups,'%s.coordinators' %room_id)
         
     def addSGMEntries(self,managed_groups,coordinator):
+        """
+        Set SGM properties with new-created groups.
+        """
         portal_properties = getToolByName(self.context, 'portal_properties', None)
         if not portal_properties:
             return
@@ -132,6 +153,9 @@ class CreateRoomStructure(object):
         
     #THEN WE CREATE THE AREAS
     def createForum(self,title):
+        """
+        Create a forum in the room
+        """
         room_id=self.context.getId()
         forum_id=self.context.invokeFactory(id=self.generateId(title),
                                             type_name='PloneboardForum',

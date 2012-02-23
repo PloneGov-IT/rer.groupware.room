@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rer.groupware.room\n"
-"POT-Creation-Date: 2011-12-15 10:16+0000\n"
+"POT-Creation-Date: 2012-02-23 08:18+0000\n"
 "PO-Revision-Date: 2010-04-21 09:47+0000\n"
 "Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.it>\n"
 "Language-Team: RedTurtle Technology <info@redturtle.net>\n"
@@ -14,8 +14,32 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rer.groupware.room\n"
 
+#: ./events/created_room.py:125
+msgid "${room_title} coordinators"
+msgstr "${room_title} coordinatori"
+
+#: ./events/created_room.py:129
+msgid "${room_title} hosts"
+msgstr "${room_title} ospiti"
+
+#: ./events/created_room.py:107
+msgid "${room_title} members"
+msgstr "${room_title} collaboratori"
+
+#: ./events/created_room.py:112
+msgid "${room_title} membersAdv"
+msgstr "${room_title} redattori"
+
+#: ./events/created_room.py:117
+msgid "${room_title} notifyDocs"
+msgstr "${room_title} notifiche documenti"
+
+#: ./events/created_room.py:121
+msgid "${room_title} notifyNewsEvents"
+msgstr "${room_title} notifiche news ed eventi"
+
 #. Default: "A document has been modified in the group: ${room_title}"
-#: ./browser/modified_mail_template.pt:14
+#: ./events/modified_object.py:75
 msgid "A document has been modified in the group: ${room_title}"
 msgstr "Un documento è stato modificato nel gruppo di collaborazione: ${room_title}"
 
@@ -50,7 +74,7 @@ msgid "A folder for the room's projects area"
 msgstr "Una cartella per l'area progetti delle stanze"
 
 #. Default: "A news or event has been modified in the group: ${room_title}"
-#: ./browser/modified_mail_template.pt:12
+#: ./events/modified_object.py:72
 msgid "A news or event has been modified in the group: ${room_title}"
 msgstr "Un avviso o evento è stato modificato nel gruppo di collaborazione: ${room_title}"
 
@@ -66,7 +90,7 @@ msgstr "Area documenti"
 msgid "Edit"
 msgstr ""
 
-#: ./events/modified_object.py:63
+#: ./events/modified_object.py:64
 msgid "Edit notify email sent to users"
 msgstr "Mail di notifica per la modifica spedita agli utenti"
 
@@ -82,7 +106,7 @@ msgstr "Area eventi"
 msgid "Folder Listing"
 msgstr ""
 
-#: ./events/modified_object.py:66
+#: ./events/modified_object.py:67
 msgid "Impossible sending the message: "
 msgstr "Impossibile spedire il messaggio: "
 
@@ -114,7 +138,7 @@ msgid "Room"
 msgstr "Stanza"
 
 #. Default: "The item \"${obj_title}\" has been modified. <br />You can click on the following link to see it:"
-#: ./browser/modified_mail_template.pt:22
+#: ./browser/modified_mail_template.pt:19
 msgid "The item &quot;${obj_title}&quot; has been modified. <br />You can click on the following link to see it:"
 msgstr "Il contenuto &quot;${obj_title}&quot; è stato modificato. <br />Puoi cliccare sul seguente link per vederlo:"
 
@@ -126,37 +150,37 @@ msgid "View"
 msgstr ""
 
 #. Default: "Blog"
-#: ./events/created_room.py:188
+#: ./events/created_room.py:206
 msgid "area_blog_title"
 msgstr "Blog"
 
 #. Default: "Documents"
-#: ./events/created_room.py:185
+#: ./events/created_room.py:203
 msgid "area_documents_title"
 msgstr "Documenti"
 
 #. Default: "Events"
-#: ./events/created_room.py:186
+#: ./events/created_room.py:204
 msgid "area_events_title"
 msgstr "Eventi"
 
 #. Default: "Forum"
-#: ./events/created_room.py:187
+#: ./events/created_room.py:205
 msgid "area_forum_title"
 msgstr "Forum"
 
 #. Default: "News"
-#: ./events/created_room.py:189
+#: ./events/created_room.py:207
 msgid "area_news_title"
 msgstr "Notizie"
 
 #. Default: "Polls"
-#: ./events/created_room.py:191
+#: ./events/created_room.py:209
 msgid "area_polls_title"
 msgstr "Sondaggi"
 
 #. Default: "Projects"
-#: ./events/created_room.py:190
+#: ./events/created_room.py:208
 msgid "area_projects_title"
 msgstr "Progetti"
 
@@ -176,42 +200,43 @@ msgid "label_image"
 msgstr "Immagine"
 
 #. Default: "Impossible sending the notification. Mail template not set."
-#: ./events/modified_object.py:51
+#: ./events/modified_object.py:52
 msgid "mailtemplate_not_set"
 msgstr "Impossibile spedire la notifica. Mail template non impostato"
 
 #. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender."
-#: ./browser/modified_mail_template.pt:18
+#: ./browser/modified_mail_template.pt:15
+#: ./events/created_room.py:393
 msgid "no_reply_label"
 msgstr "Questa è una notifica automatica dell'amministratore del Groupware Regione Emilia-Romagna. Si prega di NON rispondere a questo mittente."
 
-#: ./events/created_room.py:380
+#: ./events/created_room.py:398
 msgid "notify_msg_created"
 msgstr ""
 "Il contenuto \"${title}\" è stato creato.\n"
 "Puoi cliccare sul seguente link per vederlo: ${url}"
 
-#: ./events/created_room.py:383
+#: ./events/created_room.py:401
 msgid "notify_msg_deleted"
 msgstr "Il contenuto \"${title}\" è stato eliminato."
 
 #. Default: "A New document has been created in the group: ${room_title}"
-#: ./events/created_room.py:414
+#: ./events/created_room.py:432
 msgid "notify_subj_created_big"
 msgstr "Un nuovo documento è stato creato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "New news or event has been created in the group: ${room_title}"
-#: ./events/created_room.py:388
+#: ./events/created_room.py:406
 msgid "notify_subj_created_small"
 msgstr "Un nuovo avviso o evento è stato creato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "A document has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:419
+#: ./events/created_room.py:437
 msgid "notify_subj_deleted_big"
 msgstr "Un documento è stato eliminato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "A news or event has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:393
+#: ./events/created_room.py:411
 msgid "notify_subj_deleted_small"
 msgstr "Un avviso o evento è stato eliminato nel gruppo di collaborazione: ${room_title}"
 
@@ -231,7 +256,7 @@ msgid "portlet_room_title"
 msgstr "Impostazione notifiche"
 
 #. Default: "Impossible sending the notification. Mailserver not set in the portal."
-#: ./events/modified_object.py:43
+#: ./events/modified_object.py:44
 msgid "server_not_set"
 msgstr "Impossibile spedire la notifica. Il mailserver non è stato impostato."
 
