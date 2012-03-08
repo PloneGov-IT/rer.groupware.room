@@ -66,8 +66,8 @@ class CreateRoomStructure(object):
     
     def generateId(self, title):
         """
-        Obtain a nice id from the title in two steps: 
-        first we remove forbidden 
+        Obtain a nice id from the title in two steps:
+        first we remove forbidden
         chars and the we ensure ourselves it is unique
         """
         title=' '.join(title.split())
@@ -216,7 +216,8 @@ class CreateRoomStructure(object):
         news=self.createArea(id=self.generateId(news_title),
                              title=news_title,
                              portal_type="NewsArea",
-                             types=['News Item'],
+                             types=['Folder','News Item'],
+                             collection_types=['News Item'],
                              groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                      {'id':'%s.members'%base_id,'roles':['Reader']},
                                      {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
@@ -227,6 +228,7 @@ class CreateRoomStructure(object):
                                   title=documents_title,
                                   portal_type="DocumentsArea",
                                   types=['Document','File','Image','Folder'],
+                                  collection_types=['Page','File','Image','Folder'],
                                   groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                           {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
                                           {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
@@ -235,7 +237,8 @@ class CreateRoomStructure(object):
         events=self.createArea(id=self.generateId(events_title),
                                title=events_title,
                                portal_type="EventsArea",
-                               types=['Event'],
+                               types=['Folder','Event'],
+                               collection_types=['Event'],
                                groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                        {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
                                        {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
@@ -246,7 +249,8 @@ class CreateRoomStructure(object):
         projects=self.createArea(id=self.generateId(projects_title),
                                  title=projects_title,
                                  portal_type="ProjectsArea",
-                                 types=['Project'],
+                                 types=['Folder','Project'],
+                                 collection_types=['Project'],
                                  groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                          {'id':'%s.members'%base_id,'roles':['Contributor','Editor','Employee']},
                                          {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Employee']},
@@ -255,7 +259,8 @@ class CreateRoomStructure(object):
         polls=self.createArea(id=self.generateId(polls_title),
                               title=polls_title,
                               portal_type="PollsArea",
-                              types=['PlonePopoll'],
+                              types=['Folder','PlonePopoll'],
+                              collection_types=['PlonePopoll'],
                               groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                       {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
                                       {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
@@ -264,7 +269,7 @@ class CreateRoomStructure(object):
         
         return {'documents':documents,'events':events,'news':news,'projects':projects,'polls':polls}
         
-    def createArea(self,id,title,portal_type,types=[],collection=False,groups=[]):
+    def createArea(self, id, title, portal_type, types=[], collection_types=[], groups=[]):
         """
         Create a folder with the given parameters
         """
@@ -273,26 +278,28 @@ class CreateRoomStructure(object):
                                              title=title)
         area_obj=self.context.restrictedTraverse(folder_id)
         self.setFolderLocalRoles(area_obj,groups)
-        if not types and not collection:
+        if not types and not collection_types:
             return
+        
         if portal_type=='NewsArea':
             self.createTopic(folder=area_obj,
                              set_as_default_view=True,
                              id=id,
                              title=title,
-                             portal_types=types,
+                             portal_types=collection_types,
                              portlet_manager='collective.portletpage.firstcolumn',
-                             portletpage_index=2)
+                             portletpage_index=2,
+                             set_recurse=True,)
         elif portal_type=='DocumentsArea':
             self.createTopic(folder=area_obj,
                              set_as_default_view=True,
                              id="documenti-e-cartelle",
                              title="Documenti e cartelle",
-                             portal_types=['Page','File','Image','Folder'])
+                             portal_types=collection_types)
             self.createTopic(folder=area_obj,
                              id="documenti",
                              title=u"Documenti",
-                             portal_types=['Page','File','Image','Folder'],
+                             portal_types=collection_types,
                              portlet_manager='collective.portletpage.firstcolumn',
                              portletpage_index=1,
                              set_recurse=True,)
@@ -301,27 +308,30 @@ class CreateRoomStructure(object):
                              set_as_default_view=True,
                              id=id,
                              title=title,
-                             portal_types=types,
+                             portal_types=collection_types,
                              portlet_manager='collective.portletpage.firstcolumn',
-                             portletpage_index=3)
+                             portletpage_index=3,
+                             set_recurse=True,)
             
         elif portal_type=='PollsArea':
             self.createTopic(folder=area_obj,
                              set_as_default_view=True,
                              id=id,
                              title=title,
-                             portal_types=types,
+                             portal_types=collection_types,
                              portlet_manager='collective.portletpage.secondcolumn',
-                             portletpage_index=4)
+                             portletpage_index=4,
+                             set_recurse=True,)
         
         elif portal_type=='ProjectsArea':
             self.createTopic(folder=area_obj,
                              set_as_default_view=True,
                              id=id,
                              title=title,
-                             portal_types=types,
+                             portal_types=collection_types,
                              portlet_manager='collective.portletpage.firstcolumn',
-                             portletpage_index=4)
+                             portletpage_index=4,
+                             set_recurse=True,)
             
         if types:
             area_obj.setConstrainTypesMode(1)
