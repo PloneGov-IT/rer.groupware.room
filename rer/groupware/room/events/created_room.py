@@ -217,7 +217,7 @@ class CreateRoomStructure(object):
                              title=news_title,
                              portal_type="NewsArea",
                              types=['Folder','News Item'],
-                             collection_types=['News Item'],
+                             collection_types=['Folder','News Item'],
                              groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                      {'id':'%s.members'%base_id,'roles':['Reader']},
                                      {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
@@ -238,7 +238,7 @@ class CreateRoomStructure(object):
                                title=events_title,
                                portal_type="EventsArea",
                                types=['Folder','Event'],
-                               collection_types=['Event'],
+                               collection_types=['Event', 'Folder'],
                                groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                        {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
                                        {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
@@ -250,7 +250,7 @@ class CreateRoomStructure(object):
                                  title=projects_title,
                                  portal_type="ProjectsArea",
                                  types=['Folder','Project'],
-                                 collection_types=['Project'],
+                                 collection_types=['Project', 'Folder'],
                                  groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                          {'id':'%s.members'%base_id,'roles':['Contributor','Editor','Employee']},
                                          {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Employee']},
@@ -260,13 +260,13 @@ class CreateRoomStructure(object):
                               title=polls_title,
                               portal_type="PollsArea",
                               types=['Folder','PlonePopoll'],
-                              collection_types=['PlonePopoll'],
+                              collection_types=['PlonePopoll', 'Folder'],
                               groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                       {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
                                       {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
                                       {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},]
                               )
-        
+
         return {'documents':documents,'events':events,'news':news,'projects':projects,'polls':polls}
         
     def createArea(self, id, title, portal_type, types=[], collection_types=[], groups=[]):
