@@ -260,7 +260,7 @@ class CreateRoomStructure(object):
                               title=polls_title,
                               portal_type="PollsArea",
                               types=['Folder','PlonePopoll'],
-                              collection_types=['PlonePopoll', 'Folder'],
+                              collection_types=['Folder','PlonePopoll'],
                               groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
                                       {'id':'%s.members'%base_id,'roles':['Contributor','Editor',]},
                                       {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv']},
@@ -288,8 +288,7 @@ class CreateRoomStructure(object):
                              title=title,
                              portal_types=collection_types,
                              portlet_manager='collective.portletpage.firstcolumn',
-                             portletpage_index=2,
-                             set_recurse=True,)
+                             portletpage_index=2,)
         elif portal_type=='DocumentsArea':
             self.createTopic(folder=area_obj,
                              set_as_default_view=True,
@@ -310,8 +309,7 @@ class CreateRoomStructure(object):
                              title=title,
                              portal_types=collection_types,
                              portlet_manager='collective.portletpage.firstcolumn',
-                             portletpage_index=3,
-                             set_recurse=True,)
+                             portletpage_index=3,)
             
         elif portal_type=='PollsArea':
             self.createTopic(folder=area_obj,
@@ -320,8 +318,7 @@ class CreateRoomStructure(object):
                              title=title,
                              portal_types=collection_types,
                              portlet_manager='collective.portletpage.secondcolumn',
-                             portletpage_index=4,
-                             set_recurse=True,)
+                             portletpage_index=4,)
         
         elif portal_type=='ProjectsArea':
             self.createTopic(folder=area_obj,
@@ -330,8 +327,7 @@ class CreateRoomStructure(object):
                              title=title,
                              portal_types=collection_types,
                              portlet_manager='collective.portletpage.firstcolumn',
-                             portletpage_index=4,
-                             set_recurse=True,)
+                             portletpage_index=4,)
             
         if types:
             area_obj.setConstrainTypesMode(1)
@@ -379,7 +375,7 @@ class CreateRoomStructure(object):
         portal_types= kwargs.get('portal_types',[])
         if portal_types:   
             if "PlonePopoll" in portal_types:
-                portal_types='label_popoll'
+                portal_types[portal_types.index('PlonePopoll')]='label_popoll'
             type_crit = topic.addCriterion('Type','ATPortalTypeCriterion')
             type_crit.setValue(portal_types)
         if kwargs.get('review_state',''):

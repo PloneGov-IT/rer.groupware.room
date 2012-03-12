@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.2.1 (2012-03-12)
+------------------
+
+* Fixed Folders visualization in Area's collections [andrea]
+
 1.2.0 (2012-03-12)
 ------------------
 
