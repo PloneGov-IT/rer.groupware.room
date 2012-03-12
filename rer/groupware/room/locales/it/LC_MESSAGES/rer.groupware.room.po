@@ -36,7 +36,7 @@ msgstr "${room_title} notifiche documenti"
 
 #: ./events/created_room.py:121
 msgid "${room_title} notifyNewsEvents"
-msgstr "${room_title} notifiche news ed eventi"
+msgstr "${room_title} notifiche avvisi ed eventi"
 
 #. Default: "A document has been modified in the group: ${room_title}"
 #: ./events/modified_object.py:75
@@ -61,7 +61,7 @@ msgstr "Una cartella per l'area eventi delle stanze "
 #. Default: "A folder for the room's news area"
 #: ./profiles/default/types/NewsArea.xml
 msgid "A folder for the room's news area"
-msgstr "Una cartella per l'area news delle stanze"
+msgstr "Una cartella per l'area avvisi delle stanze"
 
 #. Default: "A folder for the room's polls area"
 #: ./profiles/default/types/PollsArea.xml
@@ -113,7 +113,7 @@ msgstr "Impossibile spedire il messaggio: "
 #. Default: "News Area"
 #: ./profiles/default/types/NewsArea.xml
 msgid "News Area"
-msgstr "Area news"
+msgstr "Area avvisi"
 
 #. Default: "Polls Area"
 #: ./profiles/default/types/PollsArea.xml
@@ -172,7 +172,7 @@ msgstr "Forum"
 #. Default: "News"
 #: ./events/created_room.py:207
 msgid "area_news_title"
-msgstr "Notizie"
+msgstr "Avvisi"
 
 #. Default: "Polls"
 #: ./events/created_room.py:209
@@ -192,7 +192,7 @@ msgstr "abilita la notifica dei documenti"
 #. Default: "enable news and events notify"
 #: ./portlets/groups_notification_portlet.pt:40
 msgid "enable news and events notify"
-msgstr "abilita la notifica per news ed eventi"
+msgstr "abilita la notifica per avvisi ed eventi"
 
 #. Default: "Image"
 #: ./content/group_room.py:39
