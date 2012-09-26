@@ -152,29 +152,32 @@ class CreateRoomStructure(object):
         
         
     #THEN WE CREATE THE AREAS
-    def createForum(self,title):
+    def createForum(self, title):
         """
         Create a forum in the room
         """
-        room_id=self.context.getId()
-        forum_id=self.context.invokeFactory(id=self.generateId(title),
-                                            type_name='PloneboardForum',
-                                            title=title,
-                                            maxAttachmentSize=10000)
+        room_id = self.context.getId()
+        forum_id = self.context.invokeFactory(id=self.generateId(title),
+                                              type_name='PloneboardForum',
+                                              title=title,
+                                              maxAttachmentSize=10000)
         if not forum_id:
             return
-        forum=self.context.restrictedTraverse(forum_id)
-        
-        wf_tool=getToolByName(self.context,'portal_workflow')
-        wf_tool.doActionFor(forum, 'make_freeforall')
+        forum = self.context.restrictedTraverse(forum_id)
+
+        wf_tool = getToolByName(self.context, 'portal_workflow')
+        if self.context.getForumModerated():
+            wf_tool.doActionFor(forum, 'make_moderated')
+        else:
+            wf_tool.doActionFor(forum, 'make_freeforall')
         self.setFolderLocalRoles(forum,
-                                 list_groups=[{'id':"%s.hosts"%room_id,'roles':['Reader']},
-                                              {'id':'%s.members'%room_id,'roles':['Contributor','Editor',]},
-                                              {'id':'%s.membersAdv'%room_id,'roles':['Contributor','Editor','EditorAdv']},
-                                              {'id':'%s.coordinators'%room_id,'roles':['LocalManager','Contributor','Editor','EditorAdv','Reviewer']},])
+                                 list_groups=[{'id': "%s.hosts" % room_id, 'roles': ['Reader']},
+                                              {'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
+                                              {'id': '%s.membersAdv' % room_id, 'roles': ['Contributor', 'Editor', 'EditorAdv']},
+                                              {'id': '%s.coordinators' % room_id, 'roles':['LocalManager', 'Contributor', 'Editor', 'EditorAdv', 'Reviewer']}])
         return forum
-    
-    def createBlog(self,title):
+
+    def createBlog(self, title):
         room_id=self.context.getId()
         blog_id=self.context.invokeFactory(id=self.generateId(title),
                                    type_name='Blog',

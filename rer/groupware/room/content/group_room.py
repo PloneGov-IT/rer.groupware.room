@@ -19,30 +19,39 @@ RERGroupRoomSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.ImageField('image',
                required=False,
                languageIndependent=True,
-               storage = atapi.AnnotationStorage(migrate=True),
-               swallowResizeExceptions = zconf.swallowImageResizeExceptions.enable,
-               pil_quality = zconf.pil_config.quality,
-               pil_resize_algo = zconf.pil_config.resize_algo,
-               max_size = zconf.ATImage.max_image_dimension,
-               sizes= {'large'   : (768, 768),
-                       'preview' : (400, 400),
-                       'mini'    : (200, 200),
-                       'thumb'   : (128, 128),
-                       'tile'    :  (64, 64),
-                       'icon'    :  (32, 32),
-                       'listing' :  (16, 16),
+               storage=atapi.AnnotationStorage(migrate=True),
+               swallowResizeExceptions=zconf.swallowImageResizeExceptions.enable,
+               pil_quality=zconf.pil_config.quality,
+               pil_resize_algo=zconf.pil_config.resize_algo,
+               max_size=zconf.ATImage.max_image_dimension,
+               sizes={'large': (768, 768),
+                       'preview': (400, 400),
+                       'mini': (200, 200),
+                       'thumb': (128, 128),
+                       'tile': (64, 64),
+                       'icon': (32, 32),
+                       'listing': (16, 16),
                       },
-               validators = (('isNonEmptyFile', V_REQUIRED),
+               validators=(('isNonEmptyFile', V_REQUIRED),
                              ('checkImageMaxSize', V_REQUIRED)),
-               widget = atapi.ImageWidget(
-                        description = '',
-                        label= _(u'label_image', default=u'Image'),
-                        show_content_type = False,)),
+               widget=atapi.ImageWidget(
+                        description='',
+                        label=_(u'label_image', default=u'Image'),
+                        show_content_type=False,)),
+    atapi.BooleanField('forumModerated',
+                default=False,
+                widget=atapi.BooleanWidget(
+                         description=_(u"help_forummoderated",
+                                         default=u"Select if having a moderated forum, or not. Default forum is open to all."),
+                         label=_(u"label_forummoderated",
+                                  default=u"Forum moderated"),
+                )),
 ))
 
 RERGroupRoomSchema['title'].storage = atapi.AnnotationStorage()
 RERGroupRoomSchema['description'].storage = atapi.AnnotationStorage()
 schemata.finalizeATCTSchema(RERGroupRoomSchema, moveDiscussion=False)
+
 
 class GroupRoom(folder.ATFolder):
     """Folder for Room"""

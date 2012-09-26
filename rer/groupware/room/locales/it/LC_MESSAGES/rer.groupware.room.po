@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rer.groupware.room\n"
-"POT-Creation-Date: 2012-02-23 08:18+0000\n"
+"POT-Creation-Date: 2012-09-26 08:21+0000\n"
 "PO-Revision-Date: 2010-04-21 09:47+0000\n"
 "Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.it>\n"
 "Language-Team: RedTurtle Technology <info@redturtle.net>\n"
@@ -150,37 +150,37 @@ msgid "View"
 msgstr ""
 
 #. Default: "Blog"
-#: ./events/created_room.py:206
+#: ./events/created_room.py:215
 msgid "area_blog_title"
 msgstr "Blog"
 
 #. Default: "Documents"
-#: ./events/created_room.py:203
+#: ./events/created_room.py:212
 msgid "area_documents_title"
 msgstr "Documenti"
 
 #. Default: "Events"
-#: ./events/created_room.py:204
+#: ./events/created_room.py:213
 msgid "area_events_title"
 msgstr "Eventi"
 
 #. Default: "Forum"
-#: ./events/created_room.py:205
+#: ./events/created_room.py:214
 msgid "area_forum_title"
 msgstr "Forum"
 
 #. Default: "News"
-#: ./events/created_room.py:207
+#: ./events/created_room.py:216
 msgid "area_news_title"
 msgstr "Avvisi"
 
 #. Default: "Polls"
-#: ./events/created_room.py:209
+#: ./events/created_room.py:218
 msgid "area_polls_title"
 msgstr "Sondaggi"
 
 #. Default: "Projects"
-#: ./events/created_room.py:208
+#: ./events/created_room.py:217
 msgid "area_projects_title"
 msgstr "Progetti"
 
@@ -194,6 +194,16 @@ msgstr "abilita la notifica dei documenti"
 msgid "enable news and events notify"
 msgstr "abilita la notifica per avvisi ed eventi"
 
+#. Default: "Select if having a moderated forum, or not. Default forum is open to all."
+#: ./content/group_room.py:44
+msgid "help_forummoderated"
+msgstr "Seleziona se avere un forum moderato o no. Di default il forum è aperto a tutti."
+
+#. Default: "Forum moderated"
+#: ./content/group_room.py:46
+msgid "label_forummoderated"
+msgstr "Forum moderato"
+
 #. Default: "Image"
 #: ./content/group_room.py:39
 msgid "label_image"
@@ -206,37 +216,37 @@ msgstr "Impossibile spedire la notifica. Mail template non impostato"
 
 #. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender."
 #: ./browser/modified_mail_template.pt:15
-#: ./events/created_room.py:393
+#: ./events/created_room.py:408
 msgid "no_reply_label"
 msgstr "Questa è una notifica automatica dell'amministratore del Groupware Regione Emilia-Romagna. Si prega di NON rispondere a questo mittente."
 
-#: ./events/created_room.py:398
+#: ./events/created_room.py:413
 msgid "notify_msg_created"
 msgstr ""
 "Il contenuto \"${title}\" è stato creato.\n"
 "Puoi cliccare sul seguente link per vederlo: ${url}"
 
-#: ./events/created_room.py:401
+#: ./events/created_room.py:416
 msgid "notify_msg_deleted"
 msgstr "Il contenuto \"${title}\" è stato eliminato."
 
 #. Default: "A New document has been created in the group: ${room_title}"
-#: ./events/created_room.py:432
+#: ./events/created_room.py:447
 msgid "notify_subj_created_big"
 msgstr "Un nuovo documento è stato creato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "New news or event has been created in the group: ${room_title}"
-#: ./events/created_room.py:406
+#: ./events/created_room.py:421
 msgid "notify_subj_created_small"
 msgstr "Un nuovo avviso o evento è stato creato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "A document has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:437
+#: ./events/created_room.py:452
 msgid "notify_subj_deleted_big"
 msgstr "Un documento è stato eliminato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "A news or event has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:411
+#: ./events/created_room.py:426
 msgid "notify_subj_deleted_small"
 msgstr "Un avviso o evento è stato eliminato nel gruppo di collaborazione: ${room_title}"
 

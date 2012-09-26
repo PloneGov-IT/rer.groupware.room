@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-02-23 08:18+0000\n"
+"POT-Creation-Date: 2012-09-26 08:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,37 +134,37 @@ msgid "View"
 msgstr ""
 
 #. Default: "Blog"
-#: ./events/created_room.py:206
+#: ./events/created_room.py:215
 msgid "area_blog_title"
 msgstr ""
 
 #. Default: "Documents"
-#: ./events/created_room.py:203
+#: ./events/created_room.py:212
 msgid "area_documents_title"
 msgstr ""
 
 #. Default: "Events"
-#: ./events/created_room.py:204
+#: ./events/created_room.py:213
 msgid "area_events_title"
 msgstr ""
 
 #. Default: "Forum"
-#: ./events/created_room.py:205
+#: ./events/created_room.py:214
 msgid "area_forum_title"
 msgstr ""
 
 #. Default: "News"
-#: ./events/created_room.py:207
+#: ./events/created_room.py:216
 msgid "area_news_title"
 msgstr ""
 
 #. Default: "Polls"
-#: ./events/created_room.py:209
+#: ./events/created_room.py:218
 msgid "area_polls_title"
 msgstr ""
 
 #. Default: "Projects"
-#: ./events/created_room.py:208
+#: ./events/created_room.py:217
 msgid "area_projects_title"
 msgstr ""
 
@@ -174,6 +174,16 @@ msgstr ""
 
 #: ./portlets/groups_notification_portlet.pt:40
 msgid "enable news and events notify"
+msgstr ""
+
+#. Default: "Select if having a moderated forum, or not. Default forum is open to all."
+#: ./content/group_room.py:44
+msgid "help_forummoderated"
+msgstr ""
+
+#. Default: "Forum moderated"
+#: ./content/group_room.py:46
+msgid "label_forummoderated"
 msgstr ""
 
 #. Default: "Image"
@@ -188,35 +198,35 @@ msgstr ""
 
 #. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender."
 #: ./browser/modified_mail_template.pt:15
-#: ./events/created_room.py:393
+#: ./events/created_room.py:408
 msgid "no_reply_label"
 msgstr ""
 
-#: ./events/created_room.py:398
+#: ./events/created_room.py:413
 msgid "notify_msg_created"
 msgstr ""
 
-#: ./events/created_room.py:401
+#: ./events/created_room.py:416
 msgid "notify_msg_deleted"
 msgstr ""
 
 #. Default: "A New document has been created in the group: ${room_title}"
-#: ./events/created_room.py:432
+#: ./events/created_room.py:447
 msgid "notify_subj_created_big"
 msgstr ""
 
 #. Default: "New news or event has been created in the group: ${room_title}"
-#: ./events/created_room.py:406
+#: ./events/created_room.py:421
 msgid "notify_subj_created_small"
 msgstr ""
 
 #. Default: "A document has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:437
+#: ./events/created_room.py:452
 msgid "notify_subj_deleted_big"
 msgstr ""
 
 #. Default: "A news or event has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:411
+#: ./events/created_room.py:426
 msgid "notify_subj_deleted_small"
 msgstr ""
 
