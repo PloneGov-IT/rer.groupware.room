@@ -168,8 +168,6 @@ class CreateRoomStructure(object):
         wf_tool = getToolByName(self.context, 'portal_workflow')
         if self.context.getForumModerated():
             wf_tool.doActionFor(forum, 'make_moderated')
-        else:
-            wf_tool.doActionFor(forum, 'make_freeforall')
         self.setFolderLocalRoles(forum,
                                  list_groups=[{'id': "%s.hosts" % room_id, 'roles': ['Reader']},
                                               {'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
