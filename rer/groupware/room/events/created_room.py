@@ -171,7 +171,7 @@ class CreateRoomStructure(object):
         self.setFolderLocalRoles(forum,
                                  list_groups=[{'id': "%s.hosts" % room_id, 'roles': ['Reader']},
                                               {'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
-                                              {'id': '%s.membersAdv' % room_id, 'roles': ['Contributor', 'Editor', 'EditorAdv']},
+                                              {'id': '%s.membersAdv' % room_id, 'roles': ['Contributor', 'Editor', 'EditorAdv', 'Reviewer']},
                                               {'id': '%s.coordinators' % room_id, 'roles':['LocalManager', 'Contributor', 'Editor', 'EditorAdv', 'Reviewer']}])
         return forum
 
