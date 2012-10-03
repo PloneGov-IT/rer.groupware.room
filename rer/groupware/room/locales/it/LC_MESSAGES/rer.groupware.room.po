@@ -197,7 +197,7 @@ msgstr "abilita la notifica per avvisi ed eventi"
 #. Default: "Select if having a moderated forum, or not. Default forum is open to all."
 #: ./content/group_room.py:44
 msgid "help_forummoderated"
-msgstr "Seleziona se avere un forum moderato o no. Di default il forum è aperto a tutti."
+msgstr "Seleziona se avere un forum moderato o libero. Di default il forum è libero."
 
 #. Default: "Forum moderated"
 #: ./content/group_room.py:46
