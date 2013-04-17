@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3.2 (unreleased)
+1.3.2 (2013-04-17)
 ------------------
 
 - Removed event that insert users in notify group when added in a room [andrea]
