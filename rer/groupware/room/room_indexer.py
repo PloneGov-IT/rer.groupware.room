@@ -1,4 +1,4 @@
-from Products.Archetypes.interfaces._base import IBaseObject
+from Products.Archetypes.interfaces import IBaseObject
 from plone.indexer import indexer
 
 @indexer(IBaseObject)

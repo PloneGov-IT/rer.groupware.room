@@ -17,8 +17,6 @@ from plone.portlets.interfaces import IPortletManager, IPortletAssignment, \
     IPortletAssignmentMapping
 from redturtle.portlet.collection.rtcollectionportlet import \
     Assignment as CollectionAssignment
-from rer.groupware.custom.portlets.managers import \
-    Assignment as ProjectsAssignment
 from zope.app.container.interfaces import IObjectAddedEvent, IObjectRemovedEvent, \
     INameChooser
 from zope.component import getMultiAdapter, getUtility, queryUtility
@@ -521,10 +519,6 @@ class CreateRoomStructure(object):
             mapping[portlet_id] = assignment
             self.portlet_page_order[portlet_manager][portletpage_index]=portlet_id
     
-    def createProjectsPortlet(self):
-        assignment=ProjectsAssignment()
-        return assignment
-        
     def createBlogPortlet(self):
         if not self.blog:
             return None
