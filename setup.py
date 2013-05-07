@@ -31,7 +31,7 @@ setup(name='rer.groupware.room',
           'collective.portlet.discussion',
           'collective.portletpage',
           'collective.blog.star',
-          'collective.portlet.blogstarentry',
+          'collective.blogstarentry',
           'collective.portlet.blogstarentries',
       ],
       entry_points="""
