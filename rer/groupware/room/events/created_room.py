@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
 from Products.PlonePopoll.browser.popoll import Assignment as PopollAssignment
-from Products.Ploneboard.portlet.recent_contextual import \
+from Products.Ploneboard.portlet.recent import \
     Assignment as PloneboardAssignment
 from collective.contentrules.mailtogroup.actions.mail import MailGroupAction
 from collective.portlet.blogstarentries.blogstarlastentries import \
@@ -544,7 +544,7 @@ class CreateRoomStructure(object):
     
     def createForumPortlet(self):
         assignment=PloneboardAssignment(title="Discussioni del forum",
-                                        forumPath='/%s'%self.context.getId(),
+                                        forum='/%s'%self.context.getId(),
                                         count=3)
         return assignment
     
