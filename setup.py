@@ -24,11 +24,15 @@ setup(name='rer.groupware.room',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'Products.PlonePopoll',
+          'Products.Ploneboard',
           'redturtle.portlet.collection',
           'collective.portletpage',
           'collective.blog.star',
       ],
       entry_points="""
       # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       )

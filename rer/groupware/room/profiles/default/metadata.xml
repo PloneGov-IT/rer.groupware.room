@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <metadata>
-  <version>1.2.1</version>
+  <version>1000</version>
   <dependencies>
 		<dependency>profile-collective.portletpage:default</dependency>
         <dependency>profile-collective.blog.star:default</dependency>
 		<dependency>profile-collective.blogstarentry:default</dependency>
 		<dependency>profile-Products.Ploneboard:ploneboard</dependency>
-		<dependency>profile-Products.PloneboardModerationWorkflow:default</dependency>
+		<!--dependency>profile-Products.PloneboardModerationWorkflow:default</dependency-->
 		<dependency>profile-collective.portlet.discussion:default</dependency>
 		<dependency>profile-collective.portlet.blogstarentries:default</dependency>
 		<dependency>profile-redturtle.portlet.collection:default</dependency>
