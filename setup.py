@@ -26,9 +26,13 @@ setup(name='rer.groupware.room',
           'setuptools',
           'Products.PlonePopoll',
           'Products.Ploneboard',
+          'Products.SimpleGroupsManagement',
           'redturtle.portlet.collection',
+          'collective.portlet.discussion',
           'collective.portletpage',
           'collective.blog.star',
+          'collective.portlet.blogstarentry',
+          'collective.portlet.blogstarentries',
       ],
       entry_points="""
       # -*- Entry points: -*-
