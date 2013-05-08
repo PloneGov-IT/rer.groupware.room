@@ -7,7 +7,7 @@
 		<dependency>profile-collective.blogstarentry:default</dependency>
 		<dependency>profile-Products.Ploneboard:ploneboard</dependency>
 		<!--dependency>profile-Products.PloneboardModerationWorkflow:default</dependency-->
-		<dependency>profile-Products.SimpleGroupsManagement:ploneboard</dependency>
+		<dependency>profile-Products.SimpleGroupsManagement:default</dependency>
 		<dependency>profile-collective.portlet.discussion:default</dependency>
 		<dependency>profile-collective.portlet.blogstarentries:default</dependency>
 		<dependency>profile-redturtle.portlet.collection:default</dependency>
