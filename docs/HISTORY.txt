@@ -8,7 +8,7 @@ Plone 4 version
 
 - z3c.autoinclude support [keul]
 - Dependency on Popoll and Ploneboard [keul]
-
+- Refactoring room setup config after creation [andrea]
 
 1.3.2 (2013-04-17)
 ------------------

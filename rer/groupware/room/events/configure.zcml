@@ -6,9 +6,9 @@
 
 	<subscriber for = "..interfaces.group_room.IGroupRoom
             	Products.Archetypes.interfaces.IObjectInitializedEvent"
-           		handler = ".created_room.CreateRoomStructure"
+           		handler = ".create_room_event.createRoomEvent"
             	/>
-		
+	
 	<subscriber for = "*
             	Products.SimpleGroupsManagement.group_event.IUserRemovedFromGroup"
            		handler = ".group_events.removeNotifyGroup"

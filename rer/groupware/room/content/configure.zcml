@@ -14,59 +14,6 @@
 	    />
   </class>
   
-  <!--class class=".documents_area.DocumentsArea">
-	  <require
-	    permission="zope2.View"
-	    interface="..interfaces.IDocumentsArea"
-	    />
-	  <require
-	  	permission="cmf.ModifyPortalContent"
-	    set_schema="..interfaces.IDocumentsArea"
-	    />
-  </class>
   
-  <class class=".events_area.EventsArea">
-	  <require
-	    permission="zope2.View"
-	    interface="..interfaces.IEventsArea"
-	    />
-	  <require
-	  	permission="cmf.ModifyPortalContent"
-	    set_schema="..interfaces.IEventsArea"
-	    />
-  </class>
-  
-  <class class=".news_area.NewsArea">
-	  <require
-	    permission="zope2.View"
-	    interface="..interfaces.INewsArea"
-	    />
-	  <require
-	  	permission="cmf.ModifyPortalContent"
-	    set_schema="..interfaces.INewsArea"
-	    />
-  </class>
-  
-  <class class=".polls_area.PollsArea">
-	  <require
-	    permission="zope2.View"
-	    interface="..interfaces.IPollsArea"
-	    />
-	  <require
-	  	permission="cmf.ModifyPortalContent"
-	    set_schema="..interfaces.IPollsArea"
-	    />
-  </class>
-  
-  <class class=".projects_area.ProjectsArea">
-	  <require
-	    permission="zope2.View"
-	    interface="..interfaces.IProjectsArea"
-	    />
-	  <require
-	  	permission="cmf.ModifyPortalContent"
-	    set_schema="..interfaces.IProjectsArea"
-	    />
-  </class-->
   
 </configure>
