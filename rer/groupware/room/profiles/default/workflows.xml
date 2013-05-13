@@ -1,9 +1,34 @@
 <?xml version="1.0"?>
 <object name="portal_workflow" meta_type="Plone Workflow Tool" purge="False">
  <object name="room_workflow" meta_type="Workflow"/>
+ <object name="groupware_folders_workflow" meta_type="Workflow"/>
  <bindings>
   <type type_id="GroupRoom">
   	<bound-workflow workflow_id="room_workflow" />
+  </type>
+  <type type_id="Portlet Page">
+  	<bound-workflow workflow_id="groupware_folders_workflow" />
+  </type>
+  <type type_id="Topic">
+  	<bound-workflow workflow_id="groupware_folders_workflow" />
+  </type>
+  <type type_id="Blog">
+    <bound-workflow workflow_id="groupware_folders_workflow" />
+  </type>
+  <type type_id="DocumentsArea">
+    <bound-workflow workflow_id="groupware_folders_workflow" />
+  </type>
+  <type type_id="EventsArea">
+    <bound-workflow workflow_id="groupware_folders_workflow" />
+  </type>
+  <type type_id="NewsArea">
+    <bound-workflow workflow_id="groupware_folders_workflow" />
+  </type>
+  <type type_id="ProjectsArea">
+    <bound-workflow workflow_id="groupware_folders_workflow" />
+  </type>
+  <type type_id="PollsArea">
+    <bound-workflow workflow_id="groupware_folders_workflow" />
   </type>
  </bindings>
 </object>
