@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-09-26 08:21+0000\n"
+"POT-Creation-Date: 2013-05-13 16:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,31 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rer.groupware.room\n"
 
-#: ./events/created_room.py:125
+#: ./events/default_room_events.py:206
+#: ./events/old_created_room.py:123
 msgid "${room_title} coordinators"
 msgstr ""
 
-#: ./events/created_room.py:129
+#: ./events/default_room_events.py:211
+#: ./events/old_created_room.py:127
 msgid "${room_title} hosts"
 msgstr ""
 
-#: ./events/created_room.py:107
+#: ./events/default_room_events.py:194
+#: ./events/old_created_room.py:105
 msgid "${room_title} members"
 msgstr ""
 
-#: ./events/created_room.py:112
+#: ./events/default_room_events.py:200
+#: ./events/old_created_room.py:110
 msgid "${room_title} membersAdv"
 msgstr ""
 
-#: ./events/created_room.py:117
+#: ./events/old_created_room.py:115
 msgid "${room_title} notifyDocs"
 msgstr ""
 
-#: ./events/created_room.py:121
+#: ./events/old_created_room.py:119
 msgid "${room_title} notifyNewsEvents"
 msgstr ""
 
@@ -134,46 +138,44 @@ msgid "View"
 msgstr ""
 
 #. Default: "Blog"
-#: ./events/created_room.py:215
+#: ./events/default_room_events.py:40
+#: ./events/old_created_room.py:211
 msgid "area_blog_title"
 msgstr ""
 
 #. Default: "Documents"
-#: ./events/created_room.py:212
+#: ./events/default_room_events.py:31
+#: ./events/old_created_room.py:208
 msgid "area_documents_title"
 msgstr ""
 
 #. Default: "Events"
-#: ./events/created_room.py:213
+#: ./events/default_room_events.py:34
+#: ./events/old_created_room.py:209
 msgid "area_events_title"
 msgstr ""
 
 #. Default: "Forum"
-#: ./events/created_room.py:214
+#: ./events/default_room_events.py:37
+#: ./events/old_created_room.py:210
 msgid "area_forum_title"
 msgstr ""
 
 #. Default: "News"
-#: ./events/created_room.py:216
+#: ./events/default_room_events.py:43
+#: ./events/old_created_room.py:212
 msgid "area_news_title"
 msgstr ""
 
 #. Default: "Polls"
-#: ./events/created_room.py:218
+#: ./events/default_room_events.py:46
+#: ./events/old_created_room.py:214
 msgid "area_polls_title"
 msgstr ""
 
 #. Default: "Projects"
-#: ./events/created_room.py:217
+#: ./events/old_created_room.py:213
 msgid "area_projects_title"
-msgstr ""
-
-#: ./portlets/groups_notification_portlet.pt:19
-msgid "enable documents notify"
-msgstr ""
-
-#: ./portlets/groups_notification_portlet.pt:40
-msgid "enable news and events notify"
 msgstr ""
 
 #. Default: "Select if having a moderated forum, or not. Default forum is open to all."
@@ -198,51 +200,41 @@ msgstr ""
 
 #. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender."
 #: ./browser/modified_mail_template.pt:15
-#: ./events/created_room.py:408
+#: ./events/old_created_room.py:404
 msgid "no_reply_label"
 msgstr ""
 
-#: ./events/created_room.py:413
+#: ./events/old_created_room.py:409
 msgid "notify_msg_created"
 msgstr ""
 
-#: ./events/created_room.py:416
+#: ./events/old_created_room.py:412
 msgid "notify_msg_deleted"
 msgstr ""
 
 #. Default: "A New document has been created in the group: ${room_title}"
-#: ./events/created_room.py:447
+#: ./events/old_created_room.py:443
 msgid "notify_subj_created_big"
 msgstr ""
 
 #. Default: "New news or event has been created in the group: ${room_title}"
-#: ./events/created_room.py:421
+#: ./events/old_created_room.py:417
 msgid "notify_subj_created_small"
 msgstr ""
 
 #. Default: "A document has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:452
+#: ./events/old_created_room.py:448
 msgid "notify_subj_deleted_big"
 msgstr ""
 
 #. Default: "A news or event has been deleted in the group: ${room_title}"
-#: ./events/created_room.py:426
+#: ./events/old_created_room.py:422
 msgid "notify_subj_deleted_small"
 msgstr ""
 
-#. Default: "Documents"
-#: ./portlets/groups_notification_portlet.pt:36
-msgid "portlet_room_label_docs"
-msgstr ""
-
-#. Default: "News and events"
-#: ./portlets/groups_notification_portlet.pt:57
-msgid "portlet_room_label_news_events"
-msgstr ""
-
-#. Default: "Notification management"
-#: ./portlets/groups_notification_portlet.pt:6
-msgid "portlet_room_title"
+#. Default: "Recent contents for this room"
+#: ./events/default_room_events.py:320
+msgid "room_homepage_title"
 msgstr ""
 
 #. Default: "Impossible sending the notification. Mailserver not set in the portal."

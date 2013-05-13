@@ -1,33 +1,35 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: Plone\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-05-13 16:04+0000\n"
-"PO-Revision-Date: 2010-10-15 10:44+0200\n"
-"Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.net.it>\n"
-"Language-Team: Plone i18n <sviluppoplone@redturtle.net>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n!=1\n"
-"Language-Code: it\n"
-"Language-Name: Italiano\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
-"X-Is-Fallback-For: it-ch it-it\n"
 
 #: profiles/default/workflows/room_workflow/definition.xml
 msgid "Close room"
-msgstr "Chiudi stanza"
+msgstr ""
 
 #: profiles/default/workflows/room_workflow/definition.xml
 msgid "Closed"
-msgstr "Chiusa"
+msgstr ""
 
 #: profiles/default/workflows/groupware_folders_workflow/definition.xml
 msgid "Definitive"
-msgstr "Definitivo"
+msgstr ""
 
 #: profiles/default/workflows/room_workflow/definition.xml
 msgid "Open"
-msgstr "Aperta"
+msgstr ""
 
