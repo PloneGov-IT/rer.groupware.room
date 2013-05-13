@@ -1,66 +1,79 @@
 <?xml version="1.0"?>
-<dc-workflow workflow_id="room_workflow"
-             title="Room Single State Workflow"
-             xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-			 i18n:domain="plone"
-             description="- Essentially a workflow with no transitions, but has a Closed state."
-             state_variable="review_state"
-             initial_state="private">
+<dc-workflow workflow_id="room_workflow" title="Room Workflow" description="Workflow for the Groupware Room. Rooms can be open or closed" state_variable="review_state" initial_state="private" manager_bypass="False">
  <permission>Access contents information</permission>
- <permission>Change portal events</permission>
  <permission>List folder contents</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
- <state state_id="private" title="Closed" i18n:attributes="title">
-  <description>Visible to members of the groups.
-</description>
-  <permission-map name="Access contents information"
-                  acquired="False">
+ <state state_id="open" title="">
+  <exit-transition transition_id="close"/>
+  <permission-map name="Access contents information" acquired="True">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="List folder contents" acquired="False">
    <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
-   <permission-role>EditorAdv</permission-role>
-   <permission-role>LocalManager</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="True">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="private" title="Closed">
+  <description>Visible to members of the groups.</description>
+  <exit-transition transition_id="open"/>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
-   <permission-role>Site Administrator"</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
-  <permission-map name="Change portal events"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Site Administrator"</permission-role>
-  </permission-map>
-  <permission-map name="List folder contents"
-                  acquired="False">
+  <permission-map name="List folder contents" acquired="False">
    <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
-   <permission-role>EditorAdv</permission-role>
-   <permission-role>LocalManager</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reviewer</permission-role>
-   <permission-role>Site Administrator"</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
-  <permission-map name="Modify portal content"
-                  acquired="False">
+  <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Site Administrator"</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
-   <permission-role>EditorAdv</permission-role>
-   <permission-role>LocalManager</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
-   <permission-role>Site Administrator"</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
- <variable variable_id="action" for_catalog="False"
-           for_status="True" update_always="True">
+ <transition transition_id="close" title="Close room" new_state="private" trigger="USER" before_script="" after_script="">
+  <action url="" category="workflow" icon="">Close room</action>
+  <guard>
+   <guard-permission>Modify portal content</guard-permission>
+  </guard>
+ </transition>
+ <transition transition_id="open" title="Open room" new_state="open" trigger="USER" before_script="" after_script="">
+  <action url="" category="workflow" icon="">Open room</action>
+  <guard>
+   <guard-permission>Modify portal content</guard-permission>
+  </guard>
+ </transition>
+ <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
   <description>Previous transition</description>
   <default>
    
@@ -69,10 +82,8 @@
   <guard>
   </guard>
  </variable>
- <variable variable_id="actor" for_catalog="False"
-           for_status="True" update_always="True">
-  <description>The ID of the user who performed the previous transition
-</description>
+ <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
+  <description>The ID of the user who performed the previous transition</description>
   <default>
    
    <expression>user/getId</expression>
@@ -80,10 +91,8 @@
   <guard>
   </guard>
  </variable>
- <variable variable_id="comments" for_catalog="False"
-           for_status="True" update_always="True">
-  <description>Comment about the last transition
-</description>
+ <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
+  <description>Comment about the last transition</description>
   <default>
    
    <expression>python:state_change.kwargs.get('comment', '')</expression>
@@ -91,10 +100,8 @@
   <guard>
   </guard>
  </variable>
- <variable variable_id="review_history" for_catalog="False"
-           for_status="False" update_always="False">
-  <description>Provides access to workflow history
-</description>
+ <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
+  <description>Provides access to workflow history</description>
   <default>
    
    <expression>state_change/getHistory</expression>
@@ -104,10 +111,8 @@
    <guard-permission>Review portal content</guard-permission>
   </guard>
  </variable>
- <variable variable_id="time" for_catalog="False"
-           for_status="True" update_always="True">
-  <description>When the previous transition was performed
-</description>
+ <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
+  <description>When the previous transition was performed</description>
   <default>
    
    <expression>state_change/getDateTime</expression>

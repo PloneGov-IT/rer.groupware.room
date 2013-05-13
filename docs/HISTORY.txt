@@ -10,6 +10,7 @@ Plone 4 version
 - Dependency on Popoll and Ploneboard [keul]
 - Refactoring room setup config after creation [andrea]
 - groupware_folders_workflow workflow moved there [keul]
+- new open state [keul]
 
 1.3.2 (2013-04-17)
 ------------------
