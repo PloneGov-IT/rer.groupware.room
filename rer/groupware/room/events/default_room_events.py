@@ -7,6 +7,11 @@ from rer.groupware.room.interfaces import IRoomArea
 from zope.component._api import queryUtility
 from zope.i18n import translate
 from zope.interface import alsoProvides
+from plone.portlets.interfaces import IPortletManager, IPortletAssignment, \
+    IPortletAssignmentMapping
+from zope.component import getMultiAdapter, getUtility, queryUtility
+from redturtle.portlet.collection.rtcollectionportlet import \
+    Assignment as CollectionAssignment
 
 
 class CreateRoomStructure(object):
@@ -18,6 +23,11 @@ class CreateRoomStructure(object):
         """
         self.context = context
         self.request = self.context.REQUEST
+        self.createAreas()
+
+    def createAreas(self):
+        """
+        """
         documents_area_title = translate(_('area_documents_title',
                                     default="Documents"),
                                     context=self.request)
@@ -33,45 +43,30 @@ class CreateRoomStructure(object):
         news_area_title = translate(_('area_news_title',
                                         default="News"),
                                         context=self.request)
-        # projects_area_title = translate(_('area_projects_title',
-        #                                 default="Projects"),
-        #                                 context=self.request)
         polls_area_title = translate(_('area_polls_title',
                                         default="Polls"),
                                         context=self.request)
 
-        news_area = self.createArea(id=self.generateId(news_area_title),
-                             title=news_area_title,
-                             portal_type="NewsArea",
-                             types=['Folder', 'News Item'])
-        blog_area = self.createArea(id=self.generateId(blog_area_title),
-                             title=blog_area_title,
-                             portal_type="Blog")
-        documents_area = self.createArea(id=self.generateId(documents_area_title),
-                                  title=documents_area_title,
-                                  portal_type="DocumentsArea",
-                                  types=['Document', 'File', 'Image', 'Folder'])
-        events_area = self.createArea(id=self.generateId(events_area_title),
-                               title=events_area_title,
-                               portal_type="EventsArea",
-                               types=['Folder', 'Event'])
-        forum_area = self.createForum(forum_area_title)
-        
-        # projects=self.createArea(id=self.generateId(projects_title),
-        #                          title=projects_title,
-        #                          portal_type="ProjectsArea",
-        #                          types=['Folder','Project'],
-        #                          collection_types=['Project', 'Folder'],
-        #                          groups=[{'id':"%s.hosts"%base_id,'roles':['Reader']},
-        #                                  {'id':'%s.members'%base_id,'roles':['Contributor','Editor','Employee']},
-        #                                  {'id':'%s.membersAdv'%base_id,'roles':['Contributor','Editor','EditorAdv','Employee']},
-        #                                  {'id':'%s.coordinators'%base_id,'roles':['LocalManager','Projectmanager','Contributor','Editor','EditorAdv','Reviewer']},]
-        #                          )
-
-        polls_area = self.createArea(id=self.generateId(polls_area_title),
-                              title=polls_area_title,
-                              portal_type="PollsArea",
-                              types=['Folder', 'PlonePopoll'])
+        self.createArea(id=self.generateId(news_area_title),
+                        title=news_area_title,
+                        portal_type="NewsArea",
+                        types=['Folder', 'News Item'])
+        self.createArea(id=self.generateId(blog_area_title),
+                        title=blog_area_title,
+                        portal_type="Blog")
+        self.createArea(id=self.generateId(documents_area_title),
+                        title=documents_area_title,
+                        portal_type="DocumentsArea",
+                        types=['Document', 'File', 'Image', 'Folder'])
+        self.createArea(id=self.generateId(events_area_title),
+                        title=events_area_title,
+                        portal_type="EventsArea",
+                        types=['Folder', 'Event'])
+        self.createForum(forum_area_title)
+        self.createArea(id=self.generateId(polls_area_title),
+                        title=polls_area_title,
+                        portal_type="PollsArea",
+                        types=['Folder', 'PlonePopoll'])
 
     def createArea(self, id, title, portal_type, types=[]):
         """
@@ -80,7 +75,29 @@ class CreateRoomStructure(object):
         area_id = self.context.invokeFactory(id=id,
                                              type_name=portal_type,
                                              title=title)
+        if not area_id:
+            logger.error("Problem creating Area: %s" % title)
+            return ""
+        logger.info("Created Area: %s" % title)
         area_obj = self.context.restrictedTraverse(area_id)
+
+        #create topic before disallowing this type
+        if portal_type not in ["PloneboardForum", "Blog"]:
+            portal_types = []
+            if portal_type == "NewsArea":
+                portal_types = ['Folder', 'News Item']
+            elif portal_type == "DocumentsArea":
+                portal_types = ['Document', 'File', 'Image', 'Folder']
+            elif portal_type == "EventsArea":
+                portal_types = ['Event', 'Folder']
+            elif portal_type == "PollsArea":
+                portal_types = ['Folder', 'PlonePopoll']
+            self.createCollection(folder=area_obj,
+                                  id=id,
+                                  title=title,
+                                  set_as_default_view=True,
+                                  portal_types=portal_types)
+
         #set allowed types
         if types:
             area_obj.setConstrainTypesMode(1)
@@ -89,7 +106,7 @@ class CreateRoomStructure(object):
 
         alsoProvides(area_obj, IRoomArea)
         area_obj.reindexObject()
-        return area_obj
+        return area_id
 
     def createForum(self, title):
         """
@@ -100,7 +117,9 @@ class CreateRoomStructure(object):
                                               title=title,
                                               maxAttachmentSize=10000)
         if not forum_id:
+            logger.error("Problem creating Area: %s" % title)
             return
+        logger.info("Created Area: %s" % title)
         forum = self.context.restrictedTraverse(forum_id)
 
         alsoProvides(forum, IRoomArea)
@@ -109,7 +128,43 @@ class CreateRoomStructure(object):
         wf_tool = getToolByName(self.context, 'portal_workflow')
         if self.context.getForumModerated():
             wf_tool.doActionFor(forum, 'make_moderated')
-        return forum
+        return forum_id
+
+    def createCollection(self, folder, id, title, **kwargs):
+        """
+        Create a collection in the area
+        """
+        #create topic query
+        query = [{'i': 'path',
+                  'o': 'plone.app.querystring.operation.string.path',
+                  'v': "/".join(folder.getPhysicalPath())}]
+        #optional settings
+        portal_types = kwargs.get('portal_types', [])
+        if portal_types:
+            if "PlonePopoll" in portal_types:
+                portal_types[portal_types.index('PlonePopoll')] = 'label_popoll'
+            query.append(dict(i='portal_type',
+                              o='plone.app.querystring.operation.selection.is',
+                              v=portal_types))
+        if kwargs.get('review_state', ''):
+            query.append(dict(i='review_state',
+                              o='plone.app.querystring.operation.selection.is',
+                              v=kwargs.get('review_state', '')))
+        #create the topic
+        topic_id = folder.invokeFactory(id=id,
+                                        type_name='Collection',
+                                        title=title,
+                                        query=query,
+                                        sort_on='modified',
+                                        sort_reversed=True)
+        if not topic_id:
+            logger.error("Problem creating collection for Area: %s" % folder.Title())
+        logger.info("Collection created for Area: %s" % title)
+        # topic = folder.restrictedTraverse(topic_id)
+        # topic.selectViewTemplate(templateId='groupware_topic_view')
+        if kwargs.get('set_as_default_view', False):
+            #set topic as view of the folder
+            folder.setDefaultPage(topic_id)
 
     def generateId(self, title):
         """
@@ -234,6 +289,7 @@ class CreateSharing(object):
                           {'id': '%s.coordinators' % room_id, 'roles': ['LocalManager', 'Contributor', 'Editor', 'EditorAdv', 'Reviewer']}]
             if groups:
                 self.setFolderLocalRoles(area.getObject(), groups)
+            logger.info("Sharing set")
 
     def setFolderLocalRoles(self, folder, list_groups):
         """
@@ -243,18 +299,44 @@ class CreateSharing(object):
         folder.__ac_local_roles_block__ = True
         #set the local roles
         for group in list_groups:
-            folder.manage_addLocalRoles(group.get('id'),group.get('roles'))
+            folder.manage_addLocalRoles(group.get('id'), group.get('roles'))
         #reindex the security
         folder.reindexObjectSecurity()
 
 
-def createHomePage(room, event):
-    """
-    This event throw some specified events for room initial setup
-    """
+class CreateHomepage(object):
 
+    def __init__(self, context, event):
+        """
+        Create the homepage view for this room.
+        """
+        self.context = context
+        self.request = self.context.REQUEST
+        self.createPortletPage()
 
-def CreateRules(room, event):
-    """
-    This event throw some specified events for room initial setup
-    """
+    def createPortletPage(self):
+        """
+        """
+        homepage_title = translate(_('room_homepage_title',
+                                    default=u"Recent contents for this room"),
+                                    context=self.request)
+        portletpage_id = self.context.invokeFactory(id=self.generateId(homepage_title),
+                                                    type_name='Portlet Page',
+                                                    show_dates=True,
+                                                    title=homepage_title)
+        #set portletpage as default view for the room
+        self.context.setDefaultPage(portletpage_id)
+        portletpage = self.context.restrictedTraverse(portletpage_id)
+        portletpage.manage_addLocalRoles('%s.membersAdv' % self.context.getId(), ['Editor', 'EditorAdv'])
+        portletpage.manage_addLocalRoles('%s.coordinators' % self.context.getId(), ['Editor', 'EditorAdv', 'LocalManager'])
+        logger.info("Created room homepage")
+
+    def generateId(self, title):
+        """
+        Obtain a nice id from the title in two steps:
+        first we remove forbidden
+        chars and the we ensure ourselves it is unique
+        """
+        title = ' '.join(title.split())
+        id = queryUtility(IURLNormalizer).normalize(title)
+        return id

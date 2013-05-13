@@ -16,13 +16,8 @@
                 />
 
     <subscriber for = "rer.groupware.room.interfaces.group_room.IGroupRoom
-                rer.groupware.room.events.room_events.IRoomCreateRulesEvent"
-                handler = "rer.groupware.room.events.default_room_events.CreateRules"
-                />
-
-    <subscriber for = "rer.groupware.room.interfaces.group_room.IGroupRoom
                 rer.groupware.room.events.room_events.IRoomCreateHomePageEvent"
-                handler = "rer.groupware.room.events.default_room_events.createHomePage"
+                handler = "rer.groupware.room.events.default_room_events.CreateHomepage"
                 />
 
     <subscriber for = "rer.groupware.room.interfaces.group_room.IGroupRoom
