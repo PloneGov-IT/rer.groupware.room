@@ -3,7 +3,7 @@
 			 xmlns:i18n="http://xml.zope.org/namespaces/i18n"
 			 i18n:domain="plone"
              title="Groupware folders Workflow"
-             description="- Essentially a workflow with no transitions, but has a Definitive state."
+             description="Essentially a workflow with no transitions, but has a Definitive state."
              state_variable="review_state"
              initial_state="published">
  <permission>Access contents information</permission>

@@ -12,6 +12,9 @@
   <type type_id="Topic">
   	<bound-workflow workflow_id="groupware_folders_workflow" />
   </type>
+  <type type_id="Collection">
+  	<bound-workflow workflow_id="groupware_folders_workflow" />
+  </type>
   <type type_id="Blog">
     <bound-workflow workflow_id="groupware_folders_workflow" />
   </type>
