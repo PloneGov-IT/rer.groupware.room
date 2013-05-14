@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-05-14 07:27+0000\n"
+"POT-Creation-Date: 2013-05-14 08:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,22 +17,22 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rer.groupware.room\n"
 
-#: ./events/default_room_events.py:206
+#: ./events/default_room_events.py:208
 #: ./events/old_created_room.py:123
 msgid "${room_title} coordinators"
 msgstr ""
 
-#: ./events/default_room_events.py:211
+#: ./events/default_room_events.py:213
 #: ./events/old_created_room.py:127
 msgid "${room_title} hosts"
 msgstr ""
 
-#: ./events/default_room_events.py:194
+#: ./events/default_room_events.py:196
 #: ./events/old_created_room.py:105
 msgid "${room_title} members"
 msgstr ""
 
-#: ./events/default_room_events.py:200
+#: ./events/default_room_events.py:202
 #: ./events/old_created_room.py:110
 msgid "${room_title} membersAdv"
 msgstr ""
@@ -77,6 +77,10 @@ msgstr ""
 msgid "A news or event has been modified in the group: ${room_title}"
 msgstr ""
 
+#: ./events/default_room_events.py:422
+msgid "Discussions"
+msgstr ""
+
 #: ./profiles/default/types/DocumentsArea.xml
 msgid "Documents Area"
 msgstr ""
@@ -103,6 +107,14 @@ msgstr ""
 
 #: ./events/modified_object.py:67
 msgid "Impossible sending the message: "
+msgstr ""
+
+#: ./events/default_room_events.py:416
+msgid "Last blog posts"
+msgstr ""
+
+#: ./events/default_room_events.py:433
+msgid "Last forum discussions"
 msgstr ""
 
 #: ./profiles/default/types/NewsArea.xml
@@ -138,37 +150,37 @@ msgid "View"
 msgstr ""
 
 #. Default: "Blog"
-#: ./events/default_room_events.py:40
+#: ./events/default_room_events.py:42
 #: ./events/old_created_room.py:211
 msgid "area_blog_title"
 msgstr ""
 
 #. Default: "Documents"
-#: ./events/default_room_events.py:31
+#: ./events/default_room_events.py:33
 #: ./events/old_created_room.py:208
 msgid "area_documents_title"
 msgstr ""
 
 #. Default: "Events"
-#: ./events/default_room_events.py:34
+#: ./events/default_room_events.py:36
 #: ./events/old_created_room.py:209
 msgid "area_events_title"
 msgstr ""
 
 #. Default: "Forum"
-#: ./events/default_room_events.py:37
+#: ./events/default_room_events.py:39
 #: ./events/old_created_room.py:210
 msgid "area_forum_title"
 msgstr ""
 
 #. Default: "News"
-#: ./events/default_room_events.py:43
+#: ./events/default_room_events.py:45
 #: ./events/old_created_room.py:212
 msgid "area_news_title"
 msgstr ""
 
 #. Default: "Polls"
-#: ./events/default_room_events.py:46
+#: ./events/default_room_events.py:48
 #: ./events/old_created_room.py:214
 msgid "area_polls_title"
 msgstr ""
@@ -233,7 +245,7 @@ msgid "notify_subj_deleted_small"
 msgstr ""
 
 #. Default: "Recent contents for this room"
-#: ./events/default_room_events.py:320
+#: ./events/default_room_events.py:322
 msgid "room_homepage_title"
 msgstr ""
 

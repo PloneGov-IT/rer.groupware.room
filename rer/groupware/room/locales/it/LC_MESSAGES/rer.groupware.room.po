@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rer.groupware.room\n"
-"POT-Creation-Date: 2013-05-14 07:27+0000\n"
+"POT-Creation-Date: 2013-05-14 08:51+0000\n"
 "PO-Revision-Date: 2010-04-21 09:47+0000\n"
 "Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.it>\n"
 "Language-Team: RedTurtle Technology <info@redturtle.net>\n"
@@ -14,22 +14,22 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rer.groupware.room\n"
 
-#: ./events/default_room_events.py:206
+#: ./events/default_room_events.py:208
 #: ./events/old_created_room.py:123
 msgid "${room_title} coordinators"
 msgstr "${room_title} coordinatori"
 
-#: ./events/default_room_events.py:211
+#: ./events/default_room_events.py:213
 #: ./events/old_created_room.py:127
 msgid "${room_title} hosts"
 msgstr "${room_title} ospiti"
 
-#: ./events/default_room_events.py:194
+#: ./events/default_room_events.py:196
 #: ./events/old_created_room.py:105
 msgid "${room_title} members"
 msgstr "${room_title} collaboratori"
 
-#: ./events/default_room_events.py:200
+#: ./events/default_room_events.py:202
 #: ./events/old_created_room.py:110
 msgid "${room_title} membersAdv"
 msgstr "${room_title} redattori"
@@ -82,6 +82,10 @@ msgstr "Una cartella per l'area progetti delle stanze"
 msgid "A news or event has been modified in the group: ${room_title}"
 msgstr "Un avviso o evento è stato modificato nel gruppo di collaborazione: ${room_title}"
 
+#: ./events/default_room_events.py:422
+msgid "Discussions"
+msgstr "Commenti"
+
 #. Default: "Documents Area"
 #: ./profiles/default/types/DocumentsArea.xml
 msgid "Documents Area"
@@ -113,6 +117,14 @@ msgstr ""
 #: ./events/modified_object.py:67
 msgid "Impossible sending the message: "
 msgstr "Impossibile spedire il messaggio: "
+
+#: ./events/default_room_events.py:416
+msgid "Last blog posts"
+msgstr "Post del blog"
+
+#: ./events/default_room_events.py:433
+msgid "Last forum discussions"
+msgstr "Discussioni del forum"
 
 #. Default: "News Area"
 #: ./profiles/default/types/NewsArea.xml
@@ -154,37 +166,37 @@ msgid "View"
 msgstr ""
 
 #. Default: "Blog"
-#: ./events/default_room_events.py:40
+#: ./events/default_room_events.py:42
 #: ./events/old_created_room.py:211
 msgid "area_blog_title"
 msgstr "Blog"
 
 #. Default: "Documents"
-#: ./events/default_room_events.py:31
+#: ./events/default_room_events.py:33
 #: ./events/old_created_room.py:208
 msgid "area_documents_title"
 msgstr "Documenti"
 
 #. Default: "Events"
-#: ./events/default_room_events.py:34
+#: ./events/default_room_events.py:36
 #: ./events/old_created_room.py:209
 msgid "area_events_title"
 msgstr "Eventi"
 
 #. Default: "Forum"
-#: ./events/default_room_events.py:37
+#: ./events/default_room_events.py:39
 #: ./events/old_created_room.py:210
 msgid "area_forum_title"
 msgstr "Forum"
 
 #. Default: "News"
-#: ./events/default_room_events.py:43
+#: ./events/default_room_events.py:45
 #: ./events/old_created_room.py:212
 msgid "area_news_title"
 msgstr "Avvisi"
 
 #. Default: "Polls"
-#: ./events/default_room_events.py:46
+#: ./events/default_room_events.py:48
 #: ./events/old_created_room.py:214
 msgid "area_polls_title"
 msgstr "Sondaggi"
@@ -251,9 +263,9 @@ msgid "notify_subj_deleted_small"
 msgstr "Un avviso o evento è stato eliminato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "Recent contents for this room"
-#: ./events/default_room_events.py:320
+#: ./events/default_room_events.py:322
 msgid "room_homepage_title"
-msgstr ""
+msgstr "I contenuti più recenti di questo gruppo"
 
 #. Default: "Impossible sending the notification. Mailserver not set in the portal."
 #: ./events/modified_object.py:44

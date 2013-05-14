@@ -7,11 +7,13 @@ from rer.groupware.room.interfaces import IRoomArea
 from zope.component._api import queryUtility
 from zope.i18n import translate
 from zope.interface import alsoProvides
-from plone.portlets.interfaces import IPortletManager, IPortletAssignment, \
-    IPortletAssignmentMapping
-from zope.component import getMultiAdapter, getUtility, queryUtility
-from redturtle.portlet.collection.rtcollectionportlet import \
-    Assignment as CollectionAssignment
+from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
+from zope.component import getMultiAdapter, getUtility
+from redturtle.portlet.collection.rtcollectionportlet import Assignment as CollectionAssignment
+from Products.Ploneboard.portlet.recent import Assignment as PloneboardAssignment
+from collective.portlet.blogstarentries.blogstarlastentries import Assignment as BlogAssignment
+from collective.portlet.discussion.discussionportlet import Assignment as DiscussionAssignment
+from zope.component import getMultiAdapter
 
 
 class CreateRoomStructure(object):
@@ -330,6 +332,108 @@ class CreateHomepage(object):
         portletpage.manage_addLocalRoles('%s.membersAdv' % self.context.getId(), ['Editor', 'EditorAdv'])
         portletpage.manage_addLocalRoles('%s.coordinators' % self.context.getId(), ['Editor', 'EditorAdv', 'LocalManager'])
         logger.info("Created room homepage")
+        self.createHomepagePortlets(portletpage)
+
+    def createHomepagePortlets(self, portletpage):
+        """
+        """
+        #setup portlet managers
+        left_manager = getUtility(IPortletManager,
+                                  name='collective.portletpage.firstcolumn',
+                                  context=portletpage)
+        right_manager = getUtility(IPortletManager,
+                                  name='collective.portletpage.secondcolumn',
+                                  context=portletpage)
+        left_mapping = getMultiAdapter((portletpage, left_manager), IPortletAssignmentMapping)
+        right_mapping = getMultiAdapter((portletpage, right_manager), IPortletAssignmentMapping)
+
+        #left column portlets
+        #documents
+        assignment, portlet_id = self.createCollectionPortlet(area_type="DocumentsArea",
+                                                  limit=5)
+        if assignment and portlet_id:
+            left_mapping[portlet_id] = assignment
+        #news
+        assignment, portlet_id = self.createCollectionPortlet(area_type="NewsArea",
+                                                  limit=3)
+        if assignment and portlet_id:
+            left_mapping[portlet_id] = assignment
+        #events
+        assignment, portlet_id = self.createCollectionPortlet(area_type="EventsArea",
+                                                  limit=3)
+        if assignment and portlet_id:
+            left_mapping[portlet_id] = assignment
+
+        #right column portlets
+        #discussion
+        assignment, portlet_id = self.createDiscussionPortlet()
+        if assignment and portlet_id:
+            right_mapping[portlet_id] = assignment
+        #forum
+        assignment, portlet_id = self.createForumPortlet()
+        if assignment and portlet_id:
+            right_mapping[portlet_id] = assignment
+
+        #blog
+        assignment, portlet_id = self.createBlogPortlet()
+        if assignment and portlet_id:
+            right_mapping[portlet_id] = assignment
+
+        #polls
+        assignment, portlet_id = self.createCollectionPortlet(area_type="PollsArea",
+                                                  limit=3)
+        logger.info("Created homepage portlets")
+
+    def createCollectionPortlet(self, area_type, limit):
+        """
+        imposta l'assignment per la collection portlet
+        """
+        pc = getToolByName(self.context, 'portal_catalog', None)
+        areas = pc(path="/".join(self.context.getPhysicalPath()), portal_type=area_type)
+        if len(areas) != 1:
+            return None
+        area = areas[0]
+        collection = pc(path={"query": area.getPath(), "depth": 1},
+                                portal_type="Collection")
+        if len(collection) != 1:
+            return None
+        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+        assignment = CollectionAssignment(header=area.Title,
+                                        target_collection=collection[0].getPath().lstrip(portal_state.navigation_root_path()),
+                                        show_dates=True,
+                                        limit=limit,
+                                        template_id="groupware_collection_portlet_view",
+                                        show_more=True)
+
+        return assignment, area.getId
+
+    def createBlogPortlet(self):
+        pc = getToolByName(self.context, 'portal_catalog', None)
+        areas = pc(path="/".join(self.context.getPhysicalPath()), portal_type="Blog")
+        if len(areas) != 1:
+            return None
+        area = areas[0]
+        assignment = BlogAssignment(portletTitle=translate(_(u"Last blog posts")),
+                                    blogFolder=area.getPath(),
+                                    entries=3)
+        return assignment, "blog"
+
+    def createDiscussionPortlet(self):
+        assignment = DiscussionAssignment(portletTitle=translate(_(u"Discussions")),
+                                          discussionFolder='/%s' % self.context.getId(),
+                                          nDiscussions=3)
+        return assignment, "discussions"
+
+    def createForumPortlet(self):
+        pc = getToolByName(self.context, 'portal_catalog', None)
+        areas = pc(path="/".join(self.context.getPhysicalPath()), portal_type="PloneboardForum")
+        if len(areas) != 1:
+            return None
+        area = areas[0]
+        assignment = PloneboardAssignment(title=translate(_(u"Last forum discussions")),
+                                        forum=area.UID,
+                                        count=3)
+        return assignment, 'forum'
 
     def generateId(self, title):
         """
