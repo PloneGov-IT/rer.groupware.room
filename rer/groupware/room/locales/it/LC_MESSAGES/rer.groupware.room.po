@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rer.groupware.room\n"
-"POT-Creation-Date: 2013-05-13 16:04+0000\n"
+"POT-Creation-Date: 2013-05-14 07:27+0000\n"
 "PO-Revision-Date: 2010-04-21 09:47+0000\n"
 "Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.it>\n"
 "Language-Team: RedTurtle Technology <info@redturtle.net>\n"

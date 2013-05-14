@@ -74,7 +74,10 @@
    <guard-permission>Modify portal content</guard-permission>
   </guard>
  </transition>
- <transition transition_id="open" title="Open room" new_state="open" trigger="USER" before_script="" after_script="">
+ <transition transition_id="open"
+             title="Open room" new_state="open"
+			 trigger="USER" before_script="" after_script=""
+			 i18n:attributes="title">
   <action url="" category="workflow" icon="">Open room</action>
   <guard>
    <guard-permission>Modify portal content</guard-permission>
