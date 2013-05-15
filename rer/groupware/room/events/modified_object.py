@@ -37,7 +37,6 @@ def sendMail(obj,room,group_type):
     portal = obj.portal_url.getPortalObject()
     putils=getToolByName(portal, "plone_utils")
     portal_types=getToolByName(portal, "portal_types")
-    translation_service=getToolByName(portal, "translation_service")
     sender_mail=portal.email_from_address
     sender_name=portal.email_from_name
     if not sender_mail:
@@ -51,7 +50,6 @@ def sendMail(obj,room,group_type):
     if not mail_template:
         message=_('mailtemplate_not_set',default=u'Impossible sending the notification. Mail template not set.')
         return
-    friendly_type=portal_types.getTypeInfo(obj.portal_type).Title()
     mail_text = mail_template(mfrom="%s <%s>" %(sender_name,sender_mail),
                               mto=dest,
                               item=obj,

@@ -1,19 +1,24 @@
 # -*- coding: utf-8 -*-
-from plone.i18n.normalizer.interfaces import IURLNormalizer
-from Products.CMFCore.utils import getToolByName
-from rer.groupware.room import logger
-from rer.groupware.room import roomMessageFactory as _
-from rer.groupware.room.interfaces import IRoomArea
+
 from zope.component._api import queryUtility
 from zope.i18n import translate
 from zope.interface import alsoProvides
-from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
 from zope.component import getMultiAdapter, getUtility
+
+from Products.CMFCore.utils import getToolByName
+
+from plone.i18n.normalizer.interfaces import IURLNormalizer
+from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
+
 from redturtle.portlet.collection.rtcollectionportlet import Assignment as CollectionAssignment
 from Products.Ploneboard.portlet.recent import Assignment as PloneboardAssignment
 from collective.portlet.blogstarentries.blogstarlastentries import Assignment as BlogAssignment
 from collective.portlet.discussion.discussionportlet import Assignment as DiscussionAssignment
-from zope.component import getMultiAdapter
+
+from rer.groupware.room import logger
+from rer.groupware.room import roomMessageFactory as _
+from rer.groupware.room.interfaces import IRoomArea
+
 
 
 class CreateRoomStructure(object):
@@ -176,8 +181,7 @@ class CreateRoomStructure(object):
         """
         title = ' '.join(title.split())
         id = queryUtility(IURLNormalizer).normalize(title)
-        return id
-
+        return id        
 
 class CreateGroups(object):
 

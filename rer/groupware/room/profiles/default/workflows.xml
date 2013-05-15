@@ -6,18 +6,6 @@
   <type type_id="GroupRoom">
   	<bound-workflow workflow_id="room_workflow" />
   </type>
-  <type type_id="Portlet Page">
-  	<bound-workflow workflow_id="groupware_folders_workflow" />
-  </type>
-  <type type_id="Topic">
-  	<bound-workflow workflow_id="groupware_folders_workflow" />
-  </type>
-  <type type_id="Collection">
-  	<bound-workflow workflow_id="groupware_folders_workflow" />
-  </type>
-  <type type_id="Blog">
-    <bound-workflow workflow_id="groupware_folders_workflow" />
-  </type>
   <type type_id="DocumentsArea">
     <bound-workflow workflow_id="groupware_folders_workflow" />
   </type>

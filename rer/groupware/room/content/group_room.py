@@ -6,9 +6,6 @@ from Products.ATContentTypes.content import schemata, folder
 from Products.ATContentTypes.content.base import registerATCT
 from Products.Archetypes import atapi
 from Products.validation import V_REQUIRED
-from Products.validation.config import validation
-from Products.validation.interfaces import ivalidator
-from Products.validation.validators.SupplValidators import MaxSizeValidator
 from rer.groupware.room import roomMessageFactory as _
 from rer.groupware.room.config import PROJECTNAME
 from rer.groupware.room.interfaces import IGroupRoom
