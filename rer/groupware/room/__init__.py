@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 from zope.i18nmessageid import MessageFactory
 from rer.groupware.room import config
 
