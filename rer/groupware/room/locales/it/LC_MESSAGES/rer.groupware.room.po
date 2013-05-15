@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rer.groupware.room\n"
-"POT-Creation-Date: 2013-05-14 08:51+0000\n"
+"POT-Creation-Date: 2013-05-15 13:02+0000\n"
 "PO-Revision-Date: 2010-04-21 09:47+0000\n"
 "Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.it>\n"
 "Language-Team: RedTurtle Technology <info@redturtle.net>\n"
@@ -14,22 +14,22 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rer.groupware.room\n"
 
-#: ./events/default_room_events.py:208
+#: ./events/default_room_events.py:213
 #: ./events/old_created_room.py:123
 msgid "${room_title} coordinators"
 msgstr "${room_title} coordinatori"
 
-#: ./events/default_room_events.py:213
+#: ./events/default_room_events.py:218
 #: ./events/old_created_room.py:127
 msgid "${room_title} hosts"
 msgstr "${room_title} ospiti"
 
-#: ./events/default_room_events.py:196
+#: ./events/default_room_events.py:201
 #: ./events/old_created_room.py:105
 msgid "${room_title} members"
 msgstr "${room_title} collaboratori"
 
-#: ./events/default_room_events.py:202
+#: ./events/default_room_events.py:207
 #: ./events/old_created_room.py:110
 msgid "${room_title} membersAdv"
 msgstr "${room_title} redattori"
@@ -43,7 +43,7 @@ msgid "${room_title} notifyNewsEvents"
 msgstr "${room_title} notifiche avvisi ed eventi"
 
 #. Default: "A document has been modified in the group: ${room_title}"
-#: ./events/modified_object.py:75
+#: ./events/modified_object.py:73
 msgid "A document has been modified in the group: ${room_title}"
 msgstr "Un documento è stato modificato nel gruppo di collaborazione: ${room_title}"
 
@@ -78,11 +78,24 @@ msgid "A folder for the room's projects area"
 msgstr "Una cartella per l'area progetti delle stanze"
 
 #. Default: "A news or event has been modified in the group: ${room_title}"
-#: ./events/modified_object.py:72
+#: ./events/modified_object.py:70
 msgid "A news or event has been modified in the group: ${room_title}"
 msgstr "Un avviso o evento è stato modificato nel gruppo di collaborazione: ${room_title}"
 
-#: ./events/default_room_events.py:422
+#: ./browser/controlpanel.py:30
+msgid "Cancel"
+msgstr "Annulla"
+
+#: ./browser/controlpanel.py:26
+msgid "Changes saved"
+msgstr "Modifiche salvate"
+
+#. Default: "Coordinators"
+#: ./exportimport.py
+msgid "Coordinators"
+msgstr "Coordinatori"
+
+#: ./events/default_room_events.py:427
 msgid "Discussions"
 msgstr "Commenti"
 
@@ -98,9 +111,18 @@ msgstr "Area documenti"
 msgid "Edit"
 msgstr ""
 
-#: ./events/modified_object.py:64
+#: ./browser/controlpanel.py:32
+msgid "Edit cancelled"
+msgstr "Modifiche annullate"
+
+#: ./events/modified_object.py:62
 msgid "Edit notify email sent to users"
 msgstr "Mail di notifica per la modifica spedita agli utenti"
+
+#. Default: "Editors"
+#: ./exportimport.py
+msgid "Editors"
+msgstr "Redattori"
 
 #. Default: "Events Area"
 #: ./profiles/default/types/EventsArea.xml
@@ -114,17 +136,39 @@ msgstr "Area eventi"
 msgid "Folder Listing"
 msgstr ""
 
-#: ./events/modified_object.py:67
+#: ./interfaces/room_groups.py:15
+msgid "Group"
+msgstr "Gruppo"
+
+#: ./custom_fields.py:11
+msgid "Group ID"
+msgstr "ID Gruppo"
+
+#: ./custom_fields.py:12
+msgid "Group title"
+msgstr "Titolo Gruppo"
+
+#. Default: "Hosts"
+#: ./exportimport.py
+msgid "Hosts"
+msgstr "Ospiti"
+
+#: ./events/modified_object.py:65
 msgid "Impossible sending the message: "
 msgstr "Impossibile spedire il messaggio: "
 
-#: ./events/default_room_events.py:416
+#: ./events/default_room_events.py:421
 msgid "Last blog posts"
 msgstr "Post del blog"
 
-#: ./events/default_room_events.py:433
+#: ./events/default_room_events.py:438
 msgid "Last forum discussions"
 msgstr "Discussioni del forum"
+
+#. Default: "Members"
+#: ./exportimport.py
+msgid "Members"
+msgstr "Collaboratori"
 
 #. Default: "News Area"
 #: ./profiles/default/types/NewsArea.xml
@@ -153,6 +197,18 @@ msgstr ""
 msgid "Room"
 msgstr "Stanza"
 
+#: ./interfaces/room_groups.py:12
+msgid "Room groups"
+msgstr "Gruppi delle stanze"
+
+#: ./browser/controlpanel.py:15
+msgid "Room groups settings"
+msgstr "Configurazione gruppi delle stanze"
+
+#: ./browser/controlpanel.py:19
+msgid "Save"
+msgstr "Salva"
+
 #. Default: "The item \"${obj_title}\" has been modified. <br />You can click on the following link to see it:"
 #: ./browser/modified_mail_template.pt:19
 msgid "The item &quot;${obj_title}&quot; has been modified. <br />You can click on the following link to see it:"
@@ -166,37 +222,37 @@ msgid "View"
 msgstr ""
 
 #. Default: "Blog"
-#: ./events/default_room_events.py:42
+#: ./events/default_room_events.py:47
 #: ./events/old_created_room.py:211
 msgid "area_blog_title"
 msgstr "Blog"
 
 #. Default: "Documents"
-#: ./events/default_room_events.py:33
+#: ./events/default_room_events.py:38
 #: ./events/old_created_room.py:208
 msgid "area_documents_title"
 msgstr "Documenti"
 
 #. Default: "Events"
-#: ./events/default_room_events.py:36
+#: ./events/default_room_events.py:41
 #: ./events/old_created_room.py:209
 msgid "area_events_title"
 msgstr "Eventi"
 
 #. Default: "Forum"
-#: ./events/default_room_events.py:39
+#: ./events/default_room_events.py:44
 #: ./events/old_created_room.py:210
 msgid "area_forum_title"
 msgstr "Forum"
 
 #. Default: "News"
-#: ./events/default_room_events.py:45
+#: ./events/default_room_events.py:50
 #: ./events/old_created_room.py:212
 msgid "area_news_title"
 msgstr "Avvisi"
 
 #. Default: "Polls"
-#: ./events/default_room_events.py:48
+#: ./events/default_room_events.py:53
 #: ./events/old_created_room.py:214
 msgid "area_polls_title"
 msgstr "Sondaggi"
@@ -211,6 +267,16 @@ msgstr "Progetti"
 msgid "help_forummoderated"
 msgstr "Seleziona se avere un forum moderato o libero. Di default il forum è libero."
 
+#. Default: "Insert a list of user groups. This list will be used to generate some groups for every new room created."
+#: ./interfaces/room_groups.py:13
+msgid "help_room_groups"
+msgstr "Inserisci una lista di gruppi utenti. Questa lista verrà utilizzata per generare dei gruppi per ogni nuova stanza creata."
+
+#. Default: "Manage default room groups"
+#: ./browser/controlpanel.py:16
+msgid "help_room_groups_editform"
+msgstr "Gestione gruppi di deault per le stanze"
+
 #. Default: "Forum moderated"
 #: ./content/group_room.py:46
 msgid "label_forummoderated"
@@ -222,7 +288,7 @@ msgid "label_image"
 msgstr "Immagine"
 
 #. Default: "Impossible sending the notification. Mail template not set."
-#: ./events/modified_object.py:52
+#: ./events/modified_object.py:51
 msgid "mailtemplate_not_set"
 msgstr "Impossibile spedire la notifica. Mail template non impostato"
 
@@ -263,12 +329,12 @@ msgid "notify_subj_deleted_small"
 msgstr "Un avviso o evento è stato eliminato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "Recent contents for this room"
-#: ./events/default_room_events.py:322
+#: ./events/default_room_events.py:327
 msgid "room_homepage_title"
 msgstr "I contenuti più recenti di questo gruppo"
 
 #. Default: "Impossible sending the notification. Mailserver not set in the portal."
-#: ./events/modified_object.py:44
+#: ./events/modified_object.py:43
 msgid "server_not_set"
 msgstr "Impossibile spedire la notifica. Il mailserver non è stato impostato."
 

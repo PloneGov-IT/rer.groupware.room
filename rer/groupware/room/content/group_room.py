@@ -10,6 +10,9 @@ from rer.groupware.room import roomMessageFactory as _
 from rer.groupware.room.config import PROJECTNAME
 from rer.groupware.room.interfaces import IGroupRoom
 from zope.interface import implements
+from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.Expression import getExprContext
+
 
 RERGroupRoomSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     
@@ -55,18 +58,28 @@ class GroupRoom(folder.ATFolder):
     implements(IGroupRoom)
     schema = RERGroupRoomSchema
     meta_type = "GroupRoom"
-    
+
     def hasRoomImageIcon(self):
         """
         Check if the room has the listing miniature.
         This can be used for example in a custom navigator, to show the room icon and not the archetype icon
         """
         if self.getImage():
-            img_view=self.restrictedTraverse('@@images',None)
+            img_view = self.restrictedTraverse('@@images', None)
             if img_view:
-                 scale=img_view.scale('image',scale='listing')
-                 if scale:
-                     return True
+                scale = img_view.scale('image', scale='listing')
+                if scale:
+                    return True
         return False
+
+    def getIconURL(self):
+        """
+        Get the absolute URL of the icon for the object.
+        If there is a room icon, use his miniature.
+        """
+        if self.hasRoomImageIcon():
+            return "%s/image_listing" % self.absolute_url()
+        else:
+            return super(GroupRoom, self).getIconURL()
 
 registerATCT(GroupRoom, PROJECTNAME)

@@ -1,3 +1,11 @@
 .groupNotificationList dd{
 	margin: 0.2em 0.8em;
 }
+
+form#RoomGroupsSettingsEditForm .multi-widget-field {
+    margin-bottom: 1em;
+}
+
+form#RoomGroupsSettingsEditForm .multi-widget-field .object-widget {
+    margin-left: 1.5em;
+}

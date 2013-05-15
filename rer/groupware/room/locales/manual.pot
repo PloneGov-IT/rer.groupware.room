@@ -18,3 +18,22 @@ msgstr ""
 "Domain: rer.groupware.room\n"
 
 
+#. Default: "Coordinators"
+#: ./exportimport.py
+msgid "Coordinators"
+msgstr "Coordinatori"
+
+#. Default: "Hosts"
+#: ./exportimport.py
+msgid "Hosts"
+msgstr "Ospiti"
+
+#. Default: "Members"
+#: ./exportimport.py
+msgid "Members"
+msgstr "Collaboratori"
+
+#. Default: "Editors"
+#: ./exportimport.py
+msgid "Editors"
+msgstr "Redattori"

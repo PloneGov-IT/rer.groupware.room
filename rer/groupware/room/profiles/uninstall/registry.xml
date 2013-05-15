@@ -1,0 +1,5 @@
+<registry>
+    <record interface="rer.groupware.room.interfaces.room_groups.IRoomGroupsSettingsSchema"
+            field="room_groups"
+            delete="True"/>
+</registry>

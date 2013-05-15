@@ -1,24 +1,21 @@
 # -*- coding: utf-8 -*-
-
-from zope.component._api import queryUtility
-from zope.i18n import translate
-from zope.interface import alsoProvides
-from zope.component import getMultiAdapter, getUtility
-
-from Products.CMFCore.utils import getToolByName
-
-from plone.i18n.normalizer.interfaces import IURLNormalizer
-from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
-
-from redturtle.portlet.collection.rtcollectionportlet import Assignment as CollectionAssignment
-from Products.Ploneboard.portlet.recent import Assignment as PloneboardAssignment
 from collective.portlet.blogstarentries.blogstarlastentries import Assignment as BlogAssignment
 from collective.portlet.discussion.discussionportlet import Assignment as DiscussionAssignment
-
+from plone.i18n.normalizer.interfaces import IURLNormalizer
+from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
+from plone.registry.interfaces import IRegistry
+from Products.CMFCore.utils import getToolByName
+from Products.Ploneboard.portlet.recent import Assignment as PloneboardAssignment
+from redturtle.portlet.collection.rtcollectionportlet import Assignment as CollectionAssignment
 from rer.groupware.room import logger
 from rer.groupware.room import roomMessageFactory as _
 from rer.groupware.room.interfaces import IRoomArea
-
+from rer.groupware.room.interfaces import IRoomGroupsSettingsSchema
+from zope.component import getMultiAdapter, getUtility
+from zope.component import queryUtility
+from zope.component._api import queryUtility
+from zope.i18n import translate
+from zope.interface import alsoProvides
 
 
 class CreateRoomStructure(object):
@@ -181,7 +178,8 @@ class CreateRoomStructure(object):
         """
         title = ' '.join(title.split())
         id = queryUtility(IURLNormalizer).normalize(title)
-        return id        
+        return id
+
 
 class CreateGroups(object):
 
@@ -194,30 +192,43 @@ class CreateGroups(object):
         groups_tool = getToolByName(self.context, 'portal_groups')
         room_id = self.context.getId()
         room_title = self.context.Title()
+        registry = queryUtility(IRegistry)
+        groups_settings = registry.forInterface(IRoomGroupsSettingsSchema, check=False)
+        default_groups = getattr(groups_settings, 'room_groups', None)
+        if not default_groups:
+            logger.warning("No default groups set in the portal. We don't create any specific group for this room.")
+            return
         sgm_groups = []
-        #create members group
-        groups_tool.addGroup(id='%s.members' % room_id,
-                             title=translate(_(u"${room_title} members",
-                                               mapping={u"room_title": room_title}),
-                                             context=self.context.REQUEST))
-        sgm_groups.append('%s.members' % room_id)
-        #create members adv group
-        groups_tool.addGroup(id='%s.membersAdv' % room_id,
-                             title=translate(_(u"${room_title} membersAdv",
-                                               mapping={u"room_title": room_title}),
-                                             context=self.context.REQUEST))
-        sgm_groups.append('%s.membersAdv' % room_id)
-        #create coordinators group
-        groups_tool.addGroup(id='%s.coordinators' % room_id,
-                             title=translate(_(u"${room_title} coordinators",
-                                               mapping={u"room_title": room_title}),
-                                             context=self.context.REQUEST))
-        #create hosts group
-        groups_tool.addGroup(id='%s.hosts' % room_id,
-                             title=translate(_(u"${room_title} hosts",
-                                               mapping={u"room_title": room_title}),
-                                             context=self.context.REQUEST))
-        sgm_groups.append('%s.hosts' % room_id)
+        for group in default_groups:
+            group_id = '%s.%s' % (room_id, group.group_id)
+            group_title = '%s %s' % (room_title, group.group_title)
+            groups_tool.addGroup(id=group_id,
+                                 title=group_title)
+            logger.info("Created group %s" % group_id)
+            sgm_groups.append(group_id)
+        # #create members group
+        # groups_tool.addGroup(id='%s.members' % room_id,
+        #                      title=translate(_(u"${room_title} members",
+        #                                        mapping={u"room_title": room_title}),
+        #                                      context=self.context.REQUEST))
+        # sgm_groups.append('%s.members' % room_id)
+        # #create members adv group
+        # groups_tool.addGroup(id='%s.membersAdv' % room_id,
+        #                      title=translate(_(u"${room_title} membersAdv",
+        #                                        mapping={u"room_title": room_title}),
+        #                                      context=self.context.REQUEST))
+        # sgm_groups.append('%s.membersAdv' % room_id)
+        # #create coordinators group
+        # groups_tool.addGroup(id='%s.coordinators' % room_id,
+        #                      title=translate(_(u"${room_title} coordinators",
+        #                                        mapping={u"room_title": room_title}),
+        #                                      context=self.context.REQUEST))
+        # #create hosts group
+        # groups_tool.addGroup(id='%s.hosts' % room_id,
+        #                      title=translate(_(u"${room_title} hosts",
+        #                                        mapping={u"room_title": room_title}),
+        #                                      context=self.context.REQUEST))
+        # sgm_groups.append('%s.hosts' % room_id)
 
         #set SGM properties to allow coordinators to handle other groups
         self.addSGMEntries(sgm_groups, '%s.coordinators' % room_id)

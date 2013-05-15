@@ -1,0 +1,3 @@
+<registry>
+    <records interface="rer.groupware.room.interfaces.IRoomGroupsSettingsSchema" />
+</registry>

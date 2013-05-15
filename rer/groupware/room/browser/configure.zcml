@@ -28,6 +28,16 @@
       layer="..interfaces.IRERGroupwareRoomLayer"
       permission="zope.Public"
         />
+
+ <!-- Groups Control panel -->
+    <browser:page
+        name="room-groups-settings"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".controlpanel.RoomGroupsSettingsControlPanel"
+        permission="cmf.ManagePortal"
+        layer="..interfaces.IRERGroupwareRoomLayer"
+        />
+
  <!-- Resource directory for images -->
   <browser:resourceDirectory
       name="rer.groupware.room.images"
