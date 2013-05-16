@@ -11,9 +11,7 @@ from rer.groupware.room import logger
 from rer.groupware.room import roomMessageFactory as _
 from rer.groupware.room.interfaces import IRoomArea
 from rer.groupware.room.interfaces import IRoomGroupsSettingsSchema
-from zope.component import getMultiAdapter, getUtility
-from zope.component import queryUtility
-from zope.component._api import queryUtility
+from zope.component import getMultiAdapter, getUtility, queryUtility
 from zope.i18n import translate
 from zope.interface import alsoProvides
 
@@ -145,8 +143,6 @@ class CreateRoomStructure(object):
         #optional settings
         portal_types = kwargs.get('portal_types', [])
         if portal_types:
-            if "PlonePopoll" in portal_types:
-                portal_types[portal_types.index('PlonePopoll')] = 'label_popoll'
             query.append(dict(i='portal_type',
                               o='plone.app.querystring.operation.selection.is',
                               v=portal_types))
@@ -269,7 +265,8 @@ class CreateSharing(object):
                                               {'id':'%s.hosts' % room_id,
                                                'roles': ['Reader']},
                                               {'id':'%s.coordinators' % room_id,
-                                               'roles': ['Reader']}])
+                                               'roles': ['Reader']}],
+                                 roles_block=True)
         areas = pc(path="/".join(self.context.getPhysicalPath()),
                    object_provides=IRoomArea.__identifier__)
         for area in areas:
@@ -308,12 +305,13 @@ class CreateSharing(object):
                 self.setFolderLocalRoles(area.getObject(), groups)
             logger.info("Sharing set")
 
-    def setFolderLocalRoles(self, folder, list_groups):
+    def setFolderLocalRoles(self, folder, list_groups, roles_block=False):
         """
         Set the local roles for a given folder
         """
-        #block the inherit
-        folder.__ac_local_roles_block__ = True
+        if roles_block:
+            #block the inherit
+            folder.__ac_local_roles_block__ = True
         #set the local roles
         for group in list_groups:
             folder.manage_addLocalRoles(group.get('id'), group.get('roles'))
