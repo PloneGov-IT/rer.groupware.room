@@ -22,7 +22,6 @@ class RoomGroupsSettingsEditForm(controlpanel.RegistryEditForm):
         if errors:
             self.status = self.formErrorsMessage
             return
-        import pdb;pdb.set_trace()
         changes = self.applyChanges(data)
         IStatusMessage(self.request).addStatusMessage(_(u"Changes saved"),
                                                       "info")

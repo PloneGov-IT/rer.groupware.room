@@ -21,19 +21,19 @@ msgstr ""
 #. Default: "Coordinators"
 #: ./exportimport.py
 msgid "Coordinators"
-msgstr "Coordinatori"
+msgstr ""
 
 #. Default: "Hosts"
 #: ./exportimport.py
 msgid "Hosts"
-msgstr "Ospiti"
+msgstr ""
 
 #. Default: "Members"
 #: ./exportimport.py
 msgid "Members"
-msgstr "Collaboratori"
+msgstr ""
 
 #. Default: "Editors"
 #: ./exportimport.py
 msgid "Editors"
-msgstr "Redattori"
+msgstr ""

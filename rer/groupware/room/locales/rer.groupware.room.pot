@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-05-15 13:02+0000\n"
+"POT-Creation-Date: 2013-05-17 08:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,22 +17,22 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rer.groupware.room\n"
 
-#: ./events/default_room_events.py:213
+#: ./events/default_room_events.py:198
+msgid "${room_title} Users"
+msgstr ""
+
 #: ./events/old_created_room.py:123
 msgid "${room_title} coordinators"
 msgstr ""
 
-#: ./events/default_room_events.py:218
 #: ./events/old_created_room.py:127
 msgid "${room_title} hosts"
 msgstr ""
 
-#: ./events/default_room_events.py:201
 #: ./events/old_created_room.py:105
 msgid "${room_title} members"
 msgstr ""
 
-#: ./events/default_room_events.py:207
 #: ./events/old_created_room.py:110
 msgid "${room_title} membersAdv"
 msgstr ""
@@ -77,6 +77,10 @@ msgstr ""
 msgid "A news or event has been modified in the group: ${room_title}"
 msgstr ""
 
+#: ./interfaces/room_groups.py:12
+msgid "Active room groups"
+msgstr ""
+
 #: ./browser/controlpanel.py:30
 msgid "Cancel"
 msgstr ""
@@ -85,13 +89,12 @@ msgstr ""
 msgid "Changes saved"
 msgstr ""
 
-#. Default: "Coordinatori"
 #. Default: "Coordinators"
 #: ./exportimport.py
 msgid "Coordinators"
 msgstr ""
 
-#: ./events/default_room_events.py:427
+#: ./events/default_room_events.py:431
 msgid "Discussions"
 msgstr ""
 
@@ -113,7 +116,6 @@ msgstr ""
 msgid "Edit notify email sent to users"
 msgstr ""
 
-#. Default: "Redattori"
 #. Default: "Editors"
 #: ./exportimport.py
 msgid "Editors"
@@ -141,7 +143,6 @@ msgstr ""
 msgid "Group title"
 msgstr ""
 
-#. Default: "Ospiti"
 #. Default: "Hosts"
 #: ./exportimport.py
 msgid "Hosts"
@@ -151,15 +152,14 @@ msgstr ""
 msgid "Impossible sending the message: "
 msgstr ""
 
-#: ./events/default_room_events.py:421
+#: ./events/default_room_events.py:425
 msgid "Last blog posts"
 msgstr ""
 
-#: ./events/default_room_events.py:438
+#: ./events/default_room_events.py:442
 msgid "Last forum discussions"
 msgstr ""
 
-#. Default: "Collaboratori"
 #. Default: "Members"
 #: ./exportimport.py
 msgid "Members"
@@ -167,6 +167,10 @@ msgstr ""
 
 #: ./profiles/default/types/NewsArea.xml
 msgid "News Area"
+msgstr ""
+
+#: ./interfaces/room_groups.py:21
+msgid "Passive room groups"
 msgstr ""
 
 #: ./profiles/default/types/PollsArea.xml
@@ -185,10 +189,6 @@ msgstr ""
 
 #: ./profiles/default/types/GroupRoom.xml
 msgid "Room"
-msgstr ""
-
-#: ./interfaces/room_groups.py:12
-msgid "Room groups"
 msgstr ""
 
 #: ./browser/controlpanel.py:15
@@ -210,37 +210,37 @@ msgid "View"
 msgstr ""
 
 #. Default: "Blog"
-#: ./events/default_room_events.py:47
+#: ./events/default_room_events.py:42
 #: ./events/old_created_room.py:211
 msgid "area_blog_title"
 msgstr ""
 
 #. Default: "Documents"
-#: ./events/default_room_events.py:38
+#: ./events/default_room_events.py:33
 #: ./events/old_created_room.py:208
 msgid "area_documents_title"
 msgstr ""
 
 #. Default: "Events"
-#: ./events/default_room_events.py:41
+#: ./events/default_room_events.py:36
 #: ./events/old_created_room.py:209
 msgid "area_events_title"
 msgstr ""
 
 #. Default: "Forum"
-#: ./events/default_room_events.py:44
+#: ./events/default_room_events.py:39
 #: ./events/old_created_room.py:210
 msgid "area_forum_title"
 msgstr ""
 
 #. Default: "News"
-#: ./events/default_room_events.py:50
+#: ./events/default_room_events.py:45
 #: ./events/old_created_room.py:212
 msgid "area_news_title"
 msgstr ""
 
 #. Default: "Polls"
-#: ./events/default_room_events.py:53
+#: ./events/default_room_events.py:48
 #: ./events/old_created_room.py:214
 msgid "area_polls_title"
 msgstr ""
@@ -250,14 +250,19 @@ msgstr ""
 msgid "area_projects_title"
 msgstr ""
 
+#. Default: "Insert a list of groups that are active in the rooms. This list will be used to generate some groups for every new room created."
+#: ./interfaces/room_groups.py:13
+msgid "help_active_groups"
+msgstr ""
+
 #. Default: "Select if having a moderated forum, or not. Default forum is open to all."
 #: ./content/group_room.py:44
 msgid "help_forummoderated"
 msgstr ""
 
-#. Default: "Insert a list of user groups. This list will be used to generate some groups for every new room created."
-#: ./interfaces/room_groups.py:13
-msgid "help_room_groups"
+#. Default: "Insert a list of passive groups. These groups can access to private rooms where they are enabled, but they can't do anything."
+#: ./interfaces/room_groups.py:22
+msgid "help_passive_groups"
 msgstr ""
 
 #. Default: "Manage default room groups"
@@ -315,7 +320,7 @@ msgid "notify_subj_deleted_small"
 msgstr ""
 
 #. Default: "Recent contents for this room"
-#: ./events/default_room_events.py:327
+#: ./events/default_room_events.py:331
 msgid "room_homepage_title"
 msgstr ""
 

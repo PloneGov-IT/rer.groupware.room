@@ -8,12 +8,21 @@ from rer.groupware.room.custom_fields import IRoomGroupName, PersistentObject
 class IRoomGroupsSettingsSchema(Interface):
     """Settings used in the control panel for set default room groups
     """
-    room_groups = schema.Tuple(
-            title=_(u'Room groups'),
-            description=_('help_room_groups',
-                          default=u"Insert a list of user groups. This list will be used to generate some groups for every new room created."),
+    active_groups = schema.Tuple(
+            title=_(u'Active room groups'),
+            description=_('help_active_groups',
+                          default=u"Insert a list of groups that are active in the rooms. This list will be used to generate some groups for every new room created."),
             value_type=PersistentObject(IRoomGroupName, title=_(u"Group")),
-            required=True,
+            required=False,
+            default=(),
+            missing_value=(),
+    )
+    passive_groups = schema.Tuple(
+            title=_(u'Passive room groups'),
+            description=_('help_passive_groups',
+                          default=u"Insert a list of passive groups. These groups can access to private rooms where they are enabled, but they can't do anything."),
+            value_type=PersistentObject(IRoomGroupName, title=_(u"Group")),
+            required=False,
             default=(),
             missing_value=(),
     )

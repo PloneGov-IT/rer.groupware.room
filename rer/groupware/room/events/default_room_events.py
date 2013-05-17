@@ -190,43 +190,39 @@ class CreateGroups(object):
         room_title = self.context.Title()
         registry = queryUtility(IRegistry)
         groups_settings = registry.forInterface(IRoomGroupsSettingsSchema, check=False)
-        default_groups = getattr(groups_settings, 'room_groups', None)
-        if not default_groups:
+        active_groups = getattr(groups_settings, 'active_groups', None)
+        passive_groups = getattr(groups_settings, 'passive_groups', None)
+        #create a default group that contains all active groups
+        uber_group_id = "%s.users" % room_id
+        groups_tool.addGroup(id=uber_group_id,
+                             title=translate(_(u"${room_title} Users",
+                                               mapping={u"room_title": room_title}),
+                                               context=self.context.REQUEST))
+        if not active_groups:
             logger.warning("No default groups set in the portal. We don't create any specific group for this room.")
             return
         sgm_groups = []
-        for group in default_groups:
+
+        #now create active groups and add them to uber_group
+        for group in active_groups:
             group_id = '%s.%s' % (room_id, group.group_id)
             group_title = '%s %s' % (room_title, group.group_title)
-            groups_tool.addGroup(id=group_id,
-                                 title=group_title)
-            logger.info("Created group %s" % group_id)
-            sgm_groups.append(group_id)
-        # #create members group
-        # groups_tool.addGroup(id='%s.members' % room_id,
-        #                      title=translate(_(u"${room_title} members",
-        #                                        mapping={u"room_title": room_title}),
-        #                                      context=self.context.REQUEST))
-        # sgm_groups.append('%s.members' % room_id)
-        # #create members adv group
-        # groups_tool.addGroup(id='%s.membersAdv' % room_id,
-        #                      title=translate(_(u"${room_title} membersAdv",
-        #                                        mapping={u"room_title": room_title}),
-        #                                      context=self.context.REQUEST))
-        # sgm_groups.append('%s.membersAdv' % room_id)
-        # #create coordinators group
-        # groups_tool.addGroup(id='%s.coordinators' % room_id,
-        #                      title=translate(_(u"${room_title} coordinators",
-        #                                        mapping={u"room_title": room_title}),
-        #                                      context=self.context.REQUEST))
-        # #create hosts group
-        # groups_tool.addGroup(id='%s.hosts' % room_id,
-        #                      title=translate(_(u"${room_title} hosts",
-        #                                        mapping={u"room_title": room_title}),
-        #                                      context=self.context.REQUEST))
-        # sgm_groups.append('%s.hosts' % room_id)
+            res = groups_tool.addGroup(id=group_id,
+                                       title=group_title)
+            if res:
+                groups_tool.addPrincipalToGroup(group_id, uber_group_id)
+                logger.info("Created active group %s" % group_id)
+                sgm_groups.append(group_id)
 
-        #set SGM properties to allow coordinators to handle other groups
+        for group in passive_groups:
+            group_id = '%s.%s' % (room_id, group.group_id)
+            group_title = '%s %s' % (room_title, group.group_title)
+            res = groups_tool.addGroup(id=group_id,
+                                       title=group_title)
+            if res:
+                logger.info("Created passive group %s" % group_id)
+                sgm_groups.append(group_id)
+
         self.addSGMEntries(sgm_groups, '%s.coordinators' % room_id)
 
     def addSGMEntries(self, managed_groups, coordinator):
@@ -258,13 +254,9 @@ class CreateSharing(object):
         pc = getToolByName(self.context, 'portal_catalog', None)
         #set local roles of the room
         self.setFolderLocalRoles(self.context,
-                                 list_groups=[{'id':'%s.members' % room_id,
-                                               'roles': ['Reader']},
-                                              {'id':'%s.membersAdv' % room_id,
-                                               'roles': ['Reader']},
+                                 list_groups=[{'id':'%s.users' % room_id,
+                                               'roles': ['Active User']},
                                               {'id':'%s.hosts' % room_id,
-                                               'roles': ['Reader']},
-                                              {'id':'%s.coordinators' % room_id,
                                                'roles': ['Reader']}],
                                  roles_block=True)
         areas = pc(path="/".join(self.context.getPhysicalPath()),
@@ -272,33 +264,26 @@ class CreateSharing(object):
         for area in areas:
             groups = []
             if area.portal_type == "NewsArea":
-                groups = [{'id': "%s.hosts" % room_id, 'roles': ['Reader']},
-                          {'id': '%s.members' % room_id, 'roles': ['Reader']},
-                          {'id': '%s.membersAdv' % room_id, 'roles': ['Contributor', 'Editor', 'EditorAdv']},
+                groups = [{'id': '%s.membersAdv' % room_id, 'roles': ['Contributor', 'Editor', 'EditorAdv']},
                           {'id': '%s.coordinators' % room_id, 'roles': ['LocalManager', 'Contributor', 'Editor', 'EditorAdv', 'Reviewer']}]
             elif area.portal_type == "DocumentsArea":
-                groups = [{'id': "%s.hosts" % room_id, 'roles': ['Reader']},
-                          {'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
+                groups = [{'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
                           {'id': '%s.membersAdv' % room_id, 'roles': ['Contributor', 'Editor', 'EditorAdv']},
                           {'id': '%s.coordinators' % room_id, 'roles': ['LocalManager', 'Contributor', 'Editor', 'EditorAdv', 'Reviewer']}]
             elif area.portal_type == "EventsArea":
-                groups = [{'id': "%s.hosts" % room_id, 'roles': ['Reader']},
-                          {'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
+                groups = [{'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
                           {'id': '%s.membersAdv' % room_id, 'roles': ['Contributor', 'Editor', 'EditorAdv']},
                           {'id': '%s.coordinators' % room_id, 'roles': ['LocalManager', 'Contributor', 'Editor', 'EditorAdv', 'Reviewer']}]
             elif area.portal_type == "PollsArea":
-                groups = [{'id': "%s.hosts" % room_id, 'roles': ['Reader']},
-                          {'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
+                groups = [{'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
                           {'id': '%s.membersAdv' % room_id, 'roles': ['Contributor', 'Editor', 'EditorAdv']},
                          {'id': '%s.coordinators' % room_id, 'roles': ['LocalManager', 'Contributor', 'Editor', 'EditorAdv', 'Reviewer']}]
             elif area.portal_type == "PloneboardForum":
-                groups = [{'id': "%s.hosts" % room_id, 'roles': ['Reader']},
-                          {'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
+                groups = [{'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
                           {'id': '%s.membersAdv' % room_id, 'roles': ['Contributor', 'Editor', 'EditorAdv', 'Reviewer']},
                           {'id': '%s.coordinators' % room_id, 'roles': ['LocalManager', 'Contributor', 'Editor', 'EditorAdv', 'Reviewer']}]
             elif area.portal_type == "Blog":
-                groups = [{'id': "%s.hosts" % room_id, 'roles': ['Reader']},
-                          {'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
+                groups = [{'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
                           {'id': '%s.membersAdv' % room_id, 'roles': ['Contributor', 'Editor', 'EditorAdv']},
                           {'id': '%s.coordinators' % room_id, 'roles': ['LocalManager', 'Contributor', 'Editor', 'EditorAdv', 'Reviewer']}]
             if groups:

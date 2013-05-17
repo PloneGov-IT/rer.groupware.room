@@ -7,10 +7,11 @@ from rer.groupware.room.interfaces import IRoomGroupsSettingsSchema
 from zope.component import queryUtility
 from zope.i18n import translate
 
-DEFAULT_GROUPS = [('coordinators', 'Coordinators'),
-                 ('membersAdv', 'Editors'),
-                 ('members', 'Members'),
-                 ('hosts', 'Hosts')]
+DEFAULT_ACTIVE_GROUPS = [('coordinators', 'Coordinators'),
+                         ('membersAdv', 'Editors'),
+                         ('members', 'Members')]
+
+DEFAULT_PASSIVE_GROUPS = [('hosts', 'Hosts')]
 
 
 def import_various(context):
@@ -65,9 +66,12 @@ def setDefaultGroups(portal):
     """
     registry = queryUtility(IRegistry)
     settings = registry.forInterface(IRoomGroupsSettingsSchema, check=False)
-    if not settings.room_groups:
-        room_groups = setRegistyField(portal, DEFAULT_GROUPS)
-        settings.room_groups = room_groups
+    if not settings.active_groups:
+        active_groups = setRegistyField(portal, DEFAULT_ACTIVE_GROUPS)
+        settings.active_groups = active_groups
+    if not settings.passive_groups:
+        passive_groups = setRegistyField(portal, DEFAULT_PASSIVE_GROUPS)
+        settings.passive_groups = passive_groups
 
 
 def setRegistyField(context, groups):

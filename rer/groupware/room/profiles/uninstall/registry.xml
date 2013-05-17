@@ -1,5 +1,8 @@
 <registry>
     <record interface="rer.groupware.room.interfaces.room_groups.IRoomGroupsSettingsSchema"
-            field="room_groups"
+            field="active_groups"
+            delete="True"/>
+    <record interface="rer.groupware.room.interfaces.room_groups.IRoomGroupsSettingsSchema"
+            field="passive_groups"
             delete="True"/>
 </registry>
