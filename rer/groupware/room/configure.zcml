@@ -9,15 +9,13 @@
   <i18n:registerTranslations directory="locales" />
   <include package="plone.indexer" />
   
-  <!-- Include the sub-packages that use their own configure.zcml files. -->
   <include package=".browser" />
   <include package=".content" />
   <include package=".events" />
   
-  <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="default"
-      title="RER: Groupware Room"
+      title="RER Groupware: Room"
       directory="profiles/default"
       description=""
       provides="Products.GenericSetup.interfaces.EXTENSION"
