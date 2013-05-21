@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-05-17 08:26+0000\n"
+"POT-Creation-Date: 2013-05-21 08:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,7 +94,7 @@ msgstr ""
 msgid "Coordinators"
 msgstr ""
 
-#: ./events/default_room_events.py:431
+#: ./events/default_room_events.py:423
 msgid "Discussions"
 msgstr ""
 
@@ -152,11 +152,11 @@ msgstr ""
 msgid "Impossible sending the message: "
 msgstr ""
 
-#: ./events/default_room_events.py:425
+#: ./events/default_room_events.py:417
 msgid "Last blog posts"
 msgstr ""
 
-#: ./events/default_room_events.py:442
+#: ./events/default_room_events.py:434
 msgid "Last forum discussions"
 msgstr ""
 
@@ -320,7 +320,7 @@ msgid "notify_subj_deleted_small"
 msgstr ""
 
 #. Default: "Recent contents for this room"
-#: ./events/default_room_events.py:331
+#: ./events/default_room_events.py:323
 msgid "room_homepage_title"
 msgstr ""
 

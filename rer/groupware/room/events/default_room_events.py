@@ -306,6 +306,9 @@ class CreateSharing(object):
 
 class CreateHomepage(object):
 
+    left_manager_id = 'collective.portletpage.firstcolumn'
+    right_manager_id = 'collective.portletpage.secondcolumn'
+
     def __init__(self, context, event):
         """
         Create the homepage view for this room.
@@ -337,10 +340,10 @@ class CreateHomepage(object):
         """
         #setup portlet managers
         left_manager = getUtility(IPortletManager,
-                                  name='collective.portletpage.firstcolumn',
+                                  name=self.left_manager_id,
                                   context=portletpage)
         right_manager = getUtility(IPortletManager,
-                                  name='collective.portletpage.secondcolumn',
+                                  name=self.right_manager_id,
                                   context=portletpage)
         left_mapping = getMultiAdapter((portletpage, left_manager), IPortletAssignmentMapping)
         right_mapping = getMultiAdapter((portletpage, right_manager), IPortletAssignmentMapping)
@@ -397,7 +400,7 @@ class CreateHomepage(object):
             return None
         portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
         assignment = CollectionAssignment(header=area.Title,
-                                        target_collection=collection[0].getPath().lstrip(portal_state.navigation_root_path()),
+                                        target_collection=collection[0].getPath().replace(portal_state.navigation_root_path(), ''),
                                         show_dates=True,
                                         limit=limit,
                                         template_id="groupware_collection_portlet_view",
@@ -411,13 +414,15 @@ class CreateHomepage(object):
         if len(areas) != 1:
             return None
         area = areas[0]
-        assignment = BlogAssignment(portletTitle=translate(_(u"Last blog posts")),
+        assignment = BlogAssignment(portletTitle=translate(_(u"Last blog posts"),
+                                                            context=self.request),
                                     blogFolder=area.getPath(),
                                     entries=3)
         return assignment, "blog"
 
     def createDiscussionPortlet(self):
-        assignment = DiscussionAssignment(portletTitle=translate(_(u"Discussions")),
+        assignment = DiscussionAssignment(portletTitle=translate(_(u"Discussions"),
+                                                                 context=self.request),
                                           discussionFolder='/%s' % self.context.getId(),
                                           nDiscussions=3)
         return assignment, "discussions"
@@ -428,7 +433,8 @@ class CreateHomepage(object):
         if len(areas) != 1:
             return None
         area = areas[0]
-        assignment = PloneboardAssignment(title=translate(_(u"Last forum discussions")),
+        assignment = PloneboardAssignment(title=translate(_(u"Last forum discussions"),
+                                                            context=self.request),
                                         forum=area.UID,
                                         count=3)
         return assignment, 'forum'

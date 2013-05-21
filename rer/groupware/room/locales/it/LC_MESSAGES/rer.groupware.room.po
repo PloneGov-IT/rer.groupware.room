@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rer.groupware.room\n"
-"POT-Creation-Date: 2013-05-17 08:26+0000\n"
+"POT-Creation-Date: 2013-05-21 08:40+0000\n"
 "PO-Revision-Date: 2010-04-21 09:47+0000\n"
 "Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.it>\n"
 "Language-Team: RedTurtle Technology <info@redturtle.net>\n"
@@ -99,7 +99,7 @@ msgstr "Modifiche salvate"
 msgid "Coordinators"
 msgstr "Coordinatori"
 
-#: ./events/default_room_events.py:431
+#: ./events/default_room_events.py:423
 msgid "Discussions"
 msgstr "Commenti"
 
@@ -161,11 +161,11 @@ msgstr "Ospiti"
 msgid "Impossible sending the message: "
 msgstr "Impossibile spedire il messaggio: "
 
-#: ./events/default_room_events.py:425
+#: ./events/default_room_events.py:417
 msgid "Last blog posts"
 msgstr "Post del blog"
 
-#: ./events/default_room_events.py:442
+#: ./events/default_room_events.py:434
 msgid "Last forum discussions"
 msgstr "Discussioni del forum"
 
@@ -338,7 +338,7 @@ msgid "notify_subj_deleted_small"
 msgstr "Un avviso o evento è stato eliminato nel gruppo di collaborazione: ${room_title}"
 
 #. Default: "Recent contents for this room"
-#: ./events/default_room_events.py:331
+#: ./events/default_room_events.py:323
 msgid "room_homepage_title"
 msgstr "I contenuti più recenti di questo gruppo"
 
