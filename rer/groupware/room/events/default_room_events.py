@@ -414,16 +414,19 @@ class CreateHomepage(object):
         if len(areas) != 1:
             return None
         area = areas[0]
+        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
         assignment = BlogAssignment(portletTitle=translate(_(u"Last blog posts"),
                                                             context=self.request),
-                                    blogFolder=area.getPath(),
+                                    blogFolder=area.getPath().replace(portal_state.navigation_root_path(), ''),
                                     entries=3)
         return assignment, "blog"
 
     def createDiscussionPortlet(self):
+        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+        area_path = "/".join(self.context.getPhysicalPath())
         assignment = DiscussionAssignment(portletTitle=translate(_(u"Discussions"),
                                                                  context=self.request),
-                                          discussionFolder='/%s' % self.context.getId(),
+                                          discussionFolder=area_path.replace(portal_state.navigation_root_path(), ''),
                                           nDiscussions=3)
         return assignment, "discussions"
 
