@@ -2,8 +2,8 @@
 <dc-workflow workflow_id="groupware_folders_workflow"
 			 xmlns:i18n="http://xml.zope.org/namespaces/i18n"
 			 i18n:domain="plone"
-             title="Groupware folders Workflow"
-             description="Essentially a workflow with no transitions, but has a Definitive state."
+             title="Groupware Area Workflow"
+             description="Essentially a workflow with no transitions, but has a Definitive state (for Groupware main Area)."
              state_variable="review_state"
              initial_state="published">
  <permission>Access contents information</permission>
