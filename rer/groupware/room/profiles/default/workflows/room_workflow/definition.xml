@@ -11,6 +11,7 @@
  <state state_id="open" title="Open" i18n:attributes="title">
   <exit-transition transition_id="close"/>
   <permission-map name="Access contents information" acquired="True">
+   <permission-role>Active User</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
@@ -27,6 +28,7 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="True">
+   <permission-role>Active User</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
@@ -35,6 +37,7 @@
   <description>Visible to members of the groups.</description>
   <exit-transition transition_id="open"/>
   <permission-map name="Access contents information" acquired="False">
+   <permission-role>Active User</permission-role>
    <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -56,6 +59,7 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
+   <permission-role>Active User</permission-role>
    <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
