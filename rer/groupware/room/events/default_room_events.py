@@ -255,9 +255,7 @@ class CreateSharing(object):
         #set local roles of the room
         self.setFolderLocalRoles(self.context,
                                  list_groups=[{'id':'%s.users' % room_id,
-                                               'roles': ['Active User', 'Reader']},
-                                              {'id':'%s.hosts' % room_id,
-                                               'roles': ['Reader']}],
+                                               'roles': ['Active User']}],
                                  roles_block=True)
         areas = pc(path="/".join(self.context.getPhysicalPath()),
                    object_provides=IRoomArea.__identifier__)
@@ -379,10 +377,12 @@ class CreateHomepage(object):
         assignment, portlet_id = self.createBlogPortlet()
         if assignment and portlet_id:
             right_mapping[portlet_id] = assignment
-
         #polls
         assignment, portlet_id = self.createCollectionPortlet(area_type="PollsArea",
                                                   limit=3)
+        if assignment and portlet_id:
+            right_mapping[portlet_id] = assignment
+
         logger.info("Created homepage portlets")
 
     def createCollectionPortlet(self, area_type, limit):
@@ -392,12 +392,12 @@ class CreateHomepage(object):
         pc = getToolByName(self.context, 'portal_catalog', None)
         areas = pc(path="/".join(self.context.getPhysicalPath()), portal_type=area_type)
         if len(areas) != 1:
-            return None
+            return None, ''
         area = areas[0]
         collection = pc(path={"query": area.getPath(), "depth": 1},
                                 portal_type="Collection")
         if len(collection) != 1:
-            return None
+            return None, ''
         portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
         assignment = CollectionAssignment(header=area.Title,
                                         target_collection=collection[0].getPath().replace(portal_state.navigation_root_path(), ''),
@@ -412,7 +412,7 @@ class CreateHomepage(object):
         pc = getToolByName(self.context, 'portal_catalog', None)
         areas = pc(path="/".join(self.context.getPhysicalPath()), portal_type="Blog")
         if len(areas) != 1:
-            return None
+            return None, ''
         area = areas[0]
         portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
         assignment = BlogAssignment(portletTitle=translate(_(u"Last blog posts"),
@@ -434,7 +434,7 @@ class CreateHomepage(object):
         pc = getToolByName(self.context, 'portal_catalog', None)
         areas = pc(path="/".join(self.context.getPhysicalPath()), portal_type="PloneboardForum")
         if len(areas) != 1:
-            return None
+            return None, ''
         area = areas[0]
         assignment = PloneboardAssignment(title=translate(_(u"Last forum discussions"),
                                                             context=self.request),
