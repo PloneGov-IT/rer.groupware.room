@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.0 (unreleased)
+2.0.0 (2013-06-24)
 ------------------
 
 Plone 4 version
