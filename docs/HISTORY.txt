@@ -1,10 +1,11 @@
 Changelog
 =========
 
-2.0.1 (unreleased)
+2.0.1 (2013-07-26)
 ------------------
 
-- Nothing changed yet.
+- Added dependency to collective.blog.view [andrea]
+- Adde PlonePopoll to tiny linkable types [andrea]
 
 
 2.0.0 (2013-06-24)

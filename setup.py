@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '2.0.1.dev0'
+version = '2.0.1'
 
 setup(name='rer.groupware.room',
       version=version,
@@ -31,6 +31,7 @@ setup(name='rer.groupware.room',
           'collective.contentrules.mailtogroup',
           'collective.portlet.discussion',
           'collective.portletpage',
+          'collective.blog.view',
           'collective.blogstarentry',
           'collective.portlet.blogstarentries',
       ],

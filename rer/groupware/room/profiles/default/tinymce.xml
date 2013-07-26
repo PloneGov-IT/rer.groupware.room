@@ -9,6 +9,7 @@
    <element value="ProjectsArea" />
    <element value="GroupRoom" />
    <element value="Blog" />
+   <element value="PlonePopoll" />
   </linkable>
   <containsobjects purge="False">
    <element value="DocumentsArea" />
