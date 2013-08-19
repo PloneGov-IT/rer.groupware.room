@@ -14,6 +14,8 @@ from rer.groupware.room.interfaces import IRoomGroupsSettingsSchema
 from zope.component import getMultiAdapter, getUtility, queryUtility
 from zope.i18n import translate
 from zope.interface import alsoProvides
+from Acquisition import aq_inner
+from zope.component import getMultiAdapter
 
 
 class CreateRoomStructure(object):
@@ -151,8 +153,11 @@ class CreateRoomStructure(object):
                               o='plone.app.querystring.operation.selection.is',
                               v=kwargs.get('review_state', '')))
         #create the topic
+        registry = queryUtility(IRegistry)
+        groups_settings = registry.forInterface(IRoomGroupsSettingsSchema, check=False)
+        collection_type = getattr(groups_settings, 'collection_type', "Collection")
         topic_id = folder.invokeFactory(id=id,
-                                        type_name='Collection',
+                                        type_name=collection_type,
                                         title=title,
                                         query=query,
                                         sort_on='modified',
@@ -202,7 +207,6 @@ class CreateGroups(object):
             logger.warning("No default groups set in the portal. We don't create any specific group for this room.")
             return
         sgm_groups = []
-
         #now create active groups and add them to uber_group
         for group in active_groups:
             group_id = '%s.%s' % (room_id, group.group_id)
@@ -306,6 +310,7 @@ class CreateHomepage(object):
 
     left_manager_id = 'collective.portletpage.firstcolumn'
     right_manager_id = 'collective.portletpage.secondcolumn'
+    portletpage_type = 'Portlet Page'
 
     def __init__(self, context, event):
         """
@@ -322,7 +327,7 @@ class CreateHomepage(object):
                                     default=u"Recent contents for this room"),
                                     context=self.request)
         portletpage_id = self.context.invokeFactory(id=self.generateId(homepage_title),
-                                                    type_name='Portlet Page',
+                                                    type_name=self.portletpage_type,
                                                     show_dates=True,
                                                     title=homepage_title)
         #set portletpage as default view for the room
@@ -345,7 +350,6 @@ class CreateHomepage(object):
                                   context=portletpage)
         left_mapping = getMultiAdapter((portletpage, left_manager), IPortletAssignmentMapping)
         right_mapping = getMultiAdapter((portletpage, right_manager), IPortletAssignmentMapping)
-
         #left column portlets
         #documents
         assignment, portlet_id = self.createCollectionPortlet(area_type="DocumentsArea",
@@ -394,16 +398,31 @@ class CreateHomepage(object):
         if len(areas) != 1:
             return None, ''
         area = areas[0]
-        collection = pc(path={"query": area.getPath(), "depth": 1},
-                                portal_type="Collection")
-        if len(collection) != 1:
-            return None, ''
+        registry = queryUtility(IRegistry)
+        groups_settings = registry.forInterface(IRoomGroupsSettingsSchema, check=False)
+        collection_type = getattr(groups_settings, 'collection_type', "Collection")
+        collections = pc(path={"query": area.getPath(), "depth": 1},
+                                portal_type=collection_type)
         portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+        collection_path = ""
+        if not collections:
+            return None, ''
+        elif collections.actual_result_count == 1:
+            collection_path = collections[0].getPath().replace(portal_state.navigation_root_path(), '')
+        else:
+            for collection in collections:
+                collection_obj = collection.getObject()
+                context_state = getMultiAdapter((collection_obj, self.request), name=u'plone_context_state')
+                if context_state.is_default_page():
+                    collection_path = collection.getPath().replace(portal_state.navigation_root_path(), '')
+        if not collection_path:
+            return None, ''
         assignment = CollectionAssignment(header=area.Title,
-                                        target_collection=collection[0].getPath().replace(portal_state.navigation_root_path(), ''),
+                                        target_collection=collection_path,
                                         show_dates=True,
                                         limit=limit,
                                         template_id="groupware_collection_portlet_view",
+                                        css_class="portlet%s" % area.Title,
                                         show_more=True)
 
         return assignment, area.getId

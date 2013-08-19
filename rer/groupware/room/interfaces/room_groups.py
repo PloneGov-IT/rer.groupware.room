@@ -3,6 +3,7 @@ from zope.interface import Interface
 from zope import schema
 from rer.groupware.room import roomMessageFactory as _
 from rer.groupware.room.custom_fields import IRoomGroupName, PersistentObject
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 
 class IRoomGroupsSettingsSchema(Interface):
@@ -26,3 +27,10 @@ class IRoomGroupsSettingsSchema(Interface):
             default=(),
             missing_value=(),
     )
+    collection_type = schema.Choice(
+            title=_(u"Default collection type"),
+            description=_(u"Select which collection type to use in this portal."),
+            missing_value=set(),
+            default="Collection",
+            vocabulary=SimpleVocabulary([SimpleTerm('Collection', 'Collection', _(u"Collection")), SimpleTerm('Topic', 'Topic', _(u"Topic (old)"))]),
+            required=False)

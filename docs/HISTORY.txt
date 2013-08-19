@@ -4,14 +4,15 @@ Changelog
 2.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added custom simple_groups_management view that group groups by room [andrea]
+- Added new field in control panel: allows to select wich collection type to use (old or new) [andrea]
 
 
 2.0.1 (2013-07-26)
 ------------------
 
 - Added dependency to collective.blog.view [andrea]
-- Adde PlonePopoll to tiny linkable types [andrea]
+- Added PlonePopoll to tiny linkable types [andrea]
 
 
 2.0.0 (2013-06-24)

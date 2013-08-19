@@ -8,10 +8,12 @@
   <five:registerPackage package="." initialize=".initialize" />
   <i18n:registerTranslations directory="locales" />
   <include package="plone.indexer" />
+  <include package="plone.app.registry" />
   
   <include package=".browser" />
   <include package=".content" />
   <include package=".events" />
+  <include file="upgrades.zcml" />
   
   <genericsetup:registerProfile
       name="default"

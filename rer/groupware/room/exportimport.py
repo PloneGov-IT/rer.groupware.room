@@ -65,13 +65,14 @@ def setDefaultGroups(portal):
     insert some properties
     """
     registry = queryUtility(IRegistry)
-    settings = registry.forInterface(IRoomGroupsSettingsSchema, check=False)
-    if not settings.active_groups:
-        active_groups = setRegistyField(portal, DEFAULT_ACTIVE_GROUPS)
-        settings.active_groups = active_groups
-    if not settings.passive_groups:
-        passive_groups = setRegistyField(portal, DEFAULT_PASSIVE_GROUPS)
-        settings.passive_groups = passive_groups
+    if registry:
+        settings = registry.forInterface(IRoomGroupsSettingsSchema, check=False)
+        if not settings.active_groups:
+            active_groups = setRegistyField(portal, DEFAULT_ACTIVE_GROUPS)
+            settings.active_groups = active_groups
+        if not settings.passive_groups:
+            passive_groups = setRegistyField(portal, DEFAULT_PASSIVE_GROUPS)
+            settings.passive_groups = passive_groups
 
 
 def setRegistyField(context, groups):
