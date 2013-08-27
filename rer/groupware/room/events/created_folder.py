@@ -9,8 +9,8 @@ def setParentFilteredTypes(obj, event):
     pquickinstaller = getToolByName(portal, 'portal_quickinstaller')
     installed_products = pquickinstaller.listInstalledProducts()
     GPWRoomFound = False
-    for p in installed_products:
-        if p['title'] == u'RER: Groupware Room':
+    for product in installed_products:
+        if product['title'] == u'RER Groupware: Room':
             GPWRoomFound = True
             break
     if not GPWRoomFound:

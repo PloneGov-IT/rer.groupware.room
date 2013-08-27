@@ -28,7 +28,7 @@
 
     <a href=""
        class="link-parent"
-       tal:attributes="href string:$portal_url/@@simple_groups_management"
+       tal:attributes="href string:$portal_url/@@gpw_simple_groups_management"
        i18n:translate="sgm_label_back_to_gm">
           Back to groups management
     </a>

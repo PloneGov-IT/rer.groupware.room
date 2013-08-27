@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-08-19 08:09+0000\n"
+"POT-Creation-Date: 2013-08-27 10:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rer.groupware.room\n"
 
-#: ./events/default_room_events.py:203
+#: ./events/default_room_events.py:213
 msgid "${room_title} Users"
 msgstr ""
 
@@ -45,10 +45,6 @@ msgstr ""
 msgid "${room_title} notifyNewsEvents"
 msgstr ""
 
-#: ./events/modified_object.py:73
-msgid "A document has been modified in the group: ${room_title}"
-msgstr ""
-
 #: ./profiles/default/types/GroupRoom.xml
 msgid "A folder for the groups"
 msgstr ""
@@ -71,10 +67,6 @@ msgstr ""
 
 #: ./profiles/default/types/ProjectsArea.xml
 msgid "A folder for the room's projects area"
-msgstr ""
-
-#: ./events/modified_object.py:70
-msgid "A news or event has been modified in the group: ${room_title}"
 msgstr ""
 
 #: ./interfaces/room_groups.py:13
@@ -102,12 +94,16 @@ msgstr ""
 msgid "Default collection type"
 msgstr ""
 
-#: ./events/default_room_events.py:446
+#: ./events/default_room_events.py:463
 msgid "Discussions"
 msgstr ""
 
 #: ./profiles/default/types/DocumentsArea.xml
 msgid "Documents Area"
+msgstr ""
+
+#: ./events/default_room_events.py:112
+msgid "Documents and folders"
 msgstr ""
 
 #: ./profiles/default/types/DocumentsArea.xml
@@ -118,10 +114,6 @@ msgstr ""
 
 #: ./browser/controlpanel.py:31
 msgid "Edit cancelled"
-msgstr ""
-
-#: ./events/modified_object.py:62
-msgid "Edit notify email sent to users"
 msgstr ""
 
 #. Default: "Editors"
@@ -156,15 +148,11 @@ msgstr ""
 msgid "Hosts"
 msgstr ""
 
-#: ./events/modified_object.py:65
-msgid "Impossible sending the message: "
-msgstr ""
-
-#: ./events/default_room_events.py:437
+#: ./events/default_room_events.py:454
 msgid "Last blog posts"
 msgstr ""
 
-#: ./events/default_room_events.py:458
+#: ./events/default_room_events.py:475
 msgid "Last forum discussions"
 msgstr ""
 
@@ -266,6 +254,10 @@ msgstr ""
 msgid "area_projects_title"
 msgstr ""
 
+#: ./events/default_room_events.py:111
+msgid "documents-and-folders"
+msgstr ""
+
 #. Default: "Insert a list of groups that are active in the rooms. This list will be used to generate some groups for every new room created."
 #: ./interfaces/room_groups.py:14
 msgid "help_active_groups"
@@ -294,11 +286,6 @@ msgstr ""
 #. Default: "Image"
 #: ./content/group_room.py:39
 msgid "label_image"
-msgstr ""
-
-#. Default: "Impossible sending the notification. Mail template not set."
-#: ./events/modified_object.py:51
-msgid "mailtemplate_not_set"
 msgstr ""
 
 #. Default: "This is an automatic notification of the administrator of Groupware Regione Emilia-Romagna. Please DO NOT respond to this sender."
@@ -336,12 +323,7 @@ msgid "notify_subj_deleted_small"
 msgstr ""
 
 #. Default: "Recent contents for this room"
-#: ./events/default_room_events.py:326
+#: ./events/default_room_events.py:336
 msgid "room_homepage_title"
-msgstr ""
-
-#. Default: "Impossible sending the notification. Mailserver not set in the portal."
-#: ./events/modified_object.py:43
-msgid "server_not_set"
 msgstr ""
 

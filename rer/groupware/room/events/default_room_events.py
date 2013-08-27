@@ -86,12 +86,10 @@ class CreateRoomStructure(object):
         area_obj = self.context.restrictedTraverse(area_id)
 
         #create topic before disallowing this type
-        if portal_type not in ["PloneboardForum", "Blog"]:
+        if portal_type not in ["PloneboardForum", "Blog", "DocumentsArea"]:
             portal_types = []
             if portal_type == "NewsArea":
                 portal_types = ['Folder', 'News Item']
-            elif portal_type == "DocumentsArea":
-                portal_types = ['Document', 'File', 'Image', 'Folder']
             elif portal_type == "EventsArea":
                 portal_types = ['Event', 'Folder']
             elif portal_type == "PollsArea":
@@ -102,6 +100,19 @@ class CreateRoomStructure(object):
                                   set_as_default_view=True,
                                   portal_types=portal_types)
 
+        if portal_type == "DocumentsArea":
+            self.createCollection(folder=area_obj,
+                                  id=id,
+                                  title=title,
+                                  set_recurse="True",
+                                  set_as_default_view=False,
+                                  portal_types=['Document', 'File', 'Image'])
+
+            self.createCollection(folder=area_obj,
+                                  id=translate(_("documents-and-folders"), context=self.context.REQUEST),
+                                  title=translate(_("Documents and folders"), context=self.context.REQUEST),
+                                  set_as_default_view=True,
+                                  portal_types=['Document', 'File', 'Image', 'Folder'])
         #set allowed types
         if types:
             area_obj.setConstrainTypesMode(1)
@@ -353,17 +364,20 @@ class CreateHomepage(object):
         #left column portlets
         #documents
         assignment, portlet_id = self.createCollectionPortlet(area_type="DocumentsArea",
-                                                  limit=5)
+                                                              limit=5,
+                                                              use_default_collection=False)
         if assignment and portlet_id:
             left_mapping[portlet_id] = assignment
         #news
         assignment, portlet_id = self.createCollectionPortlet(area_type="NewsArea",
-                                                  limit=3)
+                                                              limit=3,
+                                                              use_default_collection=True)
         if assignment and portlet_id:
             left_mapping[portlet_id] = assignment
         #events
         assignment, portlet_id = self.createCollectionPortlet(area_type="EventsArea",
-                                                  limit=3)
+                                                              limit=3,
+                                                              use_default_collection=True)
         if assignment and portlet_id:
             left_mapping[portlet_id] = assignment
 
@@ -383,13 +397,14 @@ class CreateHomepage(object):
             right_mapping[portlet_id] = assignment
         #polls
         assignment, portlet_id = self.createCollectionPortlet(area_type="PollsArea",
-                                                  limit=3)
+                                                              limit=3,
+                                                              use_default_collection=True)
         if assignment and portlet_id:
             right_mapping[portlet_id] = assignment
 
         logger.info("Created homepage portlets")
 
-    def createCollectionPortlet(self, area_type, limit):
+    def createCollectionPortlet(self, area_type, limit, use_default_collection=True):
         """
         imposta l'assignment per la collection portlet
         """
@@ -401,8 +416,11 @@ class CreateHomepage(object):
         registry = queryUtility(IRegistry)
         groups_settings = registry.forInterface(IRoomGroupsSettingsSchema, check=False)
         collection_type = getattr(groups_settings, 'collection_type', "Collection")
-        collections = pc(path={"query": area.getPath(), "depth": 1},
-                                portal_type=collection_type)
+        query = {'path': {"query": area.getPath(), "depth": 1},
+                 'portal_type': collection_type}
+        if not use_default_collection:
+            query['id'] = area.getId
+        collections = pc(**query)
         portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
         collection_path = ""
         if not collections:

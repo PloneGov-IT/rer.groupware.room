@@ -18,14 +18,10 @@
             	Products.SimpleGroupsManagement.group_event.IUserRemovedFromGroup"
            		handler = ".group_events.removeNotifyGroup"
             	/>
-				
+
 	<subscriber for = "Products.ATContentTypes.interface.IATFolder
             	Products.Archetypes.interfaces.IObjectInitializedEvent"
            		handler = ".created_folder.setParentFilteredTypes"
             	/>
 				
-	<subscriber for = "Products.Archetypes.interfaces.IBaseObject
-                Products.Archetypes.interfaces.IObjectEditedEvent"
-                handler = ".modified_object.sendNotificationOnModify"
-                />
 </configure>
