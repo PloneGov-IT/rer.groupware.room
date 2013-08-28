@@ -6,7 +6,7 @@ Changelog
 
 - Added custom simple_groups_management view that group groups by room [andrea]
 - Added new field in control panel: allows to select wich collection type to use (old or new) [andrea]
-- Removed unused modified_object event [andrea]
+- Removed unused modified_object and groups_event [andrea]
 - Fixed DocumentsArea creation process. Now creates 2 collections [andrea]
 
 2.0.1 (2013-07-26)

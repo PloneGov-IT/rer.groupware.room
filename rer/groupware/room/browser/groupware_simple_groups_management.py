@@ -3,6 +3,9 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.SimpleGroupsManagement.browser.simple_groups_management import \
     SimpleGroupsManagement
+from zope.event import notify
+from AccessControl import Unauthorized
+from Products.SimpleGroupsManagement.group_event import UserAddedToGroup, UserRemovedFromGroup
 
 
 class GroupwareSimpleGroupsManagement(SimpleGroupsManagement):
@@ -52,3 +55,28 @@ class GroupwareSimpleGroupsManagement(SimpleGroupsManagement):
         if members_list:
             members_list.sort(lambda x, y: cmp(x.getProperty('fullname', ''), y.getProperty('fullname', '')))
         return members_list
+
+    def delete(self):
+        """Delete users from the group"""
+        group_id = self.request.get("group_id")
+        if group_id not in self.manageableGroupIds():
+            raise Unauthorized()
+        user_ids = self.request.get("user_id")
+        group = self.acl_users.getGroup(group_id)
+        for user_id in user_ids:
+            group.removeMember(user_id)
+            notify(UserRemovedFromGroup(group, user_id))
+        self.request.response.redirect(self.context.absolute_url() + '/@@gpw_simple_groups_management?group_id=%s&deleted=1' % group_id)
+
+    def add(self):
+        """Add users from the group"""
+        group_id = self.request.get("group_id")
+        if group_id not in self.manageableGroupIds():
+            raise Unauthorized()
+        user_ids = self.request.get("user_id")
+        group = self.acl_users.getGroup(group_id)
+        for user_id in user_ids:
+            group.addMember(user_id)
+            notify(UserAddedToGroup(group, user_id))
+        self.request.response.redirect(self.context.absolute_url() + '/@@gpw_simple_groups_management?group_id=%s&added=1' % group_id)
+    
