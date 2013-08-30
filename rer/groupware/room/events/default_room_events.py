@@ -270,7 +270,9 @@ class CreateSharing(object):
         #set local roles of the room
         self.setFolderLocalRoles(self.context,
                                  list_groups=[{'id':'%s.users' % room_id,
-                                               'roles': ['Active User']}],
+                                               'roles': ['Active User']},
+                                              {'id': '%s.hosts' % room_id,
+                                                'roles': ['Reader']}],
                                  roles_block=True)
         areas = pc(path="/".join(self.context.getPhysicalPath()),
                    object_provides=IRoomArea.__identifier__)

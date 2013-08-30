@@ -8,6 +8,7 @@ Changelog
 - Added new field in control panel: allows to select wich collection type to use (old or new) [andrea]
 - Removed unused modified_object and groups_event [andrea]
 - Fixed DocumentsArea creation process. Now creates 2 collections [andrea]
+- Group hosts are readers in the room [andrea]
 
 2.0.1 (2013-07-26)
 ------------------
