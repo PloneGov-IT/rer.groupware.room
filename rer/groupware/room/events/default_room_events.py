@@ -14,11 +14,10 @@ from rer.groupware.room.interfaces import IRoomGroupsSettingsSchema
 from zope.component import getMultiAdapter, getUtility, queryUtility
 from zope.i18n import translate
 from zope.interface import alsoProvides
-from Acquisition import aq_inner
-from zope.component import getMultiAdapter
+from Products.CMFCore.interfaces import ISiteRoot
 
 
-class CreateRoomStructure(object):
+class BaseEventClass(object):
 
     def __init__(self, context, event):
         """
@@ -27,6 +26,33 @@ class CreateRoomStructure(object):
         """
         self.context = context
         self.request = self.context.REQUEST
+        self.language = self.getDefaultLanguage()
+        if self.context.getRawLanguage():
+            self.language = self.context.getRawLanguage()
+
+    def getDefaultLanguage(self):
+        """Returns the default language."""
+        portal_properties = getToolByName(self, "portal_properties", None)
+        if portal_properties is None:
+            return 'en'
+        site_properties = getattr(portal_properties, 'site_properties', None)
+        if site_properties is not None:
+            if site_properties.hasProperty('default_language'):
+                return site_properties.getProperty('default_language')
+        portal = getUtility(ISiteRoot)
+        if portal.hasProperty('default_language'):
+            return portal.getProperty('default_language')
+        return getattr(self.context, 'default_lang', 'en')
+
+
+class CreateRoomStructure(BaseEventClass):
+
+    def __init__(self, context, event):
+        """
+        @author: andrea cecchi
+        This event creates some defined work areas
+        """
+        super(CreateRoomStructure, self).__init__(context, event)
         self.createAreas()
 
     def createAreas(self):
@@ -34,22 +60,28 @@ class CreateRoomStructure(object):
         """
         documents_area_title = translate(_('area_documents_title',
                                     default="Documents"),
-                                    context=self.request)
+                                    context=self.request,
+                                    target_language=self.language)
         events_area_title = translate(_('area_events_title',
                                         default="Events"),
-                                        context=self.request)
+                                        context=self.request,
+                                        target_language=self.language)
         forum_area_title = translate(_('area_forum_title',
                                         default="Forum"),
-                                        context=self.request)
+                                        context=self.request,
+                                        target_language=self.language)
         blog_area_title = translate(_('area_blog_title',
                                         default="Blog"),
-                                        context=self.request)
+                                        context=self.request,
+                                        target_language=self.language)
         news_area_title = translate(_('area_news_title',
                                         default="News"),
-                                        context=self.request)
+                                        context=self.request,
+                                        target_language=self.language)
         polls_area_title = translate(_('area_polls_title',
                                         default="Polls"),
-                                        context=self.request)
+                                        context=self.request,
+                                        target_language=self.language)
 
         self.createArea(id=self.generateId(news_area_title),
                         title=news_area_title,
@@ -78,7 +110,8 @@ class CreateRoomStructure(object):
         """
         area_id = self.context.invokeFactory(id=id,
                                              type_name=portal_type,
-                                             title=title)
+                                             title=title,
+                                             language=self.language)
         if not area_id:
             logger.error("Problem creating Area: %s" % title)
             return ""
@@ -109,8 +142,8 @@ class CreateRoomStructure(object):
                                   portal_types=['Document', 'File', 'Image'])
 
             self.createCollection(folder=area_obj,
-                                  id=translate(_("documents-and-folders"), context=self.context.REQUEST),
-                                  title=translate(_("Documents and folders"), context=self.context.REQUEST),
+                                  id=translate(_("documents-and-folders"), context=self.context.REQUEST, target_language=self.language),
+                                  title=translate(_("Documents and folders"), context=self.context.REQUEST, target_language=self.language),
                                   set_as_default_view=True,
                                   portal_types=['Document', 'File', 'Image', 'Folder'])
         #set allowed types
@@ -130,7 +163,8 @@ class CreateRoomStructure(object):
         forum_id = self.context.invokeFactory(id=self.generateId(title),
                                               type_name='PloneboardForum',
                                               title=title,
-                                              maxAttachmentSize=10000)
+                                              maxAttachmentSize=10000,
+                                              language=self.language)
         if not forum_id:
             logger.error("Problem creating Area: %s" % title)
             return
@@ -172,7 +206,8 @@ class CreateRoomStructure(object):
                                         title=title,
                                         query=query,
                                         sort_on='modified',
-                                        sort_reversed=True)
+                                        sort_reversed=True,
+                                        language=self.language)
         if not topic_id:
             logger.error("Problem creating collection for Area: %s" % folder.Title())
         logger.info("Collection created for Area: %s" % title)
@@ -193,14 +228,14 @@ class CreateRoomStructure(object):
         return id
 
 
-class CreateGroups(object):
+class CreateGroups(BaseEventClass):
 
     def __init__(self, context, event):
         """
         Create the groups for this room.
         These groups will be used to manage localroles
         """
-        self.context = context
+        super(CreateGroups, self).__init__(context, event)
         groups_tool = getToolByName(self.context, 'portal_groups')
         room_id = self.context.getId()
         room_title = self.context.Title()
@@ -213,7 +248,8 @@ class CreateGroups(object):
         groups_tool.addGroup(id=uber_group_id,
                              title=translate(_(u"${room_title} Users",
                                                mapping={u"room_title": room_title}),
-                                               context=self.context.REQUEST))
+                                               context=self.context.REQUEST,
+                                               target_language=self.language))
         if not active_groups:
             logger.warning("No default groups set in the portal. We don't create any specific group for this room.")
             return
@@ -258,13 +294,13 @@ class CreateGroups(object):
         logger.info('SGM properties set.')
 
 
-class CreateSharing(object):
+class CreateSharing(BaseEventClass):
 
     def __init__(self, context, event):
         """
         Create the sharing localroles for already created groups.
         """
-        self.context = context
+        super(CreateSharing, self).__init__(context, event)
         room_id = self.context.getId()
         pc = getToolByName(self.context, 'portal_catalog', None)
         #set local roles of the room
@@ -319,7 +355,7 @@ class CreateSharing(object):
         folder.reindexObjectSecurity()
 
 
-class CreateHomepage(object):
+class CreateHomepage(BaseEventClass):
 
     left_manager_id = 'collective.portletpage.firstcolumn'
     right_manager_id = 'collective.portletpage.secondcolumn'
@@ -329,8 +365,7 @@ class CreateHomepage(object):
         """
         Create the homepage view for this room.
         """
-        self.context = context
-        self.request = self.context.REQUEST
+        super(CreateHomepage, self).__init__(context, event)
         self.createPortletPage()
 
     def createPortletPage(self):
@@ -338,11 +373,13 @@ class CreateHomepage(object):
         """
         homepage_title = translate(_('room_homepage_title',
                                     default=u"Recent contents for this room"),
-                                    context=self.request)
+                                    context=self.request,
+                                    target_language=self.language)
         portletpage_id = self.context.invokeFactory(id=self.generateId(homepage_title),
                                                     type_name=self.portletpage_type,
                                                     show_dates=True,
-                                                    title=homepage_title)
+                                                    title=homepage_title,
+                                                    language=self.language)
         #set portletpage as default view for the room
         self.context.setDefaultPage(portletpage_id)
         portletpage = self.context.restrictedTraverse(portletpage_id)
@@ -455,7 +492,8 @@ class CreateHomepage(object):
         area = areas[0]
         portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
         assignment = BlogAssignment(portletTitle=translate(_(u"Last blog posts"),
-                                                            context=self.request),
+                                                            context=self.request,
+                                                            target_language=self.language),
                                     blogFolder=area.getPath().replace(portal_state.navigation_root_path(), ''),
                                     entries=3)
         return assignment, "blog"
@@ -464,7 +502,8 @@ class CreateHomepage(object):
         portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
         area_path = "/".join(self.context.getPhysicalPath())
         assignment = DiscussionAssignment(portletTitle=translate(_(u"Discussions"),
-                                                                 context=self.request),
+                                                                 context=self.request,
+                                                                 target_language=self.language),
                                           discussionFolder=area_path.replace(portal_state.navigation_root_path(), ''),
                                           nDiscussions=3)
         return assignment, "discussions"
@@ -476,7 +515,8 @@ class CreateHomepage(object):
             return None, ''
         area = areas[0]
         assignment = PloneboardAssignment(title=translate(_(u"Last forum discussions"),
-                                                            context=self.request),
+                                                            context=self.request,
+                                                            target_language=self.language),
                                         forum=area.UID,
                                         count=3)
         return assignment, 'forum'
