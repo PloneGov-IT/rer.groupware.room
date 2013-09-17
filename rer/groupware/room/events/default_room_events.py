@@ -247,7 +247,7 @@ class CreateGroups(BaseEventClass):
         uber_group_id = "%s.users" % room_id
         groups_tool.addGroup(id=uber_group_id,
                              title=translate(_(u"${room_title} Users",
-                                               mapping={u"room_title": room_title}),
+                                               mapping={u"room_title": room_title.decode('utf-8')}),
                                                context=self.context.REQUEST,
                                                target_language=self.language))
         if not active_groups:
@@ -257,7 +257,7 @@ class CreateGroups(BaseEventClass):
         #now create active groups and add them to uber_group
         for group in active_groups:
             group_id = '%s.%s' % (room_id, group.group_id)
-            group_title = '%s %s' % (room_title, group.group_title)
+            group_title = '%s %s' % (room_title.decode('utf-8'), group.group_title)
             res = groups_tool.addGroup(id=group_id,
                                        title=group_title)
             if res:
@@ -267,7 +267,7 @@ class CreateGroups(BaseEventClass):
 
         for group in passive_groups:
             group_id = '%s.%s' % (room_id, group.group_id)
-            group_title = '%s %s' % (room_title, group.group_title)
+            group_title = '%s %s' % (room_title.decode('utf-8'), group.group_title)
             res = groups_tool.addGroup(id=group_id,
                                        title=group_title)
             if res:
