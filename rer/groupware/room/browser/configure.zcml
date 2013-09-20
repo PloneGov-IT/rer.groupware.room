@@ -4,7 +4,8 @@
     i18n_domain="rer.groupware.room">
 
   <include package="plone.app.contentmenu" />
- 
+  <include package="Products.SimpleGroupsManagement" />
+  
  <browser:page
         name="modified_mail_template"
         for="*"
