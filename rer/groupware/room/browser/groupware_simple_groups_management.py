@@ -53,7 +53,7 @@ class GroupwareSimpleGroupsManagement(SimpleGroupsManagement):
         sort a list of members
         """
         if members_list:
-            members_list.sort(lambda x, y: cmp(x.getProperty('fullname', ''), y.getProperty('fullname', '')))
+            members_list.sort(lambda x, y: cmp(x.get('fullname', ''), y.get('fullname', '')))
         return members_list
 
     def delete(self):
