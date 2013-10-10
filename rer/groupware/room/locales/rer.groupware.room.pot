@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-08-27 10:07+0000\n"
+"POT-Creation-Date: 2013-10-10 07:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rer.groupware.room\n"
 
-#: ./events/default_room_events.py:213
+#: ./events/default_room_events.py:249
 msgid "${room_title} Users"
 msgstr ""
 
@@ -94,7 +94,7 @@ msgstr ""
 msgid "Default collection type"
 msgstr ""
 
-#: ./events/default_room_events.py:463
+#: ./events/default_room_events.py:504
 msgid "Discussions"
 msgstr ""
 
@@ -102,7 +102,7 @@ msgstr ""
 msgid "Documents Area"
 msgstr ""
 
-#: ./events/default_room_events.py:112
+#: ./events/default_room_events.py:146
 msgid "Documents and folders"
 msgstr ""
 
@@ -148,11 +148,11 @@ msgstr ""
 msgid "Hosts"
 msgstr ""
 
-#: ./events/default_room_events.py:454
+#: ./events/default_room_events.py:494
 msgid "Last blog posts"
 msgstr ""
 
-#: ./events/default_room_events.py:475
+#: ./events/default_room_events.py:517
 msgid "Last forum discussions"
 msgstr ""
 
@@ -214,37 +214,37 @@ msgid "View"
 msgstr ""
 
 #. Default: "Blog"
-#: ./events/default_room_events.py:44
+#: ./events/default_room_events.py:73
 #: ./events/old_created_room.py:211
 msgid "area_blog_title"
 msgstr ""
 
 #. Default: "Documents"
-#: ./events/default_room_events.py:35
+#: ./events/default_room_events.py:61
 #: ./events/old_created_room.py:208
 msgid "area_documents_title"
 msgstr ""
 
-#. Default: "Events"
-#: ./events/default_room_events.py:38
+#. Default: "Agenda"
+#: ./events/default_room_events.py:65
 #: ./events/old_created_room.py:209
 msgid "area_events_title"
 msgstr ""
 
 #. Default: "Forum"
-#: ./events/default_room_events.py:41
+#: ./events/default_room_events.py:69
 #: ./events/old_created_room.py:210
 msgid "area_forum_title"
 msgstr ""
 
-#. Default: "News"
-#: ./events/default_room_events.py:47
+#. Default: "Bulletin board"
+#: ./events/default_room_events.py:77
 #: ./events/old_created_room.py:212
 msgid "area_news_title"
 msgstr ""
 
 #. Default: "Polls"
-#: ./events/default_room_events.py:50
+#: ./events/default_room_events.py:81
 #: ./events/old_created_room.py:214
 msgid "area_polls_title"
 msgstr ""
@@ -254,7 +254,7 @@ msgstr ""
 msgid "area_projects_title"
 msgstr ""
 
-#: ./events/default_room_events.py:111
+#: ./events/default_room_events.py:145
 msgid "documents-and-folders"
 msgstr ""
 
@@ -323,7 +323,7 @@ msgid "notify_subj_deleted_small"
 msgstr ""
 
 #. Default: "Recent contents for this room"
-#: ./events/default_room_events.py:336
+#: ./events/default_room_events.py:374
 msgid "room_homepage_title"
 msgstr ""
 
