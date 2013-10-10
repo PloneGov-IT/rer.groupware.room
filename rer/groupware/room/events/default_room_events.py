@@ -63,7 +63,7 @@ class CreateRoomStructure(BaseEventClass):
                                     context=self.request,
                                     target_language=self.language)
         events_area_title = translate(_('area_events_title',
-                                        default="Events"),
+                                        default="Agenda"),
                                         context=self.request,
                                         target_language=self.language)
         forum_area_title = translate(_('area_forum_title',
@@ -75,7 +75,7 @@ class CreateRoomStructure(BaseEventClass):
                                         context=self.request,
                                         target_language=self.language)
         news_area_title = translate(_('area_news_title',
-                                        default="News"),
+                                        default="Bulletin board"),
                                         context=self.request,
                                         target_language=self.language)
         polls_area_title = translate(_('area_polls_title',
@@ -126,7 +126,7 @@ class CreateRoomStructure(BaseEventClass):
             elif portal_type == "EventsArea":
                 portal_types = ['Event', 'Folder']
             elif portal_type == "PollsArea":
-                portal_types = ['Folder', 'PlonePopoll']
+                portal_types = ['Folder', 'label_popoll']
             self.createCollection(folder=area_obj,
                                   id=id,
                                   title=title,
@@ -139,13 +139,13 @@ class CreateRoomStructure(BaseEventClass):
                                   title=title,
                                   set_recurse="True",
                                   set_as_default_view=False,
-                                  portal_types=['Document', 'File', 'Image'])
+                                  portal_types=['Page', 'File', 'Image'])
 
             self.createCollection(folder=area_obj,
                                   id=translate(_("documents-and-folders"), context=self.context.REQUEST, target_language=self.language),
                                   title=translate(_("Documents and folders"), context=self.context.REQUEST, target_language=self.language),
                                   set_as_default_view=True,
-                                  portal_types=['Document', 'File', 'Image', 'Folder'])
+                                  portal_types=['Page', 'File', 'Image', 'Folder'])
         #set allowed types
         if types:
             area_obj.setConstrainTypesMode(1)
