@@ -10,6 +10,7 @@ Changelog
 - Fixed DocumentsArea creation process. Now creates 2 collections [andrea]
 - Group hosts are readers in the room [andrea]
 - Added multi-language support in creation event [andrea]
+- Added LocalManager to roles that can edit objects with folders_workflow [andrea]
 
 2.0.1 (2013-07-26)
 ------------------
