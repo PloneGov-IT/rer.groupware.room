@@ -41,9 +41,10 @@
 				<tr><th></th><th>User</th></tr>
 				<tal:rows repeat="member members">
 					<tr tal:define="oddrow repeat/member/odd;
-	                                                member_id member/getId;
-		                                        surname python:member.getProperty('sn','');
-	                                                given_name python:member.getProperty('givenName','')"
+	                                       member_id member/getId;
+	                                       fullname python:member.getProperty('fullname', member_id);
+		                                   surname python:member.getProperty('sn','');
+	                                       given_name python:member.getProperty('givenName','')"
 					    tal:attributes="class python:(oddrow and 'odd') or 'even'">
 						<td><input class="noborder notify"
 						           type="checkbox" name="user_id:list"
@@ -52,9 +53,9 @@
 							<img width="16" height="16" alt=""
 							     tal:attributes="src string:${context/absolute_url}/user.gif"/>
 							<span tal:condition="python:not surname and not given_name"
-	                                                      tal:content="member_id" />
-	                                                <span tal:condition="python:surname and given_name"
-	                                                      tal:content="string:${surname} ${given_name} (${member_id})" />
+                                  tal:content="string: ${fullname} (${member_id})" />
+                            <span tal:condition="python:surname and given_name"
+                                  tal:content="string:${surname} ${given_name} (${member_id})" />
 						</td>
 					</tr>
 				</tal:rows>
