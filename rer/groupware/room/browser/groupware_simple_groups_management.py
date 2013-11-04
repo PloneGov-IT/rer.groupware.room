@@ -64,7 +64,7 @@ class GroupwareSimpleGroupsManagement(SimpleGroupsManagement):
         for user in users:
             user_obj = self.acl_users.getUser(user.get('id', ''))
             if user_obj:
-                import pdb;pdb.set_trace()
+                user['fullname'] = user_obj.getProperty('fullname', '')
                 list_users.append(user)
         return list_users
 
