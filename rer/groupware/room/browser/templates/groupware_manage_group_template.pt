@@ -113,6 +113,7 @@
 			<tal:rows repeat="member batch">
 				<tr tal:define="oddrow repeat/member/odd;
                                                 member_id member/id;
+                                                fullname python:member.get('fullname', member_id);
                                                 surname python:member.get('sn','');
                                                 given_name python:member.get('givenName','')"
 				    tal:attributes="class python:(oddrow and 'odd') or 'even'">
@@ -122,8 +123,8 @@
 					<td>
 						<img width="16" height="16" alt=""
 						     tal:attributes="src string:${context/absolute_url}/user.gif"/>
-                                                <span tal:condition="python:not surname and not given_name"
-                                                      tal:content="member_id" />
+                                                <span tal:condition="python:not surname or not given_name"
+                                                      tal:content="string:${fullname} (${member_id})" />
                                                 <span tal:condition="python:surname and given_name"
                                                       tal:content="string:${surname} ${given_name} (${member_id})" />
 					</td>
