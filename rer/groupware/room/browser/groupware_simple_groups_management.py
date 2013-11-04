@@ -48,6 +48,26 @@ class GroupwareSimpleGroupsManagement(SimpleGroupsManagement):
             return users_list
         return []
 
+    def load_portalmembers(self):
+        """Return all members of the portal"""
+        pas_search = self.context.restrictedTraverse('@@pas_search')
+        list_users = []
+        if self.request.form.get('form.button.FindAll'):
+            users = pas_search.searchUsers(sort_by='userid')
+        elif self.request.form.get('form.button.Search') and self.request.form.get('searchstring'):
+            users = pas_search.searchUsers(sort_by='userid',
+                                         fullname=self.request.form.get('searchstring'),
+                                         id=self.request.form.get('searchstring'),
+                                         )
+        else:
+            return []
+        for user in users:
+            user_obj = self.acl_users.getUser(user.get('id', ''))
+            if user_obj:
+                import pdb;pdb.set_trace()
+                list_users.append(user)
+        return list_users
+
     def getSortedSearchMembers(self, members_list):
         """
         sort a list of members
