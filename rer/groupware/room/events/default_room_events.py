@@ -263,7 +263,8 @@ class CreateGroups(BaseEventClass):
             if res:
                 groups_tool.addPrincipalToGroup(group_id, uber_group_id)
                 logger.info("Created active group %s" % group_id)
-                sgm_groups.append(group_id)
+                if group.group_id != "coordinators":
+                    sgm_groups.append(group_id)
 
         for group in passive_groups:
             group_id = '%s.%s' % (room_id, group.group_id)
