@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.2 (unreleased)
+2.1.0 (2013-11-05)
 ------------------
 
 - Added custom simple_groups_management view that group groups by room [andrea]
