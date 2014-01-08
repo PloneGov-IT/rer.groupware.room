@@ -54,6 +54,7 @@ class CreateRoomStructure(BaseEventClass):
         """
         super(CreateRoomStructure, self).__init__(context, event)
         self.createAreas()
+        self.fixAreasOrder()
 
     def createAreas(self):
         """
@@ -226,6 +227,22 @@ class CreateRoomStructure(BaseEventClass):
         title = ' '.join(title.split())
         id = queryUtility(IURLNormalizer).normalize(title)
         return id
+
+    def fixAreasOrder(self):
+        """
+        Reorder areas alphabetically in the folder
+        """
+        room = self.context
+        pc = getToolByName(room, 'portal_catalog', None)
+        plone_utils = getToolByName(room, 'plone_utils')
+        areas = pc(path={'query': "/".join(room.getPhysicalPath()),
+                         'depth': 1},
+                   object_provides=IRoomArea.__identifier__,
+                   sort_on="sortable_title")
+        for index, area in enumerate(areas):
+            room.moveObjectToPosition(area.getId, index)
+            plone_utils.reindexOnReorder(room)
+        logger.info('Ordered Areas')
 
 
 class CreateGroups(BaseEventClass):
