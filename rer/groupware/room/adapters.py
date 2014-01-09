@@ -32,7 +32,6 @@ class GroupwareBlogEntryGetter(FolderEntryGetter):
     def get_entries(self, year=None, month=None):
         catalog = getToolByName(self.context, 'portal_catalog')
         query = self._base_query()
-        import pdb;pdb.set_trace()
         if year:
             if month:
                 lastday = calendar.monthrange(year, month)[1]
