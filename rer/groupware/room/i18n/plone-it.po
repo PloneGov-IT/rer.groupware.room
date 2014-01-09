@@ -16,22 +16,21 @@ msgstr ""
 "X-Is-Fallback-For: it-ch it-it\n"
 
 #: profiles/default/workflows/room_workflow/definition.xml
-msgid "Close room"
-msgstr "Chiudi stanza"
-
-#: profiles/default/workflows/room_workflow/definition.xml
-msgid "Closed"
-msgstr "Chiusa"
+msgid "Retract room"
+msgstr "Rendi privato"
 
 #: profiles/default/workflows/groupware_folders_workflow/definition.xml
 msgid "Definitive"
 msgstr "Definitivo"
 
 #: profiles/default/workflows/room_workflow/definition.xml
-msgid "Open"
-msgstr "Aperta"
+msgid "Publish room"
+msgstr "Pubblica"
 
 #: profiles/default/workflows/room_workflow/definition.xml
-msgid "Open room"
-msgstr "Apri stanza"
+msgid "Room Published"
+msgstr "Pubblicato"
 
+#: profiles/default/workflows/room_workflow/definition.xml
+msgid "Room Private"
+msgstr "Privato"

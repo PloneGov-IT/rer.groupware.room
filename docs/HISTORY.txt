@@ -5,7 +5,8 @@ Changelog
 ------------------
 
 - Added fixAreasOrder method to order alphabetically the areas after creation [cekk]
-
+- Customized adapter for collective.blog.view to get results ordered by Date index [cekk]
+- Renamed room's wf states. Now are published and private not open and closed [cekk]
 
 2.1.0 (2013-11-05)
 ------------------
