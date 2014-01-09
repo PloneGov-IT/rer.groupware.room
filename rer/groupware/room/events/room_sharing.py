@@ -17,7 +17,7 @@ def setRoomSharing(room, event):
         return
     wtool = getToolByName(portal, 'portal_workflow')
     review_state = wtool.getInfoFor(room, 'review_state')
-    if review_state == 'open':
+    if review_state == 'published':
         room.manage_addLocalRoles('AuthenticatedUsers', ['Active User'])
     elif review_state == 'private':
         room.manage_delLocalRoles(['AuthenticatedUsers'])
