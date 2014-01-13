@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1.1 (unreleased)
+2.1.1 (2014-01-13)
 ------------------
 
 - Added fixAreasOrder method to order alphabetically the areas after creation [cekk]
