@@ -4,7 +4,8 @@ Changelog
 2.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add "Owner" role to "Modify Portal content" permission in groupware_folders_workflow.
+  Without this, normal contributors can't add Files and Images into Areas [cekk]
 
 
 2.1.1 (2014-01-13)
