@@ -19,6 +19,8 @@ def setRoomSharing(room, event):
     review_state = wtool.getInfoFor(room, 'review_state')
     if review_state == 'published':
         room.manage_addLocalRoles('AuthenticatedUsers', ['Active User'])
+        #reindex the security
+        room.reindexObjectSecurity()
     elif review_state == 'private':
         room.manage_delLocalRoles(['AuthenticatedUsers'])
         #reindex the security
