@@ -127,7 +127,7 @@ class CreateRoomStructure(BaseEventClass):
             elif portal_type == "EventsArea":
                 portal_types = ['Event', 'Folder']
             elif portal_type == "PollsArea":
-                portal_types = ['Folder', 'label_popoll']
+                portal_types = ['Folder', 'PlonePopoll']
             self.createCollection(folder=area_obj,
                                   id=id,
                                   title=title,
