@@ -49,6 +49,14 @@
       layer="..interfaces.IRERGroupwareRoomLayer"
       />
 
+ <!-- ROOM HELPER VIEW -->
+  <browser:page
+      for="*"
+      name="room_helper_view"
+      class=".room_helper_view.RoomHelperView"
+      permission="zope2.View"
+      layer="..interfaces.IRERGroupwareRoomLayer"
+      /> 
  <!-- Resource directory for images -->
   <browser:resourceDirectory
       name="rer.groupware.room.images"

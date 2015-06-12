@@ -12,6 +12,9 @@
   <type type_id="EventsArea">
     <bound-workflow workflow_id="groupware_folders_workflow" />
   </type>
+  <type type_id="MeetingArea">
+    <bound-workflow workflow_id="groupware_folders_workflow" />
+  </type>
   <type type_id="NewsArea">
     <bound-workflow workflow_id="groupware_folders_workflow" />
   </type>

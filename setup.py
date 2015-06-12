@@ -23,6 +23,7 @@ setup(name='rer.groupware.room',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
+          'collective.monkeypatcher',
           'setuptools',
           'Products.PlonePopoll',
           'Products.Ploneboard>=3.4',
@@ -34,6 +35,7 @@ setup(name='rer.groupware.room',
           'collective.blog.view',
           'collective.blogstarentry',
           'collective.portlet.blogstarentries',
+          'ftw.poodle'
       ],
       entry_points="""
       # -*- Entry points: -*-

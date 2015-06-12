@@ -13,6 +13,8 @@
     meta_type="Factory-based Type Information with dynamic views" />
   <object name="EventsArea"
     meta_type="Factory-based Type Information with dynamic views" />
+  <object name="MeetingArea"
+    meta_type="Factory-based Type Information with dynamic views" />
   <object name="NewsArea"
     meta_type="Factory-based Type Information with dynamic views" />
   <object name="PollsArea"

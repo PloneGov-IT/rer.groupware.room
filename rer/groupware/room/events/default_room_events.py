@@ -83,7 +83,15 @@ class CreateRoomStructure(BaseEventClass):
                                         default="Polls"),
                                         context=self.request,
                                         target_language=self.language)
+        meeting_area_title = translate(_('area_meeting_title',
+                                        default="Meeting"),
+                                        context=self.request,
+                                        target_language=self.language)
 
+        self.createArea(id=self.generateId(events_area_title),
+                        title=events_area_title,
+                        portal_type="EventsArea",
+                        types=['Folder', 'Event'])
         self.createArea(id=self.generateId(news_area_title),
                         title=news_area_title,
                         portal_type="NewsArea",
@@ -95,11 +103,11 @@ class CreateRoomStructure(BaseEventClass):
                         title=documents_area_title,
                         portal_type="DocumentsArea",
                         types=['Document', 'File', 'Image', 'Folder'])
-        self.createArea(id=self.generateId(events_area_title),
-                        title=events_area_title,
-                        portal_type="EventsArea",
-                        types=['Folder', 'Event'])
         self.createForum(forum_area_title)
+        self.createArea(id=self.generateId(meeting_area_title),
+                        title=meeting_area_title,
+                        portal_type="MeetingArea",
+                        types=['Folder', 'Poodle'])
         self.createArea(id=self.generateId(polls_area_title),
                         title=polls_area_title,
                         portal_type="PollsArea",
@@ -121,13 +129,9 @@ class CreateRoomStructure(BaseEventClass):
 
         #create topic before disallowing this type
         if portal_type not in ["PloneboardForum", "Blog", "DocumentsArea"]:
-            portal_types = []
-            if portal_type == "NewsArea":
-                portal_types = ['Folder', 'News Item']
-            elif portal_type == "EventsArea":
-                portal_types = ['Event', 'Folder']
-            elif portal_type == "PollsArea":
-                portal_types = ['Folder', 'PlonePopoll']
+            portal_types = types
+            if portal_type == "MeetingArea":
+                portal_types = ['Folder', 'Meeting poll']
             self.createCollection(folder=area_obj,
                                   id=id,
                                   title=title,
@@ -355,6 +359,10 @@ class CreateSharing(BaseEventClass):
                 groups = [{'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
                           {'id': '%s.membersAdv' % room_id, 'roles': ['Contributor', 'Editor', 'EditorAdv']},
                           {'id': '%s.coordinators' % room_id, 'roles': ['LocalManager', 'Contributor', 'Editor', 'EditorAdv', 'Reviewer']}]
+            elif area.portal_type == "MeetingArea":
+                groups = [{'id': '%s.members' % room_id, 'roles': ['Contributor', 'Editor']},
+                          {'id': '%s.membersAdv' % room_id, 'roles': ['Contributor', 'Editor', 'EditorAdv']},
+                          {'id': '%s.coordinators' % room_id, 'roles': ['LocalManager', 'Contributor', 'Editor', 'EditorAdv', 'Reviewer']}]
             if groups:
                 self.setFolderLocalRoles(area.getObject(), groups)
             logger.info("Sharing set")
@@ -452,6 +460,12 @@ class CreateHomepage(BaseEventClass):
         assignment, portlet_id = self.createBlogPortlet()
         if assignment and portlet_id:
             right_mapping[portlet_id] = assignment
+        #meetings
+        assignment, portlet_id = self.createCollectionPortlet(area_type="MeetingArea",
+                                                              limit=5,
+                                                              use_default_collection=True)
+        if assignment and portlet_id:
+            left_mapping[portlet_id] = assignment
         #polls
         assignment, portlet_id = self.createCollectionPortlet(area_type="PollsArea",
                                                               limit=3,

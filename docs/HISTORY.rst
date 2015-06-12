@@ -1,10 +1,11 @@
 Changelog
 =========
 
-2.1.3 (unreleased)
+2.2.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add ftw.poodle support
+  [cekk]
 
 
 2.1.2 (2014-02-03)

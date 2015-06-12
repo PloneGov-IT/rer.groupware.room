@@ -11,5 +11,11 @@
         destination="2000"
         handler=".upgrades.to_2000"
         profile="rer.groupware.room:default" />
-
+  <gs:upgradeStep
+        title="Upgrade rer.groupware.room 2100"
+        description="rer.groupware.room upgrade step"
+        source="2000"
+        destination="2100"
+        handler=".upgrades.to_2100"
+        profile="rer.groupware.room:default" />
 </configure>
