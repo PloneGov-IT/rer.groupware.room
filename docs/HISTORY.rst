@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1.3 (unreleased)
+2.1.3 (2015-09-22)
 ------------------
 
 - Speedup groupware_simple_groups_management.pt template
