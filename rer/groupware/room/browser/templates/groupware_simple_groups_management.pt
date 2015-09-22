@@ -34,7 +34,7 @@
     	<tal:for define="group_ids python:groups.keys();
 				         sorted_groups python:group_ids.sort()"
 				 repeat="group_id python:group_ids">
-		  
+
 		  	<dl class="collapsible collapsedOnLoad"
 			    tal:define="groups_dict python:groups.get(group_id);
 				            room_title groups_dict/title | group_id;
@@ -44,17 +44,16 @@
 				    tal:condition="groups_list"
 				    tal:repeat="group groups_list">
 					<img width="16" height="16" alt=""
-                         tal:attributes="src string:${context/absolute_url}/group.gif"/>
-                    <a tal:define="group_id group/id;
-					               group_obj python:view.load_group(group_id=group_id)"
+                         tal:attributes="src string:${context/portal_url}/group.gif"/>
+                    <a tal:define="group_id group/id;"
 					   tal:attributes="href string:${context/absolute_url}/@@gpw_simple_groups_management?group_id=${group_id}"
-                       tal:content="string:${group_obj/getGroupTitleOrName} (${group_id})" />
+                       tal:content="string:${group/title} (${group_id})" />
 				</dd>
 		  	</dl>
-		           	
+
         </tal:for>
     </tal:groups>
-	
+
 	<p tal:condition="not:groups"
 	   i18n:translate="smg_no_groups">
 		You can't manage any groups

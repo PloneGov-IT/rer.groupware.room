@@ -4,7 +4,8 @@ Changelog
 2.1.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Speedup groupware_simple_groups_management.pt template
+  [cekk]
 
 
 2.1.2 (2014-02-03)
