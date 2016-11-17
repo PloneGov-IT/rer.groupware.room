@@ -1,10 +1,11 @@
 Changelog
 =========
 
-2.1.4 (unreleased)
+2.2.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add uninstall profile
+  [cekk]
 
 
 2.1.3 (2015-09-22)
