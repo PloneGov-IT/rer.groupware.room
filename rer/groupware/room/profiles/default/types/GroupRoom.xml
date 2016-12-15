@@ -5,7 +5,6 @@
 <property name="title" i18n:translate="">Room</property>
 <property name="description"
        i18n:translate="">A folder for the groups</property>
- <property name="icon_expr">string:${portal_url}/++resource++rer.groupware.room/images/room.png</property>
  <property name="factory">GroupRoom</property>
  <property name="add_view_expr">string:${folder_url}/++add++GroupRoom</property>
  <property name="factory">addGroupRoom</property>

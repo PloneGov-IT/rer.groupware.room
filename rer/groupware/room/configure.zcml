@@ -20,6 +20,31 @@
     title="rer.groupware.room: Add GroupRoom"
   />
 
+  <permission
+    id="rer.groupware.room.permissions.AddDocumentsArea"
+    title="rer.groupware.room: Add DocumentsArea"
+  />
+
+  <permission
+    id="rer.groupware.room.permissions.AddEventsArea"
+    title="rer.groupware.room: Add EventsArea"
+  />
+
+  <permission
+    id="rer.groupware.room.permissions.AddNewsArea"
+    title="rer.groupware.room: Add NewsArea"
+  />
+
+  <permission
+    id="rer.groupware.room.permissions.AddPollsArea"
+    title="rer.groupware.room: Add PollsArea"
+  />
+
+  <permission
+    id="rer.groupware.room.permissions.AddProjectsArea"
+    title="rer.groupware.room: Add ProjectsArea"
+  />
+
   <interface interface=".interfaces.IRoomArea" />
 
   <genericsetup:registerProfile

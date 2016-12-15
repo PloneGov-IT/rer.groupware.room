@@ -30,7 +30,6 @@ class RERGroupwareRoomColorViewlet(GroupwareRoomViewletBase):
     A Viewlet that allows to add some dynamic css in the  header
     """
     def render(self):
-        import pdb; pdb.set_trace()
         if not self.room:
             return ""
 #        color=self.room.getSubsiteColor()
