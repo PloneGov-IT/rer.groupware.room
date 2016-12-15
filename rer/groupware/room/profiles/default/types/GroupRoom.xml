@@ -31,6 +31,8 @@
  <property name="klass">plone.dexterity.content.Container</property>
  <property name="schema">rer.groupware.room.interfaces.group_room.IGroupRoom</property>
  <property name="behaviors" purge="false">
+  <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
+  <element value="plone.app.content.interfaces.INameFromTitle"/>
   <element value="plone.app.dexterity.behaviors.metadata.IOwnership" />
   <element value="plone.app.contenttypes.behaviors.leadimage.ILeadImage"/>
   <element value="plone.app.lockingbehavior.behaviors.ILocking"/>

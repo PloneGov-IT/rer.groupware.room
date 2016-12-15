@@ -6,7 +6,7 @@
  <property name="description"
      i18n:translate="">A folder for the room's news area</property>
  <property name="content_icon">++resource++rer.groupware.room.images/news_area.gif</property>
- <property name="factory">addATFolder</property>
+ <property name="factory">NewsArea</property>
  <property name="immediate_view">folder_listing</property>
  <property name="global_allow">False</property>
  <property name="filter_content_types">False</property>
@@ -19,10 +19,12 @@
   <element value="folder_listing"/>
  </property>
  <property name="behaviors" purge="false">
+  <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
+  <element value="plone.app.content.interfaces.INameFromTitle"/>
   <element value="plone.app.lockingbehavior.behaviors.ILocking"/>
  </property>
  <alias from="(Default)" to="(dynamic view)"/>
- <alias from="edit" to="atct_edit"/>
+ <alias from="edit" to="@@edit"/>
  <alias from="sharing" to="@@sharing"/>
  <alias from="view" to="(selected layout)"/>
  <action title="View" action_id="view" category="object" condition_expr=""
