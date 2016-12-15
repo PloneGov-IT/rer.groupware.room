@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<object name="GroupRoom"
-   meta_type="Factory-based Type Information with dynamic views"
-   i18n:domain="rer.groupware.room" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title" i18n:translate="">Room</property>
- <property name="description"
-     i18n:translate="">A folder for the groups</property>
- <property name="content_icon">++resource++rer.groupware.room.images/room.png</property>
- <property name="content_meta_type">GroupRoom</property>
- <property name="product">rer.groupware.room</property>
+<object name="GroupRoom" meta_type="Dexterity FTI"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+   i18n:domain="rer.groupware.room">
+<property name="title" i18n:translate="">Room</property>
+<property name="description"
+       i18n:translate="">A folder for the groups</property>
+ <property name="icon_expr">string:${portal_url}/++resource++rer.groupware.room/images/room.png</property>
+ <property name="factory">GroupRoom</property>
+ <property name="add_view_expr">string:${folder_url}/++add++GroupRoom</property>
  <property name="factory">addGroupRoom</property>
  <property name="immediate_view">folder_listing</property>
  <property name="global_allow">True</property>
@@ -27,18 +27,27 @@
   <element value="atct_album_view"/>
   <element value="folder_listing"/>
  </property>
+
+ <property name="default_view_fallback">False</property>
+ <property name="klass">plone.dexterity.content.Container</property>
+ <property name="schema">rer.groupware.room.interfaces.group_room.IGroupRoom</property>
+ <property name="behaviors" purge="false">
+  <!-- <element value="plone.app.versioningbehavior.behaviors.IVersionable" /> -->
+  <element value="plone.app.dexterity.behaviors.metadata.IOwnership" />
+  <element value="plone.app.contenttypes.behaviors.leadimage.ILeadImage"/>
+ </property>
  <alias from="(Default)" to="(dynamic view)"/>
- <alias from="edit" to="atct_edit"/>
+ <alias from="edit" to="@@edit"/>
  <alias from="sharing" to="@@sharing"/>
  <alias from="view" to="(selected layout)"/>
  <action title="View" action_id="view" category="object" condition_expr=""
-    url_expr="string:${folder_url}/" visible="True"
-    i18n:attributes="title">
+    icon_expr="" link_target="" url_expr="string:${object_url}"
+    visible="True" i18n:attributes="title" i18n:domain="plone">
   <permission value="View"/>
  </action>
  <action title="Edit" action_id="edit" category="object" condition_expr="not:object/@@plone_lock_info/is_locked_for_current_user|python:True"
-    url_expr="string:${object_url}/edit" visible="True"
-    i18n:attributes="title">
+    icon_expr="" link_target="" url_expr="string:${object_url}/edit"
+    visible="True" i18n:attributes="title" i18n:domain="plone">
   <permission value="Modify portal content"/>
  </action>
  <action title="References" action_id="references" category="object"
@@ -54,4 +63,5 @@
     i18n:attributes="title">
   <permission value="View"/>
  </action>
+
 </object>

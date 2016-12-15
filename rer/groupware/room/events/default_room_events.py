@@ -5,7 +5,7 @@ from plone.i18n.normalizer.interfaces import IURLNormalizer
 from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
-from Products.Ploneboard.portlet.recent import Assignment as PloneboardAssignment
+# from Products.Ploneboard.portlet.recent import Assignment as PloneboardAssignment #RT#
 from redturtle.portlet.collection.rtcollectionportlet import Assignment as CollectionAssignment
 from rer.groupware.room import logger
 from rer.groupware.room import roomMessageFactory as _
@@ -444,9 +444,9 @@ class CreateHomepage(BaseEventClass):
         if assignment and portlet_id:
             right_mapping[portlet_id] = assignment
         #forum
-        assignment, portlet_id = self.createForumPortlet()
-        if assignment and portlet_id:
-            right_mapping[portlet_id] = assignment
+        #assignment, portlet_id = self.createForumPortlet()
+        #if assignment and portlet_id:
+        #    right_mapping[portlet_id] = assignment
 
         #blog
         assignment, portlet_id = self.createBlogPortlet()
@@ -526,18 +526,19 @@ class CreateHomepage(BaseEventClass):
                                           nDiscussions=3)
         return assignment, "discussions"
 
-    def createForumPortlet(self):
-        pc = getToolByName(self.context, 'portal_catalog', None)
-        areas = pc(path="/".join(self.context.getPhysicalPath()), portal_type="PloneboardForum")
-        if len(areas) != 1:
-            return None, ''
-        area = areas[0]
-        assignment = PloneboardAssignment(title=translate(_(u"Last forum discussions"),
-                                                            context=self.request,
-                                                            target_language=self.language),
-                                        forum=area.UID,
-                                        count=3)
-        return assignment, 'forum'
+    #RT#
+    # def createForumPortlet(self):
+    #     pc = getToolByName(self.context, 'portal_catalog', None)
+    #     areas = pc(path="/".join(self.context.getPhysicalPath()), portal_type="PloneboardForum")
+    #     if len(areas) != 1:
+    #         return None, ''
+    #     area = areas[0]
+    #     assignment = PloneboardAssignment(title=translate(_(u"Last forum discussions"),
+    #                                                         context=self.request,
+    #                                                         target_language=self.language),
+    #                                     forum=area.UID,
+    #                                     count=3)
+    #     return assignment, 'forum'
 
     def generateId(self, title):
         """

@@ -6,8 +6,6 @@
  <property name="description"
      i18n:translate="">A folder for the room's documents area</property>
  <property name="content_icon">++resource++rer.groupware.room.images/documents_area.gif</property>
- <property name="content_meta_type">DocumentsArea</property>
- <property name="product">ATContentTypes</property>
  <property name="factory">addATFolder</property>
  <property name="immediate_view">folder_listing</property>
  <property name="global_allow">False</property>

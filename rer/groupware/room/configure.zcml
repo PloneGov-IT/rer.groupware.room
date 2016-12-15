@@ -9,12 +9,17 @@
   <i18n:registerTranslations directory="locales" />
   <include package="plone.indexer" />
   <include package="plone.app.registry" />
-  
+
   <include package=".browser" />
   <include package=".content" />
   <include package=".events" />
   <include file="upgrades.zcml" />
-  
+
+  <permission
+    id="rer.groupware.room.permissions.AddGroupRoom"
+    title="rer.groupware.room: Add GroupRoom"
+  />
+
   <interface interface=".interfaces.IRoomArea" />
 
   <genericsetup:registerProfile
@@ -24,7 +29,7 @@
       description=""
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  
+
   <genericsetup:registerProfile
       name="uninstall"
       title="RER: Groupware Room Uninstall"
@@ -39,7 +44,7 @@
 	  description="Configures groupware room properties"
 	  handler="rer.groupware.room.exportimport.import_various"
 	  />
-  
+
   <adapter name="parentRoom" factory=".room_indexer.parent_room_index" />
   <adapter factory=".adapters.GroupwareBlogEntryGetter" />
 

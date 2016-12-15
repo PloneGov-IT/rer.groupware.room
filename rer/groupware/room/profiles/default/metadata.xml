@@ -6,7 +6,6 @@
         <dependency>profile-collective.blog.view:default</dependency>
 		<dependency>profile-collective.blogstarentry:default</dependency>
         <dependency>profile-Products.PlonePopoll:default</dependency>
-		<dependency>profile-Products.Ploneboard:default</dependency>
 		<!--dependency>profile-Products.PloneboardModerationWorkflow:default</dependency-->
 		<dependency>profile-Products.SimpleGroupsManagement:default</dependency>
 		<dependency>profile-collective.portlet.discussion:default</dependency>

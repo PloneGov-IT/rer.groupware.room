@@ -1,63 +1,14 @@
 # -*- coding: utf-8 -*-
 """Definition of the Group Room content type
 """
-from Products.ATContentTypes.configuration import zconf
-from Products.ATContentTypes.content import schemata, folder
-from Products.ATContentTypes.content.base import registerATCT
-from Products.Archetypes import atapi
-from Products.validation import V_REQUIRED
-from rer.groupware.room import roomMessageFactory as _
-from rer.groupware.room.config import PROJECTNAME
-from rer.groupware.room.interfaces import IGroupRoom
-from zope.interface import implements
-from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.Expression import getExprContext
+from plone.dexterity.content import Container
+from rer.groupware.room.interfaces.group_room import IGroupRoom
+from zope.interface import implementer
 
 
-RERGroupRoomSchema = folder.ATFolderSchema.copy() + atapi.Schema((
-    
-    atapi.ImageField('image',
-               required=False,
-               languageIndependent=True,
-               storage=atapi.AnnotationStorage(migrate=True),
-               swallowResizeExceptions=zconf.swallowImageResizeExceptions.enable,
-               pil_quality=zconf.pil_config.quality,
-               pil_resize_algo=zconf.pil_config.resize_algo,
-               max_size=zconf.ATImage.max_image_dimension,
-               sizes={'large': (768, 768),
-                       'preview': (400, 400),
-                       'mini': (200, 200),
-                       'thumb': (128, 128),
-                       'tile': (64, 64),
-                       'icon': (32, 32),
-                       'listing': (16, 16),
-                      },
-               validators=(('isNonEmptyFile', V_REQUIRED),
-                             ('checkImageMaxSize', V_REQUIRED)),
-               widget=atapi.ImageWidget(
-                        description='',
-                        label=_(u'label_image', default=u'Image'),
-                        show_content_type=False,)),
-    atapi.BooleanField('forumModerated',
-                default=False,
-                widget=atapi.BooleanWidget(
-                         description=_(u"help_forummoderated",
-                                         default=u"Select if having a moderated forum, or not. Default forum is open to all."),
-                         label=_(u"label_forummoderated",
-                                  default=u"Forum moderated"),
-                )),
-))
-
-RERGroupRoomSchema['title'].storage = atapi.AnnotationStorage()
-RERGroupRoomSchema['description'].storage = atapi.AnnotationStorage()
-schemata.finalizeATCTSchema(RERGroupRoomSchema, moveDiscussion=False)
-
-
-class GroupRoom(folder.ATFolder):
+@implementer(IGroupRoom)
+class GroupRoom(Container):
     """Folder for Room"""
-    implements(IGroupRoom)
-    schema = RERGroupRoomSchema
-    meta_type = "GroupRoom"
 
     def hasRoomImageIcon(self):
         """
@@ -81,5 +32,3 @@ class GroupRoom(folder.ATFolder):
             return "%s/image_listing" % self.absolute_url()
         else:
             return super(GroupRoom, self).getIconURL()
-
-registerATCT(GroupRoom, PROJECTNAME)
