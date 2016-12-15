@@ -3,4 +3,7 @@
    meta_type="Factory-based Type Information with dynamic views"
    i18n:domain="collective.blogstarentry" xmlns:i18n="http://xml.zope.org/namespaces/i18n" purge="False">
  <property name="content_icon">++resource++rer.groupware.room.images/blog_area.gif</property>
+ <property name="behaviors" purge="false">
+  <element value="plone.app.lockingbehavior.behaviors.ILocking"/>
+ </property>
 </object>
