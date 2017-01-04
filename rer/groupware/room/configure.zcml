@@ -11,6 +11,7 @@
   <include package="plone.app.registry" />
 
   <include package=".browser" />
+  <include package=".controlpanel" />
   <include package=".content" />
   <include package=".events" />
   <include file="upgrades.zcml" />

@@ -11,12 +11,12 @@
  <permission>List folder contents</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
- <permission>ATContentTypes: Add Folder</permission>
+ <permission>plone.app.contenttypes: Add Folder</permission>
  <permission>Add portal topics</permission>
  <permission>Change portal topics</permission>
  <state state_id="published" title="Room Published" i18n:attributes="title">
   <exit-transition transition_id="retract"/>
-  <permission-map name="ATContentTypes: Add Folder" acquired="False">
+  <permission-map name="plone.app.contenttypes: Add Folder" acquired="False">
    <permission-role>EditorAdv</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -57,7 +57,7 @@
  <state state_id="private" title="Room Private" i18n:attributes="title">
   <description>Visible to members of the groups.</description>
   <exit-transition transition_id="publish"/>
-  <permission-map name="ATContentTypes: Add Folder" acquired="False">
+  <permission-map name="plone.app.contenttypes: Add Folder" acquired="False">
    <permission-role>EditorAdv</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -120,7 +120,7 @@
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
   <description>Previous transition</description>
   <default>
-   
+
    <expression>transition/getId|nothing</expression>
   </default>
   <guard>
@@ -129,7 +129,7 @@
  <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
   <description>The ID of the user who performed the previous transition</description>
   <default>
-   
+
    <expression>user/getId</expression>
   </default>
   <guard>
@@ -138,7 +138,7 @@
  <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
   <description>Comment about the last transition</description>
   <default>
-   
+
    <expression>python:state_change.kwargs.get('comment', '')</expression>
   </default>
   <guard>
@@ -147,7 +147,7 @@
  <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
   <description>Provides access to workflow history</description>
   <default>
-   
+
    <expression>state_change/getHistory</expression>
   </default>
   <guard>
@@ -158,7 +158,7 @@
  <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
   <description>When the previous transition was performed</description>
   <default>
-   
+
    <expression>state_change/getDateTime</expression>
   </default>
   <guard>

@@ -1,5 +1,36 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="rer.groupware.room">
+
+  <subscriber
+    for="
+          ..interfaces.group_room.IGroupRoom
+          zope.lifecycleevent.interfaces.IObjectCreatedEvent
+        "
+    handler=".create_room_event.createRoomEvent"
+  />
+
+  <subscriber
+    for="
+          ..interfaces.group_room.IGroupRoom
+          Products.CMFCore.interfaces.IActionSucceededEvent
+        "
+    handler=".room_sharing.setRoomSharing"
+  />
+
+  <subscriber
+    for="
+          ..interfaces.group_room.IGroupRoom
+          zope.lifecycleevent.interfaces.IObjectCreatedEvent
+        "
+    handler=".created_folder.setParentFilteredTypes"
+  />
+
+</configure>
+
+
+<!-- <configure
+    xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="rer.groupware.room">
@@ -8,7 +39,7 @@
             	Products.Archetypes.interfaces.IObjectInitializedEvent"
            		handler = ".create_room_event.createRoomEvent"
             	/>
-	
+
     <subscriber for = "..interfaces.group_room.IGroupRoom
                 Products.CMFCore.interfaces.IActionSucceededEvent"
                 handler = ".room_sharing.setRoomSharing"
@@ -18,5 +49,5 @@
             	Products.Archetypes.interfaces.IObjectInitializedEvent"
            		handler = ".created_folder.setParentFilteredTypes"
             	/>
-				
-</configure>
+
+</configure> -->

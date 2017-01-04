@@ -15,6 +15,7 @@ from zope.component import getMultiAdapter, getUtility, queryUtility
 from zope.i18n import translate
 from zope.interface import alsoProvides
 from Products.CMFCore.interfaces import ISiteRoot
+from plone import api
 
 
 class BaseEventClass(object):
@@ -27,8 +28,11 @@ class BaseEventClass(object):
         self.context = context
         self.request = self.context.REQUEST
         self.language = self.getDefaultLanguage()
-        if self.context.getRawLanguage():
-            self.language = self.context.getRawLanguage()
+        try:
+            if self.context.getRawLanguage():
+                self.language = self.context.getRawLanguage()
+        except:
+            pass
 
     def getDefaultLanguage(self):
         """Returns the default language."""
@@ -109,10 +113,12 @@ class CreateRoomStructure(BaseEventClass):
         """
         Create an area with the given parameters
         """
-        area_id = self.context.invokeFactory(id=id,
-                                             type_name=portal_type,
-                                             title=title,
-                                             language=self.language)
+        import pdb; pdb.set_trace()
+        area_id = api.content.create(container=self.context, type=portal_type, id=id, title=title, language=self.language)
+        # area_id = self.context.invokeFactory(id=id,
+        #                                      type_name=portal_type,
+        #                                      title=title,
+        #                                      language=self.language)
         if not area_id:
             logger.error("Problem creating Area: %s" % title)
             return ""

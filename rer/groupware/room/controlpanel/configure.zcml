@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ospfe.dimissioni">
+
+
+   <browser:page
+       name="room-groups-settings"
+       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+       class=".controlpanel.RoomGroupsSettingsControlPanel"
+       permission="cmf.ManagePortal"
+       layer="..interfaces.IRERGroupwareRoomLayer"
+       />
+
+</configure>
