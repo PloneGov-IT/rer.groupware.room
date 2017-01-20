@@ -5,6 +5,9 @@ from plone.i18n.normalizer.interfaces import IURLNormalizer
 from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
+
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+
 # from Products.Ploneboard.portlet.recent import Assignment as PloneboardAssignment #RT#
 from redturtle.portlet.collection.rtcollectionportlet import Assignment as CollectionAssignment
 from rer.groupware.room import logger
@@ -103,7 +106,7 @@ class CreateRoomStructure(BaseEventClass):
                         title=events_area_title,
                         portal_type="EventsArea",
                         types=['Folder', 'Event'])
-        self.createForum(forum_area_title)
+        # RT self.createForum(forum_area_title)
         self.createArea(id=self.generateId(polls_area_title),
                         title=polls_area_title,
                         portal_type="PollsArea",
@@ -113,17 +116,23 @@ class CreateRoomStructure(BaseEventClass):
         """
         Create an area with the given parameters
         """
-        import pdb; pdb.set_trace()
-        area_id = api.content.create(container=self.context, type=portal_type, id=id, title=title, language=self.language)
-        # area_id = self.context.invokeFactory(id=id,
-        #                                      type_name=portal_type,
-        #                                      title=title,
-        #                                      language=self.language)
+        area_id = api.content.create(
+            container=self.context,
+            type=portal_type,
+            id=id,
+            title=title,
+            language=self.language
+        )
+
         if not area_id:
             logger.error("Problem creating Area: %s" % title)
             return ""
         logger.info("Created Area: %s" % title)
-        area_obj = self.context.restrictedTraverse(area_id)
+
+
+        area_id_path = [x for x in area_id.getPhysicalPath()]
+
+        area_obj = self.context.restrictedTraverse(area_id_path)
 
         #create topic before disallowing this type
         if portal_type not in ["PloneboardForum", "Blog", "DocumentsArea"]:
@@ -155,9 +164,10 @@ class CreateRoomStructure(BaseEventClass):
                                   portal_types=['Page', 'File', 'Image', 'Folder'])
         #set allowed types
         if types:
-            area_obj.setConstrainTypesMode(1)
-            area_obj.setLocallyAllowedTypes(types)
-            area_obj.setImmediatelyAddableTypes(types)
+            behavior = ISelectableConstrainTypes(area_obj)
+            behavior.setConstrainTypesMode(1)
+            behavior.setLocallyAllowedTypes(types)
+            behavior.setImmediatelyAddableTypes(types)
 
         alsoProvides(area_obj, IRoomArea)
         area_obj.reindexObject()
@@ -208,13 +218,18 @@ class CreateRoomStructure(BaseEventClass):
         registry = queryUtility(IRegistry)
         groups_settings = registry.forInterface(IRoomGroupsSettingsSchema, check=False)
         collection_type = getattr(groups_settings, 'collection_type', "Collection")
-        topic_id = folder.invokeFactory(id=id,
-                                        type_name=collection_type,
-                                        title=title,
-                                        query=query,
-                                        sort_on='modified',
-                                        sort_reversed=True,
-                                        language=self.language)
+
+        topic_id =api.content.create(
+            container=folder,
+            type=collection_type,
+            id=id,
+            title=title,
+            language=self.language,
+            query=query,
+            sort_on='modified',
+            sort_reversed=True,
+        )
+
         if not topic_id:
             logger.error("Problem creating collection for Area: %s" % folder.Title())
         logger.info("Collection created for Area: %s" % title)
@@ -222,7 +237,7 @@ class CreateRoomStructure(BaseEventClass):
         # topic.selectViewTemplate(templateId='groupware_topic_view')
         if kwargs.get('set_as_default_view', False):
             #set topic as view of the folder
-            folder.setDefaultPage(topic_id)
+            folder.setDefaultPage(topic_id.id)
 
     def generateId(self, title):
         """
@@ -410,12 +425,13 @@ class CreateHomepage(BaseEventClass):
         portletpage.manage_addLocalRoles('%s.membersAdv' % self.context.getId(), ['Editor', 'EditorAdv'])
         portletpage.manage_addLocalRoles('%s.coordinators' % self.context.getId(), ['Editor', 'EditorAdv', 'LocalManager'])
         logger.info("Created room homepage")
-        self.createHomepagePortlets(portletpage)
+        #RT self.createHomepagePortlets(portletpage)
 
     def createHomepagePortlets(self, portletpage):
         """
         """
         #setup portlet managers
+
         left_manager = getUtility(IPortletManager,
                                   name=self.left_manager_id,
                                   context=portletpage)

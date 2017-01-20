@@ -37,6 +37,7 @@
   <element value="plone.app.contenttypes.behaviors.leadimage.ILeadImage"/>
   <element value="plone.app.lockingbehavior.behaviors.ILocking"/>
   <element value="plone.app.dexterity.behaviors.discussion.IAllowDiscussion"/>
+  <element value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes"/>
  </property>
 
  <alias from="(Default)" to="(dynamic view)"/>

@@ -5,6 +5,7 @@ from collective.blog.view.interfaces import IBlogEntryRetriever
 from collective.blog.view.adapters import FolderEntryGetter
 from Products.CMFCore.utils import getToolByName
 from collective.blogstarentry.interfaces import IBlog
+from plone import api
 
 
 class GroupwareBlogEntryGetter(FolderEntryGetter):
@@ -17,10 +18,12 @@ class GroupwareBlogEntryGetter(FolderEntryGetter):
         self.context = context
 
     def _base_query(self):
-        portal_properties = getToolByName(self.context, 'portal_properties', None)
-        site_properties = getattr(portal_properties, 'site_properties', None)
-        portal_types = site_properties.getProperty('blog_types', None)
-        if portal_types is None:
+        portal_types = api.portal.get_registry_record(
+            'blog_types',
+            interface=IBlogEntryRetriever
+        )
+
+        if not portal_types:
             portal_types = ('Document', 'News Item', 'File')
 
         path = '/'.join(self.context.getPhysicalPath())

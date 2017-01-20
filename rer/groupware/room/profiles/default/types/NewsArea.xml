@@ -18,10 +18,13 @@
   <element value="folder_tabular_view"/>
   <element value="folder_listing"/>
  </property>
+ <property name="klass">plone.dexterity.content.Container</property>
+ <property name="schema">rer.groupware.room.interfaces.group_room.INewsAreaSchema</property>
  <property name="behaviors" purge="false">
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
   <element value="plone.app.content.interfaces.INameFromTitle"/>
   <element value="plone.app.lockingbehavior.behaviors.ILocking"/>
+  <element value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes"/>
  </property>
  <alias from="(Default)" to="(dynamic view)"/>
  <alias from="edit" to="@@edit"/>

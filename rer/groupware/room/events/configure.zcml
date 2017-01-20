@@ -5,7 +5,7 @@
   <subscriber
     for="
           ..interfaces.group_room.IGroupRoom
-          zope.lifecycleevent.interfaces.IObjectCreatedEvent
+          zope.lifecycleevent.interfaces.IObjectAddedEvent
         "
     handler=".create_room_event.createRoomEvent"
   />
@@ -21,7 +21,7 @@
   <subscriber
     for="
           ..interfaces.group_room.IGroupRoom
-          zope.lifecycleevent.interfaces.IObjectCreatedEvent
+          zope.lifecycleevent.interfaces.IObjectAddedEvent
         "
     handler=".created_folder.setParentFilteredTypes"
   />
