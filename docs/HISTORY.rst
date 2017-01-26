@@ -7,6 +7,8 @@ Changelog
 - Add uninstall profile
   [cekk]
 
+- If a user is removed from a group is also removed from the notification group. ticket #10347
+  [arsenico13]
 
 2.1.3 (2015-09-22)
 ------------------

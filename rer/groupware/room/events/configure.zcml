@@ -8,7 +8,7 @@
             	Products.Archetypes.interfaces.IObjectInitializedEvent"
            		handler = ".create_room_event.createRoomEvent"
             	/>
-	
+
     <subscriber for = "..interfaces.group_room.IGroupRoom
                 Products.CMFCore.interfaces.IActionSucceededEvent"
                 handler = ".room_sharing.setRoomSharing"
@@ -18,5 +18,8 @@
             	Products.Archetypes.interfaces.IObjectInitializedEvent"
            		handler = ".created_folder.setParentFilteredTypes"
             	/>
-				
+
+    <subscriber for= "Products.SimpleGroupsManagement.group_event.IUserRemovedFromGroup"
+                handler= ".userEvents.userRemovedFromGroup"
+                />
 </configure>
