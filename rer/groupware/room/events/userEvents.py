@@ -9,7 +9,7 @@ from plone.registry.interfaces import IRegistry
 from rer.groupware.room.interfaces.room_groups import IRoomGroupsSettingsSchema
 
 def userRemovedFromGroup(event):
-    """If a user is removed from a group (room) it has to be removed from the notification-group of that room."""
+    """If a user is removed from a group (room) it has to be removed from the all the notification groups of that room."""
 
     group = event.object['group']
     user_id = event.object['user_id']
@@ -23,13 +23,14 @@ def userRemovedFromGroup(event):
     room = group_id.split('.')[0]   # training
     role = group_id.split('.')[1]   # hosts
 
-    # Remove the user from the notify group only if it is in active_groups or passive_groups
+    # Remove the user from the notify groups only if it is in active_groups or passive_groups
 
     for agroup in active_groups:
         if agroup.group_id == role:
             userGroup = api.group.get_groups(username=user_id)
             for elem in userGroup:
-                if elem.id.split('.')[-1] == 'notify':
+                splitted_group = elem.id.split('.')
+                if splitted_group[-1] == 'notify' and splitted_group[0] == room:
                     api.group.remove_user(groupname=elem.id, username=user_id)
 
 
@@ -37,5 +38,6 @@ def userRemovedFromGroup(event):
         if pgroup.group_id == role:
             userGroup = api.group.get_groups(username=user_id)
             for elem in userGroup:
-                if elem.id.split('.')[-1] == 'notify':
+                splitted_group = elem.id.split('.')
+                if splitted_group[-1] == 'notify' and splitted_group[0] == room:
                     api.group.remove_user(groupname=elem.id, username=user_id)
