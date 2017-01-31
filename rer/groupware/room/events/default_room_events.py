@@ -30,26 +30,15 @@ class BaseEventClass(object):
         """
         self.context = context
         self.request = self.context.REQUEST
-        self.language = self.getDefaultLanguage()
+
+        language_tool = api.portal.get_tool('portal_languages')
+        self.language = language_tool.getDefaultLanguage()
+
         try:
             if self.context.getRawLanguage():
                 self.language = self.context.getRawLanguage()
         except:
             pass
-
-    def getDefaultLanguage(self):
-        """Returns the default language."""
-        portal_properties = getToolByName(self, "portal_properties", None)
-        if portal_properties is None:
-            return 'en'
-        site_properties = getattr(portal_properties, 'site_properties', None)
-        if site_properties is not None:
-            if site_properties.hasProperty('default_language'):
-                return site_properties.getProperty('default_language')
-        portal = getUtility(ISiteRoot)
-        if portal.hasProperty('default_language'):
-            return portal.getProperty('default_language')
-        return getattr(self.context, 'default_lang', 'en')
 
 
 class CreateRoomStructure(BaseEventClass):
