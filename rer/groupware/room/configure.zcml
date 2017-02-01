@@ -72,6 +72,6 @@
 	  />
 
   <adapter name="parentRoom" factory=".room_indexer.parent_room_index" />
-  <adapter factory=".adapters.GroupwareBlogEntryGetter" />
+  <!-- <adapter factory=".adapters.GroupwareBlogEntryGetter" /> -->
 
 </configure>
