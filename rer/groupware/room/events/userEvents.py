@@ -14,8 +14,6 @@ def userRemovedFromGroup(event):
     group = event.object['group']
     user_id = event.object['user_id']
 
-    registry = queryUtility(IRegistry)
-
     active_groups = api.portal.get_registry_record('active_groups', interface=IRoomGroupsSettingsSchema)
     passive_groups = api.portal.get_registry_record('passive_groups', interface=IRoomGroupsSettingsSchema)
 
