@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# from collective.portlet.blogstarentries.blogstarlastentries import \
-#     Assignment as BlogAssignment
 from collective.portlet.discussion.discussionportlet import \
     Assignment as DiscussionAssignment
 from plone import api
@@ -13,6 +11,8 @@ from plone.registry.interfaces import IRegistry
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+from Products.SimpleGroupsManagement.interfaces import \
+    ISimpleGroupManagementSettings
 from rer.groupware.room import roomMessageFactory as _
 from rer.groupware.room import logger
 from rer.groupware.room.interfaces import IRoomArea, IRoomGroupsSettingsSchema
@@ -316,19 +316,18 @@ class CreateGroups(BaseEventClass):
         """
         Set SGM properties with new-created groups.
         """
-        portal_properties = getToolByName(
-            self.context, 'portal_properties', None)
-        if not portal_properties:
-            return
-        sgm_properties = getattr(
-            portal_properties, 'simple_groups_management_properties', None)
-        if not sgm_properties:
-            return
-        sgm_groups = set(sgm_properties.getProperty('sgm_data', None))
+        old_sgm_data = api.portal.get_registry_record(
+            'sgm_data', interface=ISimpleGroupManagementSettings
+        )
+        sgm_data = list(old_sgm_data)
         for group in managed_groups:
-            sgm_groups.add('%s|%s' % (coordinator, group))
+            sgm_data.append(u'%s|%s' % (coordinator, group))
 
-        sgm_properties._updateProperty('sgm_data', tuple(sgm_groups))
+        api.portal.set_registry_record(
+            'sgm_data',
+            tuple(sgm_data),
+            interface=ISimpleGroupManagementSettings
+        )
         logger.info('SGM properties set.')
 
 

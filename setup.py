@@ -27,7 +27,7 @@ setup(name='rer.groupware.room',
       install_requires=[
           'setuptools',
           'Products.PlonePopoll',
-          'Products.SimpleGroupsManagement>=0.4.0',
+          'Products.SimpleGroupsManagement>=0.6.0',
           #   'redturtle.portlet.collection',
           'collective.contentrules.mailtogroup',
           'collective.portlet.discussion',
