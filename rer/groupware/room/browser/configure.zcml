@@ -34,13 +34,17 @@
  <!-- SGM Custom view -->
   <browser:page
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      name="gpw_simple_groups_management"
+      name="simple_groups_management"
       class=".groupware_simple_groups_management.GroupwareSimpleGroupsManagement"
       permission="simple_groups_management.UseSimpleGroupsManagement"
       allowed_attributes="add delete check_groups_management_permission"
       layer="..interfaces.IRERGroupwareRoomLayer"
       />
 
+  <browser:resourceDirectory
+      name="rer.groupware.room.javascripts"
+      directory="javascripts"
+      />
  <!-- Resource directory for images -->
   <browser:resourceDirectory
       name="rer.groupware.room.images"
