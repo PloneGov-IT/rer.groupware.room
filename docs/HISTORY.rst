@@ -8,6 +8,8 @@ Changelog
   [cekk]
 - Plone5 Compatibility
   [cekk, daniele]
+- Remove unused ProjectsArea
+  [cekk]
 
 
 2.1.3 (2015-09-22)
