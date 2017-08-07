@@ -1,6 +1,5 @@
-from zope.interface import Interface
+from Products.SimpleGroupsManagement.interfaces import ISimpleGroupManagementLayer
 
-class IRERGroupwareRoomLayer(Interface):
+
+class IRERGroupwareRoomLayer(ISimpleGroupManagementLayer):
     """A Layer interface"""
-
-
