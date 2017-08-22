@@ -63,10 +63,10 @@ class CreateRoomStructure(BaseEventClass):
                                         default="Agenda"),
                                       context=self.request,
                                       target_language=self.language)
-        forum_area_title = translate(_('area_forum_title',
-                                       default="Forum"),
-                                     context=self.request,
-                                     target_language=self.language)
+        # forum_area_title = translate(_('area_forum_title',
+        #                                default="Forum"),
+        #                              context=self.request,
+        #                              target_language=self.language)
         # blog_area_title = translate(_('area_blog_title',
         #                               default="Blog"),
         #                             context=self.request,
@@ -126,11 +126,11 @@ class CreateRoomStructure(BaseEventClass):
         if portal_type not in ["PloneboardForum", "Blog", "DocumentsArea"]:
             portal_types = []
             if portal_type == "NewsArea":
-                portal_types = ['Folder', 'News Item']
+                portal_types = [u'Folder', u'News Item']
             elif portal_type == "EventsArea":
-                portal_types = ['Event', 'Folder']
+                portal_types = [u'Event', u'Folder']
             elif portal_type == "PollsArea":
-                portal_types = ['Folder', 'PlonePopoll']
+                portal_types = [u'Folder', u'PlonePopoll']
             self.createCollection(folder=area_obj,
                                   id=id,
                                   title=title,
@@ -143,7 +143,7 @@ class CreateRoomStructure(BaseEventClass):
                                   title=title,
                                   set_recurse="True",
                                   set_as_default_view=False,
-                                  portal_types=['Page', 'File', 'Image'])
+                                  portal_types=[u'Document', u'File', u'Image'])
 
             self.createCollection(folder=area_obj,
                                   id=translate(
@@ -151,7 +151,7 @@ class CreateRoomStructure(BaseEventClass):
                                   title=translate(
                                       _("Documents and folders"), context=self.context.REQUEST, target_language=self.language),
                                   set_as_default_view=True,
-                                  portal_types=['Page', 'File', 'Image', 'Folder'])
+                                  portal_types=[u'Document', u'File', u'Image', u'Folder'])
         # set allowed types
         if types:
             behavior = ISelectableConstrainTypes(area_obj)
@@ -191,18 +191,18 @@ class CreateRoomStructure(BaseEventClass):
         Create a collection in the area
         """
         # create topic query
-        query = [{'i': 'path',
-                  'o': 'plone.app.querystring.operation.string.path',
-                  'v': "/".join(folder.getPhysicalPath())}]
+        query = [{u'i': u'path',
+                  u'o': u'plone.app.querystring.operation.string.path',
+                  u'v': u"/".join(folder.getPhysicalPath())}]
         # optional settings
         portal_types = kwargs.get('portal_types', [])
         if portal_types:
-            query.append(dict(i='portal_type',
-                              o='plone.app.querystring.operation.selection.is',
+            query.append(dict(i=u'portal_type',
+                              o=u'plone.app.querystring.operation.selection.any',
                               v=portal_types))
         if kwargs.get('review_state', ''):
-            query.append(dict(i='review_state',
-                              o='plone.app.querystring.operation.selection.is',
+            query.append(dict(i=u'review_state',
+                              o=u'plone.app.querystring.operation.selection.is',
                               v=kwargs.get('review_state', '')))
         # create the topic
         registry = queryUtility(IRegistry)
@@ -210,7 +210,6 @@ class CreateRoomStructure(BaseEventClass):
             IRoomGroupsSettingsSchema, check=False)
         collection_type = getattr(
             groups_settings, 'collection_type', "Collection")
-
         topic_id = api.content.create(
             container=folder,
             type=collection_type,
