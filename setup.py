@@ -2,7 +2,7 @@ import os
 
 from setuptools import find_packages, setup
 
-version = '3.0.0'
+version = '3.0.1.dev0'
 
 setup(name='rer.groupware.room',
       version=version,
