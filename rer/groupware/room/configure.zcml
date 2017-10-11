@@ -9,12 +9,43 @@
   <i18n:registerTranslations directory="locales" />
   <include package="plone.indexer" />
   <include package="plone.app.registry" />
-  
+
   <include package=".browser" />
+  <include package=".controlpanel" />
   <include package=".content" />
   <include package=".events" />
   <include file="upgrades.zcml" />
-  
+
+  <permission
+    id="rer.groupware.room.permissions.AddGroupRoom"
+    title="rer.groupware.room: Add GroupRoom"
+  />
+
+  <permission
+    id="rer.groupware.room.permissions.AddDocumentsArea"
+    title="rer.groupware.room: Add DocumentsArea"
+  />
+
+  <permission
+    id="rer.groupware.room.permissions.AddEventsArea"
+    title="rer.groupware.room: Add EventsArea"
+  />
+
+  <permission
+    id="rer.groupware.room.permissions.AddNewsArea"
+    title="rer.groupware.room: Add NewsArea"
+  />
+
+  <permission
+    id="rer.groupware.room.permissions.AddPollsArea"
+    title="rer.groupware.room: Add PollsArea"
+  />
+
+  <permission
+    id="rer.groupware.room.permissions.AddProjectsArea"
+    title="rer.groupware.room: Add ProjectsArea"
+  />
+
   <interface interface=".interfaces.IRoomArea" />
 
   <genericsetup:registerProfile
@@ -24,7 +55,7 @@
       description=""
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  
+
   <genericsetup:registerProfile
       name="uninstall"
       title="RER: Groupware Room Uninstall"
@@ -39,8 +70,8 @@
 	  description="Configures groupware room properties"
 	  handler="rer.groupware.room.exportimport.import_various"
 	  />
-  
+
   <adapter name="parentRoom" factory=".room_indexer.parent_room_index" />
-  <adapter factory=".adapters.GroupwareBlogEntryGetter" />
+  <!-- <adapter factory=".adapters.GroupwareBlogEntryGetter" /> -->
 
 </configure>

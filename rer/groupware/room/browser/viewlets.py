@@ -33,10 +33,11 @@ class RERGroupwareRoomColorViewlet(GroupwareRoomViewletBase):
         if not self.room:
             return ""
 #        color=self.room.getSubsiteColor()
-        image = self.room.getImage()
+        image = self.room.image
         return_string = ''
         # css = '#roomTitle {background-color:#552649'
         if image:
-            css = '#roomTitle {background-image:url(%s); background-position: 100%% 0;}' % image.absolute_url()
+            url = '{0}/@@images/{1}/{2}'.format(self.context.absolute_url(), 'image', 'mini')
+            css = '#roomTitle {background-image:url(%s); background-position: 100%% 0;}' % url
             return_string = "<style type='text/css'>%s</style>" % css
         return return_string

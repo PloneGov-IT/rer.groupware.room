@@ -1,14 +1,12 @@
 <?xml version="1.0"?>
 <object name="PollsArea"
-   meta_type="Factory-based Type Information with dynamic views"
+   meta_type="Dexterity FTI"
    i18n:domain="rer.groupware.room" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">Polls Area</property>
  <property name="description"
      i18n:translate="">A folder for the room's polls area</property>
  <property name="content_icon">++resource++rer.groupware.room.images/polls_area.gif</property>
- <property name="content_meta_type">PollsArea</property>
- <property name="product">ATContentTypes</property>
- <property name="factory">addATFolder</property>
+ <property name="factory">PollsArea</property>
  <property name="immediate_view">folder_listing</property>
  <property name="global_allow">False</property>
  <property name="filter_content_types">False</property>
@@ -18,11 +16,18 @@
  <property name="view_methods">
   <element value="folder_summary_view"/>
   <element value="folder_tabular_view"/>
-  <element value="atct_album_view"/>
   <element value="folder_listing"/>
  </property>
+ <property name="klass">plone.dexterity.content.Container</property>
+ <property name="schema">rer.groupware.room.interfaces.group_room.IPollsAreaSchema</property>
+ <property name="behaviors" purge="false">
+  <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
+  <element value="plone.app.content.interfaces.INameFromTitle"/>
+  <element value="plone.app.lockingbehavior.behaviors.ILocking"/>
+  <element value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes"/>
+ </property>
  <alias from="(Default)" to="(dynamic view)"/>
- <alias from="edit" to="atct_edit"/>
+ <alias from="edit" to="@@edit"/>
  <alias from="sharing" to="@@sharing"/>
  <alias from="view" to="(selected layout)"/>
  <action title="View" action_id="view" category="object" condition_expr=""
@@ -34,13 +39,6 @@
     url_expr="string:${object_url}/edit" visible="True"
     i18n:attributes="title">
   <permission value="Modify portal content"/>
- </action>
- <action title="References" action_id="references" category="object"
-    condition_expr="object/archetype_tool/has_graphviz"
-    url_expr="string:${object_url}/reference_graph" visible="True"
-    i18n:attributes="title">
-  <permission value="Modify portal content"/>
-  <permission value="Review portal content"/>
  </action>
  <action title="Folder Listing" action_id="folderlisting" category="folder"
     condition_expr="object/isPrincipiaFolderish"

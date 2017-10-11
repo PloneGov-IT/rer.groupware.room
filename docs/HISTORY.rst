@@ -1,16 +1,14 @@
 Changelog
 =========
 
-2.2.1 (unreleased)
-------------------
-
-- Nothing changed yet.
-
-
-2.2.0 (2017-03-29)
+3.0.0 (unreleased)
 ------------------
 
 - Add uninstall profile
+  [cekk]
+- Plone5 Compatibility
+  [cekk, daniele]
+- Remove unused ProjectsArea
   [cekk]
 
 - If a user is removed from a group is also removed from the notification group. ticket #10347

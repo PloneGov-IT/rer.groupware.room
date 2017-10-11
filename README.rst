@@ -5,3 +5,10 @@ To use default gpw events to populate the room, insert the following code in you
 
 zcml =
     rer.groupware.room:room-events.zcml
+
+Compatibility
+=============
+
+This version is compatible with Plone 5.
+
+For Plone 4, use 2.* and `plone4` branch.

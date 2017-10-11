@@ -15,9 +15,6 @@
   <type type_id="NewsArea">
     <bound-workflow workflow_id="groupware_folders_workflow" />
   </type>
-  <type type_id="ProjectsArea">
-    <bound-workflow workflow_id="groupware_folders_workflow" />
-  </type>
   <type type_id="PollsArea">
     <bound-workflow workflow_id="groupware_folders_workflow" />
   </type>

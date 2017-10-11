@@ -6,7 +6,6 @@
    <element value="EventsArea" />
    <element value="NewsArea" />
    <element value="PollsArea" />
-   <element value="ProjectsArea" />
    <element value="GroupRoom" />
    <element value="Blog" />
    <element value="PlonePopoll" />

@@ -4,64 +4,67 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      metal:use-macro="here/prefs_main_template/macros/master"
+      metal:use-macro="here/main_template/macros/master"
       i18n:domain="Products.SimpleGroupsManagement">
 
-<head>
-    <metal:block fill-slot="top_slot"
-                 tal:define="dummy python:request.set('disable_border',1)" />
-</head>
-
 <body>
-<metal:main fill-slot="prefs_configlet_content"
-            tal:define="groups view/createGroupsDict">
-
-<div id="region-content" class="documentContent">
-
-	<h1 class="documentFirstHeading"
-        i18n:translate="smg_paneltitle">
-    		Groups management
-	</h1>
-
-    <p i18n:translate="smg_panelhelp">
-      From this page you can manage some groups of the portal, adding and removing users from them.
-    </p>
-
-	<h2 i18n:translate="smg_manageable_groups_title">
-    		Available groups
-	</h2>
-    <tal:groups condition="groups">
-    	<tal:for define="group_ids python:groups.keys();
-				         sorted_groups python:group_ids.sort()"
-				 repeat="group_id python:group_ids">
-
-		  	<dl class="collapsible collapsedOnLoad"
-			    tal:define="groups_dict python:groups.get(group_id);
-				            room_title groups_dict/title | group_id;
-				            groups_list groups_dict/list|nothing">
-		  		<dt class="collapsibleHeader" tal:content="room_title">group title</dt>
-				<dd class="collapsibleContent"
-				    tal:condition="groups_list"
-				    tal:repeat="group groups_list">
-					<img width="16" height="16" alt=""
-                         tal:attributes="src string:${context/portal_url}/group.gif"/>
-                    <a tal:define="group_id group/id;"
-					   tal:attributes="href string:${context/absolute_url}/@@gpw_simple_groups_management?group_id=${group_id}"
-                       tal:content="string:${group/title} (${group_id})" />
-				</dd>
-		  	</dl>
-
+  <metal:content-title fill-slot="content-title">
+    <metal:content-title define-macro="content-title">
+    <h1 class="documentFirstHeading"
+          i18n:translate="smg_paneltitle">
+          Groups management
+    </h1>
+    </metal:content-title>
+  </metal:content-title>
+  <metal:content-description fill-slot="content-description">
+    <metal:content-description define-macro="content-description">
+      <p class="documentDescription" i18n:translate="smg_panelhelp">
+        From this page you can manage some groups of the portal, adding and removing users from them.
+      </p>
+    </metal:content-description>
+  </metal:content-description>
+  <metal:content-core fill-slot="content-core">
+    <metal:content-core define-macro="content-core"
+                        tal:define="rooms view/createGroupsDict">
+    <h2 i18n:translate="smg_manageable_groups_title">
+          Available groups
+    </h2>
+      <tal:groups condition="rooms">
+        <tal:for define="room_ids python:rooms.keys();
+                         sorted_groups python:room_ids.sort()"
+           repeat="room_id python:room_ids">
+           <div class="panel panel-default"
+                tal:define="room_dict python:rooms.get(room_id);
+                            room_title room_dict/title | room_id;
+                            groups_list room_dict/list|nothing">
+            <div class="panel-heading">
+              <a class="btn btn-default roomGroupsButton" href="#${room_id}">
+                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+              </a>
+              ${room_title}
+            </div>
+            <ul class="collapse" id="${room_id}">
+              <tal:groups repeat="group groups_list">
+                <li>
+                  <img width="16" height="16" alt=""
+                       tal:attributes="src string:${context/portal_url}/group.png"/>
+                  <a tal:define="group_id group/id;"
+                     href="${context/absolute_url}/@@simple_groups_management?group_id=${group_id}">
+                     ${group/title} (${group_id})
+                  </a>
+                </li>
+              </tal:groups>
+            </ul>
+          </div>
         </tal:for>
-    </tal:groups>
-
-	<p tal:condition="not:groups"
-	   i18n:translate="smg_no_groups">
-		You can't manage any groups
-	</p>
-
-</div>
-
-</metal:main>
-
+      </tal:groups>
+      <p tal:condition="not:rooms"
+         i18n:translate="smg_no_groups">
+        You can't manage any groups
+      </p>
+      <script type="text/javascript"
+              src="${portal_url}/++resource++rer.groupware.room.javascripts/sgm_groupware.js"></script>
+    </metal:content-core>
+  </metal:content-core>
 </body>
 </html>

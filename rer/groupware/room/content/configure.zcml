@@ -3,17 +3,5 @@
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="rer.groupware.room">
 
-  <class class=".group_room.GroupRoom">
-	  <require
-	    permission="zope2.View"
-	    interface="..interfaces.IGroupRoom"
-	    />
-	  <require
-	  	permission="cmf.ModifyPortalContent"
-	    set_schema="..interfaces.IGroupRoom"
-	    />
-  </class>
-  
-  
-  
+    
 </configure>

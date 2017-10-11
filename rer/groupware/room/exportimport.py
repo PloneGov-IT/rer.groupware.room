@@ -29,8 +29,13 @@ def updateSiteProperties(context, portal):
     props = getattr(ptool, 'site_properties', None)
     if not props:
         return
+        
     types_not_searched = props.getProperty('types_not_searched')
-    new_value = [x for x in types_not_searched if not x == 'PloneboardConversation']
+    if not types_not_searched:
+        new_value = []
+    else:
+        new_value = [x for x in types_not_searched if not x == 'PloneboardConversation']
+
     props.manage_changeProperties(types_not_searched=new_value)
     return
 

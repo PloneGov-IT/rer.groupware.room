@@ -5,13 +5,13 @@
 
   <include package="plone.app.contentmenu" />
   <include package="Products.SimpleGroupsManagement" />
-  
+
  <browser:page
         name="modified_mail_template"
         for="*"
         template="modified_mail_template.pt"
         permission="zope.Public"
-        />  
+        />
 
  <!-- title viewlet -->
   <browser:viewlet
@@ -30,31 +30,27 @@
       permission="zope.Public"
         />
 
- <!-- Groups Control panel -->
-    <browser:page
-        name="room-groups-settings"
-        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-        class=".controlpanel.RoomGroupsSettingsControlPanel"
-        permission="cmf.ManagePortal"
-        layer="..interfaces.IRERGroupwareRoomLayer"
-        />
 
  <!-- SGM Custom view -->
   <browser:page
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      name="gpw_simple_groups_management"
+      name="simple_groups_management"
       class=".groupware_simple_groups_management.GroupwareSimpleGroupsManagement"
       permission="simple_groups_management.UseSimpleGroupsManagement"
       allowed_attributes="add delete check_groups_management_permission"
       layer="..interfaces.IRERGroupwareRoomLayer"
       />
 
+  <browser:resourceDirectory
+      name="rer.groupware.room.javascripts"
+      directory="javascripts"
+      />
  <!-- Resource directory for images -->
   <browser:resourceDirectory
       name="rer.groupware.room.images"
       directory="images"
       />
- 
+
  <browser:resource
       name="room.css"
 	  file="room.css"
