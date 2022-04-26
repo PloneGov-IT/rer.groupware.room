@@ -31,7 +31,7 @@
     </h2>
       <tal:groups condition="rooms">
         <tal:for define="room_ids python:rooms.keys();
-                         sorted_groups python:room_ids.sort()"
+                         sorted_groups python:sorted(room_ids)"
            repeat="room_id python:room_ids">
            <div class="panel panel-default"
                 tal:define="room_dict python:rooms.get(room_id);

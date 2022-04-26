@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from zope import schema
-from zope.interface import Interface, implements
+from zope.interface import Interface, implementer
+
 from z3c.form.object import registerFactoryAdapter
+
 from plone.registry.field import PersistentField
+
 from rer.groupware.room import roomMessageFactory as _
 
 
@@ -12,9 +15,9 @@ class IRoomGroupName(Interface):
     group_title = schema.TextLine(title=_(u"Group title"),
                                         required=False)
 
-
+@implementer(IRoomGroupName)
 class RoomGroupName(object):
-    implements(IRoomGroupName)
+    pass
 
 
 class PersistentObject(PersistentField, schema.Object):

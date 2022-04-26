@@ -1,21 +1,31 @@
 # -*- coding: utf-8 -*-
-from collective.portlet.discussion.discussionportlet import \
-    Assignment as DiscussionAssignment
+try:
+    from collective.portlet.discussion.discussionportlet import \
+        Assignment as DiscussionAssignment
+except:
+    pass
+
 from plone import api
+
 from plone.i18n.normalizer.interfaces import IURLNormalizer
+
 from plone.portlet.collection.collection import \
     Assignment as CollectionAssignment
 from plone.portlets.interfaces import (IPortletAssignmentMapping,
                                        IPortletManager)
+
 from plone.registry.interfaces import IRegistry
+
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.SimpleGroupsManagement.interfaces import \
     ISimpleGroupManagementSettings
+
 from rer.groupware.room import roomMessageFactory as _
 from rer.groupware.room import logger
 from rer.groupware.room.interfaces import IRoomArea, IRoomGroupsSettingsSchema
+
 from zope.component import getMultiAdapter, getUtility, queryUtility
 from zope.i18n import translate
 from zope.interface import alsoProvides
@@ -468,9 +478,13 @@ class CreateHomepage(BaseEventClass):
 
         # right column portlets
         # discussion
-        assignment, portlet_id = self.createDiscussionPortlet()
-        if assignment and portlet_id:
-            right_mapping[portlet_id] = assignment
+        try:
+            assignment, portlet_id = self.createDiscussionPortlet()
+            if assignment and portlet_id:
+                right_mapping[portlet_id] = assignment
+        except:
+            pass
+
         # forum
         #assignment, portlet_id = self.createForumPortlet()
         # if assignment and portlet_id:

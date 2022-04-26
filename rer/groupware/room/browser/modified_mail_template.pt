@@ -1,9 +1,9 @@
 <tal:root define="lt string:<;gt string:>;
-                  dummy python:request.RESPONSE.setHeader('Content-Type', 'text/plain;; charset=%s' % options['charset']);
-                  mfrom python:options['mfrom'];
-                  mto python:options['mto'];
-				  subject python:options['subject'];
-				  item python:options['item'];"
+                  dummy python:request.RESPONSE.setHeader('Content-Type', 'text/plain;; charset=%s' % options.get('charset', 'utf-8'));
+                  mfrom python:options.get('mfrom', '');
+                  mto python:options.get('mto', '');
+                  subject python:options.get('subject',);
+                  item python:options.get('item', context);"
 >From: <span tal:replace="structure mfrom" />
 bcc: <span tal:replace="mto" />
 Mime-Version: 1.0

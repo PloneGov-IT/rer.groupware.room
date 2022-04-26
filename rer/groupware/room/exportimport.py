@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
 from plone.registry.interfaces import IRegistry
+
 from Products.CMFCore.utils import getToolByName
+
 from rer.groupware.room import roomMessageFactory as _
 from rer.groupware.room.custom_fields import RoomGroupName
 from rer.groupware.room.interfaces import IRoomGroupsSettingsSchema
+
 from zope.component import queryUtility
 from zope.i18n import translate
+
+from logging import getLogger
+log = getLogger('rer.groupware.room')
 
 DEFAULT_ACTIVE_GROUPS = [('coordinators', 'Coordinators'),
                          ('membersAdv', 'Editors'),
@@ -29,7 +35,7 @@ def updateSiteProperties(context, portal):
     props = getattr(ptool, 'site_properties', None)
     if not props:
         return
-        
+
     types_not_searched = props.getProperty('types_not_searched')
     if not types_not_searched:
         new_value = []
@@ -46,15 +52,14 @@ def addKeyToCatalog(context, portal):
     @param context: context providing portal_catalog
     '''
     pc = portal.portal_catalog
-    pl = portal.plone_log
 
     indexes = pc.indexes()
     for idx in getKeysToAdd():
         if idx[0] in indexes:
-            pl("Found the '%s' index in the catalog, nothing changed.\n" % idx[0])
+            log.info("Found the '%s' index in the catalog, nothing changed.\n" % idx[0])
         else:
             pc.addIndex(name=idx[0], type=idx[1], extra=idx[2])
-            pl("Added '%s' (%s) to the catalog.\n" % (idx[0], idx[1]))
+            log.info("Added '%s' (%s) to the catalog.\n" % (idx[0], idx[1]))
 
 
 def getKeysToAdd():

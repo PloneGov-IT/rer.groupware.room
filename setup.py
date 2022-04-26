@@ -13,6 +13,9 @@ setup(name='rer.groupware.room',
       # http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
           "Programming Language :: Python",
+          "Programming Language :: Python :: 3.8",
+          "Framework :: Plone",
+          "Framework :: Plone :: 5.2",
           "Topic :: Software Development :: Libraries :: Python Modules",
       ],
       keywords='plone plonegov groupware',
@@ -26,15 +29,9 @@ setup(name='rer.groupware.room',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'Products.PlonePopoll',
-          'Products.SimpleGroupsManagement>=0.6.0',
-          #   'redturtle.portlet.collection',
+          #'Products.PlonePopoll',
+          'Products.SimpleGroupsManagement>=0.7.0',
           'collective.contentrules.mailtogroup',
-          'collective.portlet.discussion',
-          #   'collective.portletpage',
-          #   'collective.blog.view',
-          #   'collective.blogstarentry',
-          #   'collective.portlet.blogstarentries',
       ],
       entry_points="""
       # -*- Entry points: -*-

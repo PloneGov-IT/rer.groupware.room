@@ -2,11 +2,14 @@
 
 from Products.CMFCore.utils import getToolByName
 from zope.component import getMultiAdapter, getUtility, queryUtility
-from default_room_events import BaseEventClass
+
 from plone import api
 
 from plone.registry.interfaces import IRegistry
+
 from rer.groupware.room.interfaces.room_groups import IRoomGroupsSettingsSchema
+from .default_room_events import BaseEventClass
+
 
 def userRemovedFromGroup(event):
     """If a user is removed from a group (room) it has to be removed from the all the notification groups of that room."""
