@@ -56,10 +56,10 @@ def addKeyToCatalog(context, portal):
     indexes = pc.indexes()
     for idx in getKeysToAdd():
         if idx[0] in indexes:
-            log.info("Found the '%s' index in the catalog, nothing changed.\n" % idx[0])
+            log.info("Found the '%s' index in the catalog, nothing changed." % idx[0])
         else:
             pc.addIndex(name=idx[0], type=idx[1], extra=idx[2])
-            log.info("Added '%s' (%s) to the catalog.\n" % (idx[0], idx[1]))
+            log.info("Added '%s' (%s) to the catalog." % (idx[0], idx[1]))
 
 
 def getKeysToAdd():
@@ -79,10 +79,18 @@ def setDefaultGroups(portal):
         settings = registry.forInterface(IRoomGroupsSettingsSchema, check=False)
         if not settings.active_groups:
             active_groups = setRegistyField(portal, DEFAULT_ACTIVE_GROUPS)
-            settings.active_groups = active_groups
+            try:
+                settings.active_groups = active_groups
+            except AttributeError as err:
+                log.info('Missing active_groups in settings')
+                raise err
         if not settings.passive_groups:
             passive_groups = setRegistyField(portal, DEFAULT_PASSIVE_GROUPS)
-            settings.passive_groups = passive_groups
+            try:
+                settings.passive_groups = passive_groups
+            except AttributeError as err:
+                log.info('Missing passive_groups in settings')
+                raise err
 
 
 def setRegistyField(context, groups):

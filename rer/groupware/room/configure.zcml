@@ -65,11 +65,11 @@
       />
 
   <genericsetup:importStep
-	  name="rer.groupware.room"
-	  title="Groupware Room configuration"
-	  description="Configures groupware room properties"
-	  handler="rer.groupware.room.exportimport.import_various"
-	  />
+      name="rer.groupware.room"
+      title="Groupware Room configuration"
+      description="Configures groupware room properties"
+      handler="rer.groupware.room.exportimport.import_various"
+      />
 
   <adapter name="parentRoom" factory=".room_indexer.parent_room_index" />
   <!-- <adapter factory=".adapters.GroupwareBlogEntryGetter" /> -->

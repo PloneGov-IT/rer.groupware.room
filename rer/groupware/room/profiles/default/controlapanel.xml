@@ -2,13 +2,17 @@
 
 <object name="portal_controlpanel">
 
- <configlet title="Groups management" action_id="GroupsManagement"
-            appId="Products.SimpleGroupsManagement"
+ <configlet 
+    title="Groups management" 
+    action_id="GroupsManagement"
+    appId="Products.SimpleGroupsManagement"
     category="Products" condition_expr=""
     url_expr="string:${portal_url}/@@gpw_simple_groups_management/"
-	icon_expr="string:${portal_url}/++resource++groupevent.png"
-	visible="True">
+    icon_expr="string:${portal_url}/++resource++groupevent.png"
+    visible="True">
+
   <permission>Use Simple Groups Management</permission>
+
  </configlet>
 
 </object>

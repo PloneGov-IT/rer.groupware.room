@@ -11,9 +11,9 @@ class RoomGroupsSettingsEditForm(controlpanel.RegistryEditForm):
     """
     schema = IRoomGroupsSettingsSchema
     id = "RoomGroupsSettingsEditForm"
-    label = _(u"Room groups settings")
-    description = _(u"help_room_groups_editform",
-                    default=u"Manage default room groups")
+    label = _("Room groups settings")
+    description = _("help_room_groups_editform",
+                    default="Manage default room groups")
 
     @button.buttonAndHandler(_('Save'), name='save')
     def handleSave(self, action):
@@ -22,13 +22,13 @@ class RoomGroupsSettingsEditForm(controlpanel.RegistryEditForm):
             self.status = self.formErrorsMessage
             return
         changes = self.applyChanges(data)
-        IStatusMessage(self.request).addStatusMessage(_(u"Changes saved"),
+        IStatusMessage(self.request).addStatusMessage(_("Changes saved"),
                                                       "info")
         self.context.REQUEST.RESPONSE.redirect("@@room-groups-settings")
 
     @button.buttonAndHandler(_('Cancel'), name='cancel')
     def handleCancel(self, action):
-        IStatusMessage(self.request).addStatusMessage(_(u"Edit cancelled"),
+        IStatusMessage(self.request).addStatusMessage(_("Edit cancelled"),
                                                       "info")
         self.request.response.redirect("%s/%s" % (self.context.absolute_url(),
                                                   self.control_panel_view))

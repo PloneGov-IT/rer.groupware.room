@@ -10,27 +10,27 @@ class IRoomGroupsSettingsSchema(Interface):
     """Settings used in the control panel for set default room groups
     """
     active_groups = schema.Tuple(
-            title=_(u'Active room groups'),
+            title=_('Active room groups'),
             description=_('help_active_groups',
-                          default=u"Insert a list of groups that are active in the rooms. This list will be used to generate some groups for every new room created."),
-            value_type=PersistentObject(IRoomGroupName, title=_(u"Group")),
+                          default="Insert a list of groups that are active in the rooms. This list will be used to generate some groups for every new room created."),
+            value_type=PersistentObject(IRoomGroupName, title=_("Group")),
             required=False,
             default=(),
             missing_value=(),
     )
     passive_groups = schema.Tuple(
-            title=_(u'Passive room groups'),
+            title=_('Passive room groups'),
             description=_('help_passive_groups',
-                          default=u"Insert a list of passive groups. These groups can access to private rooms where they are enabled, but they can't do anything."),
-            value_type=PersistentObject(IRoomGroupName, title=_(u"Group")),
+                          default="Insert a list of passive groups. These groups can access to private rooms where they are enabled, but they can't do anything."),
+            value_type=PersistentObject(IRoomGroupName, title=_("Group")),
             required=False,
             default=(),
             missing_value=(),
     )
     collection_type = schema.Choice(
-            title=_(u"Default collection type"),
-            description=_(u"Select which collection type to use in this portal."),
+            title=_("Default collection type"),
+            description=_("Select which collection type to use in this portal."),
             missing_value=set(),
             default="Collection",
-            vocabulary=SimpleVocabulary([SimpleTerm('Collection', 'Collection', _(u"Collection")), SimpleTerm('Topic', 'Topic', _(u"Topic (old)"))]),
+            vocabulary=SimpleVocabulary([SimpleTerm('Collection', 'Collection', _("Collection")), SimpleTerm('Topic', 'Topic', _("Topic (old)"))]),
             required=False)
