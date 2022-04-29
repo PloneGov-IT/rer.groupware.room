@@ -106,10 +106,13 @@ class CreateRoomStructure(BaseEventClass):
                         portal_type="EventsArea",
                         types=['Folder', 'Event'])
         # RT self.createForum(forum_area_title)
-        self.createArea(id=self.generateId(polls_area_title),
-                        title=polls_area_title,
-                        portal_type="PollsArea",
-                        types=['Folder', 'PlonePopoll'])
+        if 'PlonePopoll' in getToolByName(self.context, 'portal_types').objectIds():
+            self.createArea(id=self.generateId(polls_area_title),
+                            title=polls_area_title,
+                            portal_type="PollsArea",
+                          types=['Folder', 'PlonePopoll'])
+        else:
+            logger.warn(f'{polls_area_title} not created because PlonePopoll is not installed')
 
     def createArea(self, id, title, portal_type, types=[]):
         """
@@ -136,11 +139,11 @@ class CreateRoomStructure(BaseEventClass):
         if portal_type not in ["PloneboardForum", "Blog", "DocumentsArea"]:
             portal_types = []
             if portal_type == "NewsArea":
-                portal_types = [u'Folder', u'News Item']
+                portal_types = ['Folder', 'News Item']
             elif portal_type == "EventsArea":
-                portal_types = [u'Event', u'Folder']
+                portal_types = ['Event', 'Folder']
             elif portal_type == "PollsArea":
-                portal_types = [u'Folder', u'PlonePopoll']
+                portal_types = ['Folder', 'PlonePopoll']
             self.createCollection(folder=area_obj,
                                   id=id,
                                   title=title,
@@ -153,7 +156,7 @@ class CreateRoomStructure(BaseEventClass):
                                   title=title,
                                   set_recurse="True",
                                   set_as_default_view=False,
-                                  portal_types=[u'Document', u'File', u'Image'])
+                                  portal_types=['Document', 'File', 'Image'])
 
             self.createCollection(folder=area_obj,
                                   id=translate(
@@ -161,7 +164,7 @@ class CreateRoomStructure(BaseEventClass):
                                   title=translate(
                                       _("Documents and folders"), context=self.context.REQUEST, target_language=self.language),
                                   set_as_default_view=True,
-                                  portal_types=[u'Document', u'File', u'Image', u'Folder'])
+                                  portal_types=['Document', 'File', 'Image', 'Folder'])
         # set allowed types
         if types:
             behavior = ISelectableConstrainTypes(area_obj)
@@ -201,18 +204,18 @@ class CreateRoomStructure(BaseEventClass):
         Create a collection in the area
         """
         # create topic query
-        query = [{u'i': u'path',
-                  u'o': u'plone.app.querystring.operation.string.path',
-                  u'v': u"/".join(folder.getPhysicalPath())}]
+        query = [{'i': 'path',
+                  'o': 'plone.app.querystring.operation.string.path',
+                  'v': "/".join(folder.getPhysicalPath())}]
         # optional settings
         portal_types = kwargs.get('portal_types', [])
         if portal_types:
-            query.append(dict(i=u'portal_type',
-                              o=u'plone.app.querystring.operation.selection.any',
+            query.append(dict(i='portal_type',
+                              o='plone.app.querystring.operation.selection.any',
                               v=portal_types))
         if kwargs.get('review_state', ''):
-            query.append(dict(i=u'review_state',
-                              o=u'plone.app.querystring.operation.selection.is',
+            query.append(dict(i='review_state',
+                              o='plone.app.querystring.operation.selection.is',
                               v=kwargs.get('review_state', '')))
         # create the topic
         registry = queryUtility(IRegistry)
@@ -287,8 +290,8 @@ class CreateGroups(BaseEventClass):
         # create a default group that contains all active groups
         uber_group_id = "%s.users" % room_id
         groups_tool.addGroup(id=uber_group_id,
-                             title=translate(_(u"${room_title} Users",
-                                               mapping={u"room_title": room_title.decode('utf-8')}),
+                             title=translate(_("${room_title} Users",
+                                               mapping={"room_title": room_title}),
                                              context=self.context.REQUEST,
                                              target_language=self.language))
         if not active_groups:
@@ -300,7 +303,7 @@ class CreateGroups(BaseEventClass):
         for group in active_groups:
             group_id = '%s.%s' % (room_id, group.group_id)
             group_title = '%s %s' % (
-                room_title.decode('utf-8'), group.group_title)
+                room_title, group.group_title)
             res = groups_tool.addGroup(id=group_id,
                                        title=group_title)
             if res:
@@ -312,7 +315,7 @@ class CreateGroups(BaseEventClass):
         for group in passive_groups:
             group_id = '%s.%s' % (room_id, group.group_id)
             group_title = '%s %s' % (
-                room_title.decode('utf-8'), group.group_title)
+                room_title, group.group_title)
             res = groups_tool.addGroup(id=group_id,
                                        title=group_title)
             if res:
@@ -330,7 +333,7 @@ class CreateGroups(BaseEventClass):
         )
         sgm_data = list(old_sgm_data)
         for group in managed_groups:
-            sgm_data.append(u'%s|%s' % (coordinator, group))
+            sgm_data.append('%s|%s' % (coordinator, group))
 
         api.portal.set_registry_record(
             'sgm_data',
@@ -423,7 +426,7 @@ class CreateHomepage(BaseEventClass):
         """
         """
         homepage_title = translate(_('room_homepage_title',
-                                     default=u"Recent contents for this room"),
+                                     default="Recent contents for this room"),
                                    context=self.request,
                                    target_language=self.language)
         portletpage_id = self.context.invokeFactory(id=self.generateId(homepage_title),
@@ -524,7 +527,7 @@ class CreateHomepage(BaseEventClass):
             query['id'] = area.getId
         collections = pc(**query)
         portal_state = getMultiAdapter(
-            (self.context, self.request), name=u'plone_portal_state')
+            (self.context, self.request), name='plone_portal_state')
         collection_path = ""
         if not collections:
             return None, ''
@@ -535,7 +538,7 @@ class CreateHomepage(BaseEventClass):
             for collection in collections:
                 collection_obj = collection.getObject()
                 context_state = getMultiAdapter(
-                    (collection_obj, self.request), name=u'plone_context_state')
+                    (collection_obj, self.request), name='plone_context_state')
                 if context_state.is_default_page():
                     collection_path = collection.getPath().replace(
                         portal_state.navigation_root_path(), '')
@@ -559,8 +562,8 @@ class CreateHomepage(BaseEventClass):
     #         return None, ''
     #     area = areas[0]
     #     portal_state = getMultiAdapter(
-    #         (self.context, self.request), name=u'plone_portal_state')
-    #     assignment = BlogAssignment(portletTitle=translate(_(u"Last blog posts"),
+    #         (self.context, self.request), name='plone_portal_state')
+    #     assignment = BlogAssignment(portletTitle=translate(_("Last blog posts"),
     #                                                        context=self.request,
     #                                                        target_language=self.language),
     #                                 blogFolder=area.getPath().replace(
@@ -570,9 +573,9 @@ class CreateHomepage(BaseEventClass):
 
     def createDiscussionPortlet(self):
         portal_state = getMultiAdapter(
-            (self.context, self.request), name=u'plone_portal_state')
+            (self.context, self.request), name='plone_portal_state')
         area_path = "/".join(self.context.getPhysicalPath())
-        assignment = DiscussionAssignment(portletTitle=translate(_(u"Discussions"),
+        assignment = DiscussionAssignment(portletTitle=translate(_("Discussions"),
                                                                  context=self.request,
                                                                  target_language=self.language),
                                           discussionFolder=area_path.replace(
@@ -587,7 +590,7 @@ class CreateHomepage(BaseEventClass):
     #     if len(areas) != 1:
     #         return None, ''
     #     area = areas[0]
-    #     assignment = PloneboardAssignment(title=translate(_(u"Last forum discussions"),
+    #     assignment = PloneboardAssignment(title=translate(_("Last forum discussions"),
     #                                                         context=self.request,
     #                                                         target_language=self.language),
     #                                     forum=area.UID,
