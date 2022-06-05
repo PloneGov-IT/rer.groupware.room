@@ -1,40 +1,39 @@
 # -*- coding: utf-8 -*-
-from Products.statusmessages.interfaces import IStatusMessage
+from collective.z3cform.jsonwidget.browser.widget import JSONFieldWidget
 from plone.app.registry.browser import controlpanel
-from z3c.form import button
-from rer.groupware.room.interfaces import IRoomGroupsSettingsSchema
 from rer.groupware.room import roomMessageFactory as _
+from rer.groupware.room.interfaces import IRoomGroupName
+from rer.groupware.room.interfaces import IRoomGroupsSettingsSchema
+from z3c.form import field
+from Products.CMFPlone.resources import add_bundle_on_request
 
 
 class RoomGroupsSettingsEditForm(controlpanel.RegistryEditForm):
-    """Media settings form.
-    """
+    """Media settings form."""
+
     schema = IRoomGroupsSettingsSchema
     id = "RoomGroupsSettingsEditForm"
     label = _("Room groups settings")
-    description = _("help_room_groups_editform",
-                    default="Manage default room groups")
+    description = _("help_room_groups_editform", default="Manage default room groups")
 
-    @button.buttonAndHandler(_('Save'), name='save')
-    def handleSave(self, action):
-        data, errors = self.extractData()
-        if errors:
-            self.status = self.formErrorsMessage
-            return
-        changes = self.applyChanges(data)
-        IStatusMessage(self.request).addStatusMessage(_("Changes saved"),
-                                                      "info")
-        self.context.REQUEST.RESPONSE.redirect("@@room-groups-settings")
+    fields = field.Fields(IRoomGroupsSettingsSchema)
+    fields["active_groups"].widgetFactory = JSONFieldWidget
+    fields["passive_groups"].widgetFactory = JSONFieldWidget
 
-    @button.buttonAndHandler(_('Cancel'), name='cancel')
-    def handleCancel(self, action):
-        IStatusMessage(self.request).addStatusMessage(_("Edit cancelled"),
-                                                      "info")
-        self.request.response.redirect("%s/%s" % (self.context.absolute_url(),
-                                                  self.control_panel_view))
+    def updateWidgets(self):
+        """
+        Hide some fields
+        """
+        super(RoomGroupsSettingsEditForm, self).updateWidgets()
+        self.widgets["active_groups"].schema = IRoomGroupName
+        self.widgets["passive_groups"].schema = IRoomGroupName
 
 
 class RoomGroupsSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
-    """Analytics settings control panel.
-    """
+    """Analytics settings control panel."""
+
+    def __call__(self):
+        add_bundle_on_request(self.request, "z3cform-jsonwidget-bundle")
+        return super().__call__()
+
     form = RoomGroupsSettingsEditForm
