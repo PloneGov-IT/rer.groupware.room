@@ -1,6 +1,8 @@
 import calendar
 from DateTime import DateTime
 
+#from zope.interface import implementer
+
 from plone import api
 # from collective.blog.view.interfaces import IBlogEntryRetriever
 # from collective.blog.view.adapters import FolderEntryGetter
@@ -8,11 +10,12 @@ from plone import api
 from Products.CMFCore.utils import getToolByName
 from zope import component, interface
 
+# @implementer(IBlogEntryRetriever)
 # class GroupwareBlogEntryGetter(FolderEntryGetter):
 #
 #     """Gets blog entries in Blog type folder"""
 #
-#     interface.implements(IBlogEntryRetriever)
+#     
 #     component.adapts(IBlog)
 #
 #     def __init__(self, context):

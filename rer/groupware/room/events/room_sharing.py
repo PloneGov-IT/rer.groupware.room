@@ -5,13 +5,13 @@ from zope.component import getMultiAdapter
 
 
 def setRoomSharing(room, event):
-    portal_state = getMultiAdapter((room, room.REQUEST), name=u'plone_portal_state')
+    portal_state = getMultiAdapter((room, room.REQUEST), name='plone_portal_state')
     portal = portal_state.portal()
     pquickinstaller = getToolByName(portal, 'portal_quickinstaller')
     installed_products = pquickinstaller.listInstalledProducts()
     GPWRoomFound = False
     for p in installed_products:
-        if p.get('id', '') == u'rer.groupware.room':
+        if p.get('id', '') == 'rer.groupware.room':
             GPWRoomFound = True
     if not GPWRoomFound:
         return

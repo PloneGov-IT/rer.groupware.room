@@ -1,5 +1,5 @@
 from zope.component.interfaces import IObjectEvent, ObjectEvent
-from zope.interface import implements
+from zope.interface import implementer
 
 
 class IRoomCreatedEvent(IObjectEvent):
@@ -30,57 +30,57 @@ class IRoomPostCreatedEvent(IObjectEvent):
     """Marker interface for last step actions"""
 
 
+@implementer(IRoomCreatedEvent)
 class RoomCreatedEvent(ObjectEvent):
     """First event fired when a room is created"""
-    implements(IRoomCreatedEvent)
 
     def __init__(self, object):
         super(RoomCreatedEvent, self).__init__(object)
 
 
+@implementer(IRoomCreateAreasEvent)
 class RoomCreateAreasEvent(ObjectEvent):
     """Event fired for create working areas"""
-    implements(IRoomCreateAreasEvent)
 
     def __init__(self, object):
         super(RoomCreateAreasEvent, self).__init__(object)
 
 
+@implementer(IRoomCreateGroupsEvent)
 class RoomCreateGroupsEvent(ObjectEvent):
     """Event fired for create groups"""
-    implements(IRoomCreateGroupsEvent)
 
     def __init__(self, object):
         super(RoomCreateGroupsEvent, self).__init__(object)
 
 
+@implementer(IRoomCreateRulesEvent)
 class RoomCreateRulesEvent(ObjectEvent):
     """Event fired for create contentrules"""
-    implements(IRoomCreateRulesEvent)
 
     def __init__(self, object):
         super(RoomCreateRulesEvent, self).__init__(object)
 
 
+@implementer(IRoomCreateHomePageEvent)
 class RoomCreateHomePageEvent(ObjectEvent):
     """Event fired for create room homepage"""
-    implements(IRoomCreateHomePageEvent)
 
     def __init__(self, object):
         super(RoomCreateHomePageEvent, self).__init__(object)
 
 
+@implementer(IRoomCreateSharingEvent)
 class RoomCreateSharingEvent(ObjectEvent):
     """Event fired for create sharing configurations for the room"""
-    implements(IRoomCreateSharingEvent)
 
     def __init__(self, object):
         super(RoomCreateSharingEvent, self).__init__(object)
 
 
+@implementer(IRoomPostCreatedEvent)
 class RoomPostCreatedEvent(ObjectEvent):
     """Event fired at the end of creation steps"""
-    implements(IRoomPostCreatedEvent)
 
     def __init__(self, object):
         super(RoomPostCreatedEvent, self).__init__(object)

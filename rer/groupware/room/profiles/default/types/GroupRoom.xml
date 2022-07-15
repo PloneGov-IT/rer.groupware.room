@@ -31,12 +31,12 @@
  <property name="schema">rer.groupware.room.interfaces.group_room.IGroupRoom</property>
 
  <property name="behaviors" purge="false">
-  <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
-  <element value="plone.app.content.interfaces.INameFromTitle"/>
-  <element value="plone.app.contenttypes.behaviors.leadimage.ILeadImage"/>
-  <element value="plone.app.lockingbehavior.behaviors.ILocking"/>
-  <element value="plone.app.dexterity.behaviors.discussion.IAllowDiscussion"/>
-  <element value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes"/>
+  <element value="plone.dublincore"/>
+  <element value="plone.namefromtitle"/>
+  <element value="plone.leadimage"/>
+  <element value="plone.locking"/>
+  <element value="plone.allowdiscussion"/>
+  <element value="plone.constraintypes"/>
  </property>
 
  <alias from="(Default)" to="(dynamic view)"/>

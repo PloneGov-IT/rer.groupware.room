@@ -2,7 +2,7 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:gs="http://namespaces.zope.org/genericsetup"
     i18n_domain="rer.groupware.room">
-       
+
   <!-- Upgrade steps -->
   <gs:upgradeStep
         title="Upgrade rer.groupware.room 2000"

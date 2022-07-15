@@ -1,10 +1,12 @@
 Changelog
 =========
 
-3.0.1 (unreleased)
+4.0.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- major refactoring for python 3.8 and plone 5.2.
+  [reflab]
+  [cekk]
 
 
 3.0.0 (2017-10-11)

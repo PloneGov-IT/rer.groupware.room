@@ -9,6 +9,7 @@ zcml =
 Compatibility
 =============
 
-This version is compatible with Plone 5.
+This version is compatible with Plone >=5.2.
 
 For Plone 4, use 2.* and `plone4` branch.
+For Plone <5.2, use 3.x branch.

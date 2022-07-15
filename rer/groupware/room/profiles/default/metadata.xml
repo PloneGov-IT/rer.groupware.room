@@ -2,14 +2,7 @@
 <metadata>
   <version>2000</version>
   <dependencies>
-		<!-- <dependency>profile-collective.portletpage:default</dependency> -->
-    <!-- <dependency>profile-collective.blog.view:default</dependency> -->
-		<!-- <dependency>profile-collective.blogstarentry:default</dependency> -->
-    <dependency>profile-Products.PlonePopoll:default</dependency>
-		<!--dependency>profile-Products.PloneboardModerationWorkflow:default</dependency-->
-		<dependency>profile-Products.SimpleGroupsManagement:default</dependency>
-		<dependency>profile-collective.portlet.discussion:default</dependency>
-		<!-- <dependency>profile-collective.portlet.blogstarentries:default</dependency> -->
-		<!-- <dependency>profile-redturtle.portlet.collection:default</dependency> -->
+    <dependency>profile-Products.SimpleGroupsManagement:default</dependency>
+    <dependency>profile-collective.z3cform.jsonwidget:default</dependency>
   </dependencies>
 </metadata>

@@ -21,6 +21,7 @@
       layer="..interfaces.IRERGroupwareRoomLayer"
       permission="zope2.View"
       />
+
  <!-- Styles management -->
     <browser:viewlet
       name="room_styles.viewlet"
