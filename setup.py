@@ -2,7 +2,7 @@ import os
 
 from setuptools import find_packages, setup
 
-version = '3.0.1.dev0'
+version = '4.0.0.dev0'
 
 setup(name='rer.groupware.room',
       version=version,
@@ -12,12 +12,17 @@ setup(name='rer.groupware.room',
       # Get more strings from
       # http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
-          "Programming Language :: Python",
-          "Programming Language :: Python :: 3.8",
-          "Framework :: Plone",
-          "Framework :: Plone :: 5.2",
-          "Topic :: Software Development :: Libraries :: Python Modules",
-      ],
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Web Environment",
+        "Framework :: Plone",
+        "Framework :: Plone :: Addon",
+        "Framework :: Plone :: 5.2",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Operating System :: OS Independent",
+        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+      ],      
       keywords='plone plonegov groupware',
       author='RedTurtle Technology',
       author_email='sviluppoplone@redturtle.it',
