@@ -2,7 +2,7 @@
 <metadata>
   <version>2000</version>
   <dependencies>
-    <!-- <dependency>profile-Products.PlonePopoll:default</dependency> -->
     <dependency>profile-Products.SimpleGroupsManagement:default</dependency>
+    <dependency>profile-collective.z3cform.jsonwidget:default</dependency>
   </dependencies>
 </metadata>
