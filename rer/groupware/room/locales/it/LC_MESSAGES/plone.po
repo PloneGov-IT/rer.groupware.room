@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone\n"
+"POT-Creation-Date: 2013-10-10 07:29+0000\n"
+"PO-Revision-Date: 2010-10-15 10:44+0200\n"
+"Last-Translator: Andrea Cecchi <andrea.cecchi@redturtle.net.it>\n"
+"Language-Team: Plone i18n <sviluppoplone@redturtle.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n!=1\n"
+"Language-Code: it\n"
+"Language-Name: Italiano\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+"X-Is-Fallback-For: it-ch it-it\n"
+
+#: profiles/default/workflows/room_workflow/definition.xml
+msgid "Retract room"
+msgstr "Rendi privato"
+
+#: profiles/default/workflows/groupware_folders_workflow/definition.xml
+msgid "Definitive"
+msgstr "Definitivo"
+
+#: profiles/default/workflows/room_workflow/definition.xml
+msgid "Publish room"
+msgstr "Pubblica"
+
+#: profiles/default/workflows/room_workflow/definition.xml
+msgid "Room Published"
+msgstr "Pubblicato"
+
+#: profiles/default/workflows/room_workflow/definition.xml
+msgid "Room Private"
+msgstr "Privato"
